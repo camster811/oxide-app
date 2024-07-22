@@ -64,6 +64,7 @@ declare module '$env/static/private' {
 	export const LOGNAME: string;
 	export const XDG_SESSION_TYPE: string;
 	export const MANPATH: string;
+	export const BUN_WHICH_IGNORE_CWD: string;
 	export const SYSTEMD_EXEC_PID: string;
 	export const XAUTHORITY: string;
 	export const GUESTFISH_RESTORE: string;
@@ -85,6 +86,7 @@ declare module '$env/static/private' {
 	export const LESS_ADVANCED_PREPROCESSOR: string;
 	export const INVOCATION_ID: string;
 	export const MANAGERPID: string;
+	export const INIT_CWD: string;
 	export const STARSHIP_SESSION_KEY: string;
 	export const KDE_SESSION_UID: string;
 	export const MOZ_GMP_PATH: string;
@@ -107,7 +109,6 @@ declare module '$env/static/private' {
 	export const MORE: string;
 	export const CSHEDIT: string;
 	export const DISPLAY: string;
-	export const npm_lifecycle_event: string;
 	export const SHLVL: string;
 	export const NVM_CD_FLAGS: string;
 	export const WINDOWMANAGER: string;
@@ -143,7 +144,6 @@ declare module '$env/static/private' {
 	export const WEZTERM_EXECUTABLE_DIR: string;
 	export const _: string;
 	export const NODE_VERSION: string;
-	export const NODE_ENV: string;
 }
 
 /**
@@ -213,6 +213,7 @@ declare module '$env/dynamic/private' {
 		LOGNAME: string;
 		XDG_SESSION_TYPE: string;
 		MANPATH: string;
+		BUN_WHICH_IGNORE_CWD: string;
 		SYSTEMD_EXEC_PID: string;
 		XAUTHORITY: string;
 		GUESTFISH_RESTORE: string;
@@ -234,6 +235,7 @@ declare module '$env/dynamic/private' {
 		LESS_ADVANCED_PREPROCESSOR: string;
 		INVOCATION_ID: string;
 		MANAGERPID: string;
+		INIT_CWD: string;
 		STARSHIP_SESSION_KEY: string;
 		KDE_SESSION_UID: string;
 		MOZ_GMP_PATH: string;
@@ -256,7 +258,6 @@ declare module '$env/dynamic/private' {
 		MORE: string;
 		CSHEDIT: string;
 		DISPLAY: string;
-		npm_lifecycle_event: string;
 		SHLVL: string;
 		NVM_CD_FLAGS: string;
 		WINDOWMANAGER: string;
@@ -292,7 +293,6 @@ declare module '$env/dynamic/private' {
 		WEZTERM_EXECUTABLE_DIR: string;
 		_: string;
 		NODE_VERSION: string;
-		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}
