@@ -23,12 +23,19 @@ const selectedCollection = ref();
                         <Listbox v-model="selectedModule" :options="modules" filter scrollHeight="95%" />
                     </div>
                 </div>
-                <div v-if="selectedModule && selectedCollection" class="card justify-center w-auto md:w-100">
-                    <Button class="btn">Submit</button>
-                </div>
             </div>
-            <div class="flex items-center flex-grow pt-92 pb-8 pr-4 ">
-                <div class="bg-gray-800      border border-gray-300 w-full h-full"></div>
+            <div class="flex flex-col flex-grow">
+                <div class="flex flex-row justify-between">
+                    <div class="self-start mb-4">
+                        <Button :disabled="!selectedModule || !selectedCollection" class="btn">Run module</Button>
+                    </div>
+                    <div class="pr-4">
+                        <input type="text" placeholder="Search for file..." class="input search-input p-3" />
+                    </div>
+                </div>
+                <div id="canvas" class="flex items-center flex-grow pb-8 pr-4">
+                    <div class="bg-gray-800 border border-gray-300 w-full h-full"></div>
+                </div>
             </div>
         </div>
     </div>
