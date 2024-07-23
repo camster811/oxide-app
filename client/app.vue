@@ -1,18 +1,40 @@
-<script setup lang="ts">
-import { ref } from 'vue';
+<script setup>
+import { ref } from "vue";
 
 const [modules, collections] = await Promise.all([
-    fetch('http://localhost:8000/api/modules/get').then(res => res.json()),
-    fetch('http://localhost:8000/api/collections/get').then(res => res.json())
-])
+    fetch("http://localhost:8000/api/modules/get").then((res) => res.json()),
+    fetch("http://localhost:8000/api/collections/get").then((res) => res.json()),
+]);
+const selectedModule = ref();
 const selectedCollection = ref();
-console.log(modules)
 </script>
 
 <template>
-  <div class="card flex justify-center">
-    <div class="inline-block">
-      <Listbox v-model="selectedCollection" :options="collections" filter optionlabel="" class="md:w-56" />
+    <div class="flex flex-col min-h-screen h-screen bg-zinc-900">
+        <div class="flex flex-row flex-grow pt-4">
+            <div class="flex flex-row space-x-4">
+                <div class="card bg-primary w-1/2 flex flex-col pb-4  pl-4 flex-grow">
+                    <div class="flex flex-grow min-h-0 pb-4 h-64">
+                        <Listbox v-model="selectedCollection" :options="collections" filter scrollHeight="95%" />
+                    </div>
+                </div>
+                <div class="card w-1/2 flex flex-col pb-4 flex-grow">
+                    <div class="flex flex-grow min-h-0 pb-4 h-64">
+                        <Listbox v-model="selectedModule" :options="modules" filter scrollHeight="95%" />
+                    </div>
+                </div>
+                <div v-if="selectedModule && selectedCollection" class="card justify-center w-auto md:w-100">
+                    <Button class="btn">Submit</button>
+                </div>
+            </div>
+            <div class="flex items-center flex-grow pt-92 pb-8 pr-4 ">
+                <div class="bg-gray-800      border border-gray-300 w-full h-full"></div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
+
+
+<style>
+@import url("~/assets/css/base.css");
+</style>
