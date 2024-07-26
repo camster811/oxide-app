@@ -1,13 +1,18 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
+// Fetch modules and collections
 const [modules, collections] = await Promise.all([
     fetch("http://localhost:8000/api/modules/get").then((res) => res.json()),
     fetch("http://localhost:8000/api/collections/get").then((res) => res.json()),
 ]);
+
 const selectedModule = ref();
 const selectedCollection = ref();
 const responseData = ref(null);
+const collectionFiles = ref([]);
+
+// Function to run the module
 const runModule = async () => {
     if (!selectedModule.value || !selectedCollection.value) {
         return;
@@ -30,7 +35,30 @@ const runModule = async () => {
         // Handle the error here
         console.error(error);
     }
-}
+};
+
+// Watch for changes in collection
+watch(selectedCollection, async (newVal) => {
+    if (newVal) {
+        try {
+            const url = new URL('http://localhost:8000/api/collection-files/get');
+            url.searchParams.append('selected_collection', newVal);
+
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            collectionFiles.value = data;
+            console.log(data); // debug
+        } catch (error) {
+            console.error(error);
+            collectionFiles.value = [];
+        }
+    } else {
+        collectionFiles.value = [];
+    }
+});
 </script>
 
 
@@ -42,6 +70,10 @@ const runModule = async () => {
                 <div class="card bg-primary w-1/2 flex flex-col pb-4  pl-4">
                     <div class="flex flex-grow min-h-0 pb-4 h-64">
                         <Listbox v-model="selectedCollection" :options="collections" filter scrollHeight="95%" />
+                        
+                    </div>
+                    <div class="flex flex-grow min-h-0 pb-4 h-64">
+                        <Listbox v-model="selectedFile" :options="collectionFiles" filter scrollHeight="95%" />
                     </div>
                 </div>
                 <div class="card w-1/2 flex flex-col pb-4">
@@ -52,7 +84,7 @@ const runModule = async () => {
             </div>
             <div class="flex flex-col flex-grow">
                 <div class="flex flex-row justify-between">
-                    <div class="self-start mb-4">
+                    <div class="self-start mb-4 pl-4">
                         <Button :disabled="!selectedModule || !selectedCollection" @click="runModule" class="btn">Run
                             module</Button>
                     </div>
