@@ -1,5 +1,7 @@
 <script setup>
 import { ref, watch } from "vue";
+import VueJsonPretty from 'vue-json-pretty';
+import 'vue-json-pretty/lib/styles.css';
 
 // Fetch modules and collections
 const [modules, collections] = await Promise.all([
@@ -11,6 +13,29 @@ const selectedModule = ref();
 const selectedCollection = ref();
 const responseData = ref(null);
 const collectionFiles = ref([]);
+
+// Watch for changes in collection
+watch(selectedCollection, async (newVal) => {
+    if (newVal) {
+        try {
+            const url = new URL('http://localhost:8000/api/collection-files/get');
+            url.searchParams.append('selected_collection', newVal);
+
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            collectionFiles.value = data;
+            console.log(collectionFiles.value); // debug
+        } catch (error) {
+            console.error(error);
+            collectionFiles.value = [];
+        }
+    } else {
+        collectionFiles.value = [];
+    }
+});
 
 // Function to run the module
 const runModule = async () => {
@@ -37,28 +62,11 @@ const runModule = async () => {
     }
 };
 
-// Watch for changes in collection
-watch(selectedCollection, async (newVal) => {
-    if (newVal) {
-        try {
-            const url = new URL('http://localhost:8000/api/collection-files/get');
-            url.searchParams.append('selected_collection', newVal);
-
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            collectionFiles.value = data;
-            console.log(data); // debug
-        } catch (error) {
-            console.error(error);
-            collectionFiles.value = [];
-        }
-    } else {
-        collectionFiles.value = [];
-    }
-});
+const handleFileSelection = (file) => {
+    let oid = collectionFiles.value[`${file.value}`]
+    //TODO: after a module is ran on a collection, clicking on a file will display module results for that file
+    // Easy way would be just run module on that oid and set responsedata equal to it?
+};
 </script>
 
 
@@ -73,7 +81,7 @@ watch(selectedCollection, async (newVal) => {
                         
                     </div>
                     <div class="flex flex-grow min-h-0 pb-4 h-64">
-                        <Listbox v-model="selectedFile" :options="collectionFiles" filter scrollHeight="95%" />
+                        <Listbox v-model="selectedFile" :options="Object.keys(collectionFiles)" filter scrollHeight="95%" @change="handleFileSelection"/>
                     </div>
                 </div>
                 <div class="card w-1/2 flex flex-col pb-4">
@@ -89,7 +97,7 @@ watch(selectedCollection, async (newVal) => {
                             module</Button>
                     </div>
                     <div class="pr-4">
-                        <input type="text" placeholder="Search for file..." class="input search-input p-3" />
+                        <p>placeholder?</p>
                     </div>
                 </div>
                 <div id="canvas" class="flex items-center pl-4 pb-8 pr-4"
@@ -97,7 +105,7 @@ watch(selectedCollection, async (newVal) => {
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
                         <ScrollPanel style="width: 100%; height: 100%">
                             <p>
-                                {{ responseData }}
+                                <vue-json-pretty :data="{ responseData }" />
                             </p>
                         </ScrollPanel>
                     </div>
