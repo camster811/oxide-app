@@ -108,7 +108,7 @@ const handleFileSelection = (file) => {
                             <!-- <p>
                                 <vue-json-pretty :data="{ responseData }" />
                             </p> -->
-                            <pre v-if="responseData">{{ responseData }}</pre>
+                            <pre v-if="responseData" style="width: 100%; height:100%">{{ responseData }}</pre>
                         </ScrollPanel>
                     </div>
                 </div>
