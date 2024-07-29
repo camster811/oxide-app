@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from "vue";
-import VueJsonPretty from 'vue-json-pretty';
-import 'vue-json-pretty/lib/styles.css';
+// import VueJsonPretty from 'vue-json-pretty';
+// import 'vue-json-pretty/lib/styles.css';
 
 // Fetch modules and collections
 const [modules, collections] = await Promise.all([
@@ -78,10 +78,11 @@ const handleFileSelection = (file) => {
                 <div class="card bg-primary w-1/2 flex flex-col pb-4  pl-4">
                     <div class="flex flex-grow min-h-0 pb-4 h-64">
                         <Listbox v-model="selectedCollection" :options="collections" filter scrollHeight="95%" />
-                        
+
                     </div>
                     <div class="flex flex-grow min-h-0 pb-4 h-64">
-                        <Listbox v-model="selectedFile" :options="Object.keys(collectionFiles)" filter scrollHeight="95%" @change="handleFileSelection"/>
+                        <Listbox v-model="selectedFile" :options="Object.keys(collectionFiles)" filter
+                            scrollHeight="95%" @change="handleFileSelection" />
                     </div>
                 </div>
                 <div class="card w-1/2 flex flex-col pb-4">
@@ -104,9 +105,10 @@ const handleFileSelection = (file) => {
                     style="height: 95vh; max-width: 100%; position: relative;">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
                         <ScrollPanel style="width: 100%; height: 100%">
-                            <p>
+                            <!-- <p>
                                 <vue-json-pretty :data="{ responseData }" />
-                            </p>
+                            </p> -->
+                            <pre v-if="responseData">{{ responseData }}</pre>
                         </ScrollPanel>
                     </div>
                 </div>
