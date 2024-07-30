@@ -18,7 +18,7 @@ const collectionFiles = ref([]);
 watch(selectedCollection, async (newVal) => {
     if (newVal) {
         try {
-            const url = new URL('http://localhost:8000/api/collection-files/get');
+            const url = new URL('http://localhost:8000/api/collections/files');
             url.searchParams.append('selected_collection', newVal);
 
             const response = await fetch(url);
@@ -81,7 +81,7 @@ const handleFileSelection = (file) => {
 
                     </div>
                     <div class="flex flex-grow min-h-0 pb-4 h-64">
-                        <Listbox v-model="selectedFile" :options="Object.keys(collectionFiles)" filter
+                        <Listbox v-model="selectedFile" :options="collectionFiles" filter
                             scrollHeight="95%" @change="handleFileSelection" />
                     </div>
                 </div>
@@ -104,10 +104,7 @@ const handleFileSelection = (file) => {
                 <div id="canvas" class="flex items-center pl-4 pb-8 pr-4"
                     style="height: 95vh; max-width: 100%; position: relative;">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
-                        <ScrollPanel style="width: 100%; height: 100%">
-                            <!-- <p>
-                                <vue-json-pretty :data="{ responseData }" />
-                            </p> -->
+                        <ScrollPanel style="max-width: 1305px; height: 100%; overflow: scroll;">
                             <pre v-if="responseData" style="width: 100%; height:100%">{{ responseData }}</pre>
                         </ScrollPanel>
                     </div>
