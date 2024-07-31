@@ -18,7 +18,7 @@ let chartInstance = null;
 const plotEntropy = async (entropies, addresses) => {
     await nextTick();
     const ctx = document.getElementById('entropyChart').getContext('2d');
-
+    
     // Destroy existing chart instance if it exists
     if (chartInstance) {
         chartInstance.destroy();
@@ -124,11 +124,33 @@ const runModule = async () => {
 
 const handleFileSelection = (file) => {
     let oid = collectionFiles.value[`${file.value}`]
-    //TODO: after a module is ran on a collection, clicking on a file will display module results for that file
-    // Easy way would be just run module on that oid and set responsedata equal to it?
+    //console.log(data[keys[oid]]);
 };
 
+const downloadChart = () => {
+    const canvas = document.getElementById('entropyChart');
+    const ctx = canvas.getContext('2d');
 
+    // Save the current state
+    ctx.save();
+
+    // Set the background color
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = '#091d33';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the chart again to ensure it is on top of the background
+    chartInstance.update();
+
+    // Download the image
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'EntropyChart.png';
+    link.click();
+
+    // Restore the state
+    ctx.restore();
+};
 
 </script>
 
@@ -145,7 +167,7 @@ const handleFileSelection = (file) => {
                     </div>
                     <div class="flex flex-grow min-h-0 pb-4 h-64">
                         <Listbox v-model="selectedFile" :options="collectionFiles" filter
-                            scrollHeight="95%" @change="handleFileSelection" />
+                            scrollHeight="95%" @click="handleFileSelection" />
                     </div>
                 </div>
                 <div class="card w-1/2 flex flex-col pb-4">
@@ -161,7 +183,7 @@ const handleFileSelection = (file) => {
                             module</Button>
                     </div>
                     <div class="pr-4">
-                        <p>placeholder?</p>
+                        <Button @click="downloadChart" v-if="selectedModule == 'entropy'">Download chart</Button>
                     </div>
                 </div>
                 <div class="flex items-center pl-4 pb-8 pr-4"
