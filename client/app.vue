@@ -1,7 +1,7 @@
 <script setup>
-import { ref, watch } from "vue";
-// import VueJsonPretty from 'vue-json-pretty';
-// import 'vue-json-pretty/lib/styles.css';
+import { ref, watch, nextTick } from "vue";
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
 
 // Fetch modules and collections
 const [modules, collections] = await Promise.all([
@@ -13,9 +13,58 @@ const selectedModule = ref();
 const selectedCollection = ref();
 const responseData = ref(null);
 const collectionFiles = ref([]);
+let chartInstance = null;
+
+const plotEntropy = async (entropies, addresses) => {
+    await nextTick();
+    const ctx = document.getElementById('entropyChart').getContext('2d');
+
+    // Destroy existing chart instance if it exists
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+
+    chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: addresses.map(addr => `0x${addr.toString(16).toUpperCase()}`),
+            datasets: [{
+                label: 'Entropy',
+                data: entropies,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false,
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: 'category',
+                    title: {
+                        display: true,
+                        text: 'Address (hex)'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Entropy'
+                    },
+                    min: 0,
+                    max: 1
+                }
+            }
+        }
+    });
+};
 
 // Watch for changes in collection
 watch(selectedCollection, async (newVal) => {
+    if (chartInstance) {
+        chartInstance.destroy();
+        chartInstance = null;
+    }
+
     if (newVal) {
         try {
             const url = new URL('http://localhost:8000/api/collections/files');
@@ -53,9 +102,20 @@ const runModule = async () => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+
+        if (selectedModule.value == 'entropy') {
+            const keys = Object.keys(data);
+            const { entropies, addresses } = data[keys[0]];
+            console.log(entropies, addresses);
+            plotEntropy(entropies, addresses);
+            return;
+        }
+
         responseData.value = data;
         // Handle the data here
         console.log(data);
+        
+
     } catch (error) {
         // Handle the error here
         console.error(error);
@@ -67,6 +127,9 @@ const handleFileSelection = (file) => {
     //TODO: after a module is ran on a collection, clicking on a file will display module results for that file
     // Easy way would be just run module on that oid and set responsedata equal to it?
 };
+
+
+
 </script>
 
 
@@ -101,11 +164,12 @@ const handleFileSelection = (file) => {
                         <p>placeholder?</p>
                     </div>
                 </div>
-                <div id="canvas" class="flex items-center pl-4 pb-8 pr-4"
+                <div class="flex items-center pl-4 pb-8 pr-4"
                     style="height: 95vh; max-width: 100%; position: relative;">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
                         <ScrollPanel style="max-width: 1305px; height: 100%; overflow: scroll;">
                             <pre v-if="responseData" style="width: 100%; height:100%">{{ responseData }}</pre>
+                            <canvas id="entropyChart"></canvas>
                         </ScrollPanel>
                     </div>
                 </div>
