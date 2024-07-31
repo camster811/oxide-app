@@ -17,6 +17,7 @@ let chartInstance = null;
 
 const plotEntropy = async (entropies, addresses) => {
     await nextTick();
+    responseData.value = null;
     const ctx = document.getElementById('entropyChart').getContext('2d');
     
     // Destroy existing chart instance if it exists
@@ -53,9 +54,48 @@ const plotEntropy = async (entropies, addresses) => {
                     min: 0,
                     max: 1
                 }
+            },
+            plugins: {
+                    tooltip: {
+                        enabled: true,
+                        mode: 'nearest',
+                        intersect: false,
+                        callbacks: {
+                            label: function(context) {
+                                const entropy = context.raw;
+                                return `Entropy: ${entropy}`;
+                            }
+                        }
+                    },
+                    crosshair: {
+                        line: {
+                            color: 'white',
+                            width: 10
+                        },
+                        sync: {
+                            enabled: false
+                        },
+                        zoom: {
+                            enabled: false
+                        }
+                    }
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: false,
+                    onHover: function(event, chartElement) {
+                        const chart = chartElement[0];
+                        if (chart) {
+                            const x = chart.element.x;
+                            const y = chart.element.y;
+                            const tooltip = chart.tooltip;
+                            tooltip.setActiveElements([{ datasetIndex: 0, index: chart.index }], { x, y });
+                            tooltip.update();
+                        }
+                    }
+                }
             }
-        }
-    });
+        });
 };
 
 // Watch for changes in collection
@@ -76,6 +116,7 @@ watch(selectedCollection, async (newVal) => {
             }
             const data = await response.json();
             collectionFiles.value = data;
+
             console.log(collectionFiles.value); // debug
         } catch (error) {
             console.error(error);
