@@ -5,7 +5,7 @@ Chart.register(...registerables);
 
 // Fetch modules and collections
 const [modules, collections] = await Promise.all([
-    fetch("http://localhost:8000/api/modules/get").then((res) => res.json()),
+    fetch("http://localhost:8000/api/modules/").then((res) => res.json()),
     fetch("http://localhost:8000/api/collections/get").then((res) => res.json()),
 ]);
 
@@ -166,7 +166,7 @@ const runModule = async () => {
     if (!selectedModule.value || !selectedCollection.value) {
         return;
     }
-    
+
     if (chartInstance) {
         chartInstance.destroy();
         chartInstance = null;
