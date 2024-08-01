@@ -14,10 +14,10 @@ const selectedCollection = ref();
 const responseData = ref(null);
 const collectionFiles = ref([]);
 let chartInstance = null;
+let selectedFile = null;
 
 const plotEntropy = async (entropies, addresses) => {
     await nextTick();
-    responseData.value = null;
     const ctx = document.getElementById('entropyChart').getContext('2d');
     
     // Destroy existing chart instance if it exists
@@ -98,13 +98,47 @@ const plotEntropy = async (entropies, addresses) => {
         });
 };
 
+const entropyModule = (data, file) => {
+    if (selectedModule.value == 'entropy') {
+
+        // Step 1: Print all keys in collectionFiles.value
+        const keys = Object.keys(collectionFiles.value);
+        let oid = null;
+        console.log("All keys in collectionFiles.value:", keys);
+
+        // Step 2: Check if the key exists
+        let key = file;
+        if (keys.includes(key)) {
+            oid = collectionFiles.value[key];
+            console.log(`OID for key ${key}:`, oid);
+        } else {
+            console.error(`Key ${key} not found in collectionFiles.value`);
+        }
+
+        // Remove the $ character
+        oid = oid.toString();
+        if (oid.startsWith('$')) {
+            oid = oid.substring(1);
+        }
+        console.log(`Sliced OID: ${oid}`);
+
+        // Check if oid exists in data
+        if (data.hasOwnProperty(oid)) {
+            console.log(data[oid]);
+
+            if (typeof data[oid] === 'object' && data[oid] !== null && data[oid].constructor.name === 'Proxy') {
+                data[oid] = Reflect.get(data[oid], 'target');
+            }
+            const { entropies, addresses } = data[oid];
+            plotEntropy(entropies, addresses);
+        } else {
+            console.error(`OID ${oid} not found in data`);
+        }
+        return;
+    }
+};
 // Watch for changes in collection
 watch(selectedCollection, async (newVal) => {
-    if (chartInstance) {
-        chartInstance.destroy();
-        chartInstance = null;
-    }
-
     if (newVal) {
         try {
             const url = new URL('http://localhost:8000/api/collections/files');
@@ -117,7 +151,7 @@ watch(selectedCollection, async (newVal) => {
             const data = await response.json();
             collectionFiles.value = data;
 
-            console.log(collectionFiles.value); // debug
+            //console.log(collectionFiles.value); // debug
         } catch (error) {
             console.error(error);
             collectionFiles.value = [];
@@ -132,6 +166,11 @@ const runModule = async () => {
     if (!selectedModule.value || !selectedCollection.value) {
         return;
     }
+    
+    if (chartInstance) {
+        chartInstance.destroy();
+        chartInstance = null;
+    }
 
     try {
         const url = new URL('http://localhost:8000/api/retrieve');
@@ -143,19 +182,10 @@ const runModule = async () => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-
-        if (selectedModule.value == 'entropy') {
-            const keys = Object.keys(data);
-            const { entropies, addresses } = data[keys[0]];
-            console.log(entropies, addresses);
-            plotEntropy(entropies, addresses);
-            return;
-        }
-
         responseData.value = data;
-        // Handle the data here
-        console.log(data);
-        
+        console.log(responseData.value);
+
+        entropyModule(data, Object.keys(collectionFiles.value)[0]);
 
     } catch (error) {
         // Handle the error here
@@ -164,8 +194,10 @@ const runModule = async () => {
 };
 
 const handleFileSelection = (file) => {
-    let oid = collectionFiles.value[`${file.value}`]
-    //console.log(data[keys[oid]]);
+    console.log(`Selected file: ${file}`);
+    if (selectedModule.value == 'entropy') {
+        entropyModule(responseData.value, file);
+    }
 };
 
 const downloadChart = () => {
@@ -207,8 +239,8 @@ const downloadChart = () => {
 
                     </div>
                     <div class="flex flex-grow min-h-0 pb-4 h-64">
-                        <Listbox v-model="selectedFile" :options="collectionFiles" filter
-                            scrollHeight="95%" @click="handleFileSelection" />
+                        <Listbox v-model="selectedFile" :options="Object.keys(collectionFiles)" filter
+                            scrollHeight="95%" @click="handleFileSelection(selectedFile)" />
                     </div>
                 </div>
                 <div class="card w-1/2 flex flex-col pb-4">
@@ -231,7 +263,7 @@ const downloadChart = () => {
                     style="height: 95vh; max-width: 100%; position: relative;">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
                         <ScrollPanel style="max-width: 1305px; height: 100%; overflow: scroll;">
-                            <pre v-if="responseData" style="width: 100%; height:100%">{{ responseData }}</pre>
+                            <pre v-if="responseData && !chartInstance" style="width: 100%; height:100%">{{ responseData }}</pre>
                             <canvas id="entropyChart"></canvas>
                         </ScrollPanel>
                     </div>
