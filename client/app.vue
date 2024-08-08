@@ -4,12 +4,10 @@ import { Chart, registerables } from "chart.js";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
-import { ngramsHeatmap, entropyModule } from "./functions";
-import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles } from "./state"; // Ensure collectionFiles is imported
+import { ngramsHeatmap, entropyModule, byteHistogram } from "./functions";
+import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state"; // Ensure collectionFiles is imported
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
-
-let showTable = false;
 
 // Fetch modules and collections
 const [modules, collections] = await Promise.all([
@@ -43,6 +41,7 @@ watch(selectedCollection, async (newVal) => {
 
 // Function to run the module
 const runModule = async () => {
+    showTable.value = false
     if (!selectedModule.value || !selectedCollection.value) {
         return;
     }
@@ -66,10 +65,19 @@ const runModule = async () => {
         console.log(responseData.value);
 
         let firstFile = Object.keys(collectionFiles.value)[0];
-        entropyModule(data, firstFile);
 
-        if (selectedModule.value == "byte_ngrams") {
-            ngramsHeatmap(data);
+        switch (selectedModule.value) {
+            case "entropy":
+                entropyModule(data, firstFile);
+                break;
+            case "byte_histogram":
+                byteHistogram(data);
+                break;
+            case "byte_ngrams":
+                ngramsHeatmap(data);
+                break;
+            default:
+                break;
         }
 
     } catch (error) {
@@ -149,7 +157,7 @@ const downloadChart = () => {
                                 style="width: 100%; height: 100%">{{ responseData }}</pre>
                             <canvas id="chartCanvas" class="pb-10"></canvas>
 
-                            <DataTable v-if="chartInstance" :value="tableData" tableStyle="min-width: 50rem">
+                            <DataTable v-if="showTable" :value="tableData" tableStyle="min-width: 50rem">
                                 <Column field="block_size" header="Block Size"></Column>
                                 <Column field="overall_entropy" header="Overall Entropy"></Column>
                                 <Column field="max_entropy" header="Max Entropy"></Column>

@@ -6,3 +6,4 @@ export const chartInstance = ref(null);
 export const responseData = ref(null);
 export const tableData = ref([]);
 export const collectionFiles = ref([]);
+export let showTable = ref();

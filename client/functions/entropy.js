@@ -1,8 +1,9 @@
-import { chartInstance, selectedCollection, selectedModule, tableData, collectionFiles } from "../state";
+import { chartInstance, showTable, selectedModule, tableData, collectionFiles } from "../state";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
 const plotEntropy = async (entropies, addresses) => {
+    showTable.value = true;
     const ctx = document.getElementById("chartCanvas").getContext("2d");
 
     // Destroy existing chart instance if it exists
