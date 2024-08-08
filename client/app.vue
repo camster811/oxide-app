@@ -1,22 +1,21 @@
 <script setup>
 import { ref, watch, nextTick } from "vue";
+import { Chart, registerables } from "chart.js";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
+import { ngramsHeatmap, entropyModule } from "./functions";
+import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles } from "./state"; // Ensure collectionFiles is imported
+Chart.register(MatrixController, MatrixElement);
+Chart.register(...registerables);
 
+let showTable = false;
 
 // Fetch modules and collections
 const [modules, collections] = await Promise.all([
     fetch("http://localhost:8000/api/modules/").then((res) => res.json()),
     fetch("http://localhost:8000/api/collections/get").then((res) => res.json()),
 ]);
-
-const selectedModule = ref();
-const selectedCollection = ref();
-const responseData = ref(null);
-const collectionFiles = ref([]);
-// let chartInstance = null;
-let selectedFile = null;
-// const tableData = ref([]);
-
-
 
 // Watch for changes in collection
 watch(selectedCollection, async (newVal) => {
@@ -48,9 +47,9 @@ const runModule = async () => {
         return;
     }
 
-    if (chartInstance) {
-        chartInstance.destroy();
-        chartInstance = null;
+    if (chartInstance.value) {
+        chartInstance.value.destroy();
+        chartInstance.value = null;
     }
 
     try {
@@ -66,7 +65,13 @@ const runModule = async () => {
         responseData.value = data;
         console.log(responseData.value);
 
-        entropyModule(data, Object.keys(collectionFiles.value)[0]);
+        let firstFile = Object.keys(collectionFiles.value)[0];
+        entropyModule(data, firstFile);
+
+        if (selectedModule.value == "byte_ngrams") {
+            ngramsHeatmap(data);
+        }
+
     } catch (error) {
         // Handle the error here
         console.error(error);
@@ -80,7 +85,30 @@ const handleFileSelection = (file) => {
     }
 };
 
+const downloadChart = () => {
+    const canvas = document.getElementById("chartCanvas");
+    const ctx = canvas.getContext("2d");
 
+    // Save the current state
+    ctx.save();
+
+    // Set the background color
+    ctx.globalCompositeOperation = "destination-over";
+    ctx.fillStyle = "#091d33";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the chart again to ensure it is on top of the background
+    chartInstance.update();
+
+    // Download the image
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "EntropyChart.png";
+    link.click();
+
+    // Restore the state
+    ctx.restore();
+};
 </script>
 
 
@@ -116,7 +144,19 @@ const handleFileSelection = (file) => {
                 </div>
                 <div class="flex items-center pl-4 pb-8 pr-4" style="height: 95vh; max-width: 100%; position: relative">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
+                        <ScrollPanel style="max-width: 1305px; height: 100%; overflow: scroll">
+                            <pre v-if="responseData && !chartInstance"
+                                style="width: 100%; height: 100%">{{ responseData }}</pre>
+                            <canvas id="chartCanvas" class="pb-10"></canvas>
 
+                            <DataTable v-if="chartInstance" :value="tableData" tableStyle="min-width: 50rem">
+                                <Column field="block_size" header="Block Size"></Column>
+                                <Column field="overall_entropy" header="Overall Entropy"></Column>
+                                <Column field="max_entropy" header="Max Entropy"></Column>
+                                <Column field="max_entropy_address" header="Max Entropy Address"></Column>
+                            </DataTable>
+
+                        </ScrollPanel>
                     </div>
                 </div>
             </div>
