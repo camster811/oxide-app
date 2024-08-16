@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, nextTick } from "vue";
+import { ref, watch } from "vue";
 import { Chart, registerables } from "chart.js";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
@@ -8,6 +8,8 @@ import { ngramsHeatmap, entropyModule, byteHistogram } from "./functions";
 import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state"; // Ensure collectionFiles is imported
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
+const chartModules = ["entropy", "byte_histogram", "byte_ngrams"];
+const viewMode = ref("chart");
 
 // Fetch modules and collections
 const [modules, collections] = await Promise.all([
@@ -111,12 +113,30 @@ const downloadChart = () => {
     // Download the image
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = "EntropyChart.png";
+    link.download = "chart.png";
     link.click();
 
     // Restore the state
     ctx.restore();
 };
+
+const isChartModuleSelected = computed(() => {
+    return chartModules.includes(selectedModule.value);
+});
+
+// Computed property for button text
+const buttonText = computed(() => {
+    return viewMode.value === "chart" ? "Switch to JSON View" : "Switch to Chart View";
+});
+
+// Function to toggle view mode
+const toggleViewMode = () => {
+    viewMode.value = viewMode.value === "chart" ? "json" : "chart";
+};
+
+watch(viewMode, (newVal) => {
+    runModule();
+});
 </script>
 
 
@@ -146,16 +166,21 @@ const downloadChart = () => {
                         <Button :disabled="!selectedModule || !selectedCollection" @click="runModule" class="btn">Run
                             module</Button>
                     </div>
+                    <div class="self-start mb-4">
+                        <Button @click="toggleViewMode" :disabled="!isChartModuleSelected">
+                            {{ buttonText }}
+                        </Button>
+                    </div>
                     <div class="pr-4">
-                        <Button @click="downloadChart" v-if="selectedModule == 'entropy'">Download chart</Button>
+                        <Button @click="downloadChart" :disabled="!isChartModuleSelected">Download chart</Button>
                     </div>
                 </div>
                 <div class="flex items-center pl-4 pb-8 pr-4" style="height: 95vh; max-width: 100%; position: relative">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
                         <ScrollPanel style="max-width: 1305px; height: 100%; overflow: scroll">
-                            <pre v-if="responseData && !chartInstance"
+                            <pre v-if="responseData && viewMode == 'json'"
                                 style="width: 100%; height: 100%">{{ responseData }}</pre>
-                            <canvas id="chartCanvas" class="pb-10"></canvas>
+                            <canvas v-if="viewMode == 'chart'" id="chartCanvas" class="pb-10"></canvas>
 
                             <DataTable v-if="showTable" :value="tableData" tableStyle="min-width: 50rem">
                                 <Column field="block_size" header="Block Size"></Column>
