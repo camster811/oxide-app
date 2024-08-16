@@ -178,11 +178,11 @@ watch(viewMode, (newVal) => {
                 <div class="flex items-center pl-4 pb-8 pr-4" style="height: 95vh; max-width: 100%; position: relative">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
                         <ScrollPanel style="max-width: 1305px; height: 100%; overflow: scroll">
-                            <pre v-if="responseData && viewMode == 'json'"
+                            <pre v-if="responseData && !chartInstance"
                                 style="width: 100%; height: 100%">{{ responseData }}</pre>
                             <canvas v-if="viewMode == 'chart'" id="chartCanvas" class="pb-10"></canvas>
 
-                            <DataTable v-if="showTable" :value="tableData" tableStyle="min-width: 50rem">
+                            <DataTable v-if="showTable && viewMode == 'chart'" :value="tableData" tableStyle="min-width: 50rem">
                                 <Column field="block_size" header="Block Size"></Column>
                                 <Column field="overall_entropy" header="Overall Entropy"></Column>
                                 <Column field="max_entropy" header="Max Entropy"></Column>
