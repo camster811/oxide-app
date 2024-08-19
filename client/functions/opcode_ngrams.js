@@ -8,8 +8,9 @@ Chart.register(...registerables);
 const opcodeNgramsHeatmap = (histogramData) => {
     const ctx = document.getElementById("chartCanvas")?.getContext("2d");
 
-    if (chartInstance.value) {
+    if (chartInstance.value && typeof chartInstance.value.destroy === "function") {
         chartInstance.value.destroy();
+        chartInstance.value = null;
     }
 
 

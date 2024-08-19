@@ -5,9 +5,9 @@ Chart.register(...registerables);
 const byteHistogram = (histogramData) => {
     const ctx = document.getElementById("chartCanvas").getContext("2d");
 
-    // Destroy existing chart instance if it exists
-    if (chartInstance.value) {
+    if (chartInstance.value && typeof chartInstance.value.destroy === "function") {
         chartInstance.value.destroy();
+        chartInstance.value = null;
     }
 
     const values = Object.values(histogramData).sort((a, b) => b - a);
