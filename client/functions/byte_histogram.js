@@ -19,7 +19,7 @@ const byteHistogram = (histogramData) => {
             labels: Object.keys(histogramData),
             datasets: [
                 {
-                    label: "Byte Frequency",
+                    label: "Byte Frequency (log scale)",
                     data: Object.values(histogramData),
                     backgroundColor: "rgba(75, 192, 192, 0.2)",
                     borderColor: "rgba(75, 192, 192, 1)",
@@ -30,10 +30,35 @@ const byteHistogram = (histogramData) => {
         options: {
             scales: {
                 y: {
+                    type: 'logarithmic',
                     beginAtZero: true,
-                    max: maxYValue,
+                    ticks: {
+                        callback: function(value, index, values) {
+                            if (value === 1 || value === 10 || value === 100 || value === 1000 || value === 10000) {
+                                return value;
+                            }
+                            return null;
+                        }
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 12
+                        },
+                        color: 'white'
+                    }
                 },
             },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 20
+                        }
+                    }
+                }
+            }
         },
     });
 };
