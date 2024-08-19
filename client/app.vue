@@ -4,11 +4,11 @@ import { Chart, registerables } from "chart.js";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
-import { ngramsHeatmap, entropyModule, byteHistogram } from "./functions";
+import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap } from "./functions";
 import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state"; // Ensure collectionFiles is imported
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
-const chartModules = ["entropy", "byte_histogram", "byte_ngrams"];
+const chartModules = ["entropy", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams"];
 const viewMode = ref("chart");
 
 // Fetch modules and collections
@@ -70,13 +70,22 @@ const runModule = async () => {
 
         switch (selectedModule.value) {
             case "entropy":
-                entropyModule(data, firstFile);
+                entropyModule(responseData.value, firstFile);
                 break;
             case "byte_histogram":
-                byteHistogram(data);
+                byteHistogram(responseData.value);
                 break;
             case "byte_ngrams":
-                ngramsHeatmap(data);
+                ngramsHeatmap(responseData.value);
+                break;
+            case "block_len_histogram":
+                blockLenHistogram(responseData.value);
+                break;
+            case "opcode_histogram":
+                opcodeHistogram(responseData.value);
+                break;
+            case "opcode_ngrams":
+                opcodeNgramsHeatmap(responseData.value);
                 break;
             default:
                 break;
@@ -179,7 +188,7 @@ watch(viewMode, (newVal) => {
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
                         <ScrollPanel style="max-width: 1305px; height: 100%; overflow: scroll">
                             <pre v-if="responseData && !chartInstance"
-                                style="width: 100%; height: 100%">{{ responseData }}</pre>
+                                style="width: 100%; height: 100%">{{ JSON.stringify(responseData, null, 2)}}</pre>
                             <canvas v-if="viewMode == 'chart'" id="chartCanvas" class="pb-10"></canvas>
 
                             <DataTable v-if="showTable && viewMode == 'chart'" :value="tableData" tableStyle="min-width: 50rem">
