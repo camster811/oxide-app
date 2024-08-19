@@ -91,6 +91,7 @@ const runModule = async () => {
                 chartInstance.value = await callGraph();
                 break;
             default:
+                viewMode.value = "json";
                 break;
         }
 
@@ -189,11 +190,10 @@ watch(viewMode, (newVal) => {
                 </div>
                 <div class="flex items-center pl-4 pb-8 pr-4" style="height: 95vh; max-width: 100%; position: relative">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
-                        <ScrollPanel style="max-width: 1305px; height: 100%; overflow: scroll">
-                            <pre v-if="responseData && !chartInstance"
-                                style="width: 100%; height: 100%">{{ JSON.stringify(responseData, null, 2)}}</pre>
-                            <canvas v-if="viewMode == 'chart'" id="chartCanvas" class="pb-10"></canvas>
-                            <div id="network" v-if="selectedModule == 'call_graph' && viewMode === 'chart'" style="width: 1000px; height: 1000px;" ></div>
+                        <ScrollPanel style="width: auto; height: 100%; overflow: auto;">
+                            <pre v-if="viewMode == 'json'">{{ JSON.stringify(responseData, null, 2)}}</pre>
+                            <canvas v-if="viewMode == 'chart' && selectedModule != 'call_graph'" id="chartCanvas" style="width: 100%; height: 100%;"></canvas>
+                            <div id="network" v-if="selectedModule == 'call_graph' && viewMode === 'chart'" style="width: 100%; height: 100%;"></div>
 
                             <DataTable v-if="showTable && viewMode == 'chart'" :value="tableData" tableStyle="min-width: 50rem">
                                 <Column field="block_size" header="Block Size"></Column>
@@ -201,7 +201,6 @@ watch(viewMode, (newVal) => {
                                 <Column field="max_entropy" header="Max Entropy"></Column>
                                 <Column field="max_entropy_address" header="Max Entropy Address"></Column>
                             </DataTable>
-
                         </ScrollPanel>
                     </div>
                 </div>
