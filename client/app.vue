@@ -4,11 +4,11 @@ import { Chart, registerables } from "chart.js";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
-import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap } from "./functions";
+import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraph } from "./functions";
 import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state"; // Ensure collectionFiles is imported
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
-const chartModules = ["entropy", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams"];
+const chartModules = ["entropy", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph"];
 const viewMode = ref("chart");
 
 // Fetch modules and collections
@@ -86,6 +86,9 @@ const runModule = async () => {
                 break;
             case "opcode_ngrams":
                 opcodeNgramsHeatmap(responseData.value);
+                break;
+            case "call_graph":
+                callGraph();
                 break;
             default:
                 break;
