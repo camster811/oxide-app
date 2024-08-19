@@ -14,18 +14,36 @@ const callGraph = async () => {
         const edges = [];
         const graphId = Object.keys(graphData)[0]; // Assuming there's only one graph object
         const graph = graphData[graphId];
+        const callCounts = {};
 
-        // Extract nodes
+
+        // Nodes
         for (const nodeId in graph._node) {
-            nodes.push({ id: nodeId, label: nodeId });
+            callCounts[nodeId] = { incomingCalls: 0, outgoingCalls: 0 };
+            const node = graph._node[nodeId];
+            nodes.push({ 
+                id: nodeId, 
+                label: node.label || nodeId, // Use node label if available
+                title: `Node ID: ${nodeId}\nTimes called: ${callCounts[nodeId].incomingCalls}\nCalls made: ${callCounts[nodeId].outgoingCalls}`
+            });
         }
 
-        // Extract edges from _adj
+        // Edges
         for (const fromNode in graph._adj) {
             for (const toNode in graph._adj[fromNode]) {
                 edges.push({ from: fromNode, to: toNode });
+                // Increment the call counters
+                callCounts[fromNode].outgoingCalls += 1;
+                callCounts[toNode].incomingCalls += 1;
             }
         }
+
+        // Update nodes with call counts
+        nodes.forEach(node => {
+            const nodeId = node.id;
+            node.title = `Node ID: ${nodeId}\nLabel: ${node.label}\nTimes called: ${callCounts[nodeId].incomingCalls}\nCalls made: ${callCounts[nodeId].outgoingCalls}`;
+        });
+
 
         // Log nodes and edges to verify structure
         console.log("Nodes:", nodes);
@@ -50,15 +68,40 @@ const callGraph = async () => {
                 borderWidth: 2
             },
             edges: {
-                width: 2
+                width: 2,
+                font: {
+                    size: 12,
+                    align: 'middle'
+                },
+                arrows: {
+                    to: { enabled: true, scaleFactor: 1.2 }
+                }
+            },
+            layout: {
+                hierarchical: {
+                    direction: 'UD', // Up-Down direction
+                    sortMethod: 'directed', // Sort by directed edges
+                    levelSeparation: 150, // Adjust level separation
+                    nodeSpacing: 200 // Adjust node spacing
+                }
             },
             physics: {
-                enabled: false
+                enabled: true, // Enable physics for better positioning
+                stabilization: {
+                    iterations: 200, // Increase iterations for better stabilization
+                },
+            },
+            interaction: {
+                keyboard: true, // Enable keyboard navigation
+                tooltipDelay: 200
             }
         };
+
         networkInstance.value = new Network(container, data, options);
+
+
     } catch (error) {
-        console.error("Error fetching or displaying graph data:", error);
+        console.error("Error creating call graph:", error);
     }
 
     return networkInstance;

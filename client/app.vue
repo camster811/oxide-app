@@ -193,7 +193,7 @@ watch(viewMode, (newVal) => {
                             <pre v-if="responseData && !chartInstance"
                                 style="width: 100%; height: 100%">{{ JSON.stringify(responseData, null, 2)}}</pre>
                             <canvas v-if="viewMode == 'chart'" id="chartCanvas" class="pb-10"></canvas>
-                            <div id="network" v-if="selectedModule == 'call_graph' && viewMode === 'chart'" style="width: 800px; height: 600px;" ></div>
+                            <div id="network" v-if="selectedModule == 'call_graph' && viewMode === 'chart'" style="width: 1000px; height: 1000px;" ></div>
 
                             <DataTable v-if="showTable && viewMode == 'chart'" :value="tableData" tableStyle="min-width: 50rem">
                                 <Column field="block_size" header="Block Size"></Column>
