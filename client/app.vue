@@ -4,8 +4,8 @@ import { Chart, registerables } from "chart.js";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
-import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraph } from "./functions";
-import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state"; // Ensure collectionFiles is imported
+import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule } from "./functions";
+import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state";
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
 const chartModules = ["entropy", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph"];
@@ -48,6 +48,7 @@ const runModule = async () => {
         return;
     }
 
+    //needs fix when one histo ran after the other
     if (chartInstance.value && typeof chartInstance.value.destroy === "function") {
         chartInstance.value.destroy();
         chartInstance.value = null;
@@ -88,7 +89,7 @@ const runModule = async () => {
                 opcodeNgramsHeatmap(responseData.value);
                 break;
             case "call_graph":
-                chartInstance.value = await callGraph();
+                chartInstance.value = await callGraphModule(responseData.value, firstFile);
                 break;
             default:
                 viewMode.value = "json";
@@ -105,6 +106,9 @@ const handleFileSelection = (file) => {
     console.log(`Selected file: ${file}`);
     if (selectedModule.value == "entropy") {
         entropyModule(responseData.value, file);
+    }
+    if (selectedModule.value == "call_graph") {
+        callGraphModule(responseData.value, file);
     }
 };
 
