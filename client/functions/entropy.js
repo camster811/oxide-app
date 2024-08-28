@@ -115,7 +115,7 @@ const entropyModule = (data, file) => {
   let oid = null;
   console.log("All keys in collectionFiles.value:", keys);
 
-  // Step 2: Check if the key exists
+  // Check if the key exists
   let key = file;
   if (keys.includes(key)) {
     oid = collectionFiles.value[key];

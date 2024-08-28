@@ -1,7 +1,7 @@
 //  * oxide.INFO.371: Invalid field:basic_blocks for module:basic_blocks
 
 import { Chart, registerables } from "chart.js";
-import { chartInstance } from "../state"; // Ensure collectionFiles is imported
+import { chartInstance } from "../state";
 Chart.register(...registerables);
 
 const blockLenHistogram = (histogramData) => {

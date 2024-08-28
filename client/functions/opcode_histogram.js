@@ -16,7 +16,7 @@ const opcodeHistogram = (histogramData) => {
             labels: Object.keys(histogramData),
             datasets: [
                 {
-                    label: "Opcode Frequency (log scale)",
+                    label: "Opcode Frequency",
                     data: Object.values(histogramData),
                     backgroundColor: "rgba(75, 192, 192, 0.2)",
                     borderColor: "rgba(75, 192, 192, 1)",

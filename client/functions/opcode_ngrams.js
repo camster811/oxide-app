@@ -1,6 +1,6 @@
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 import { Chart, registerables } from "chart.js";
-import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles } from "../state"; // Ensure collectionFiles is imported
+import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles } from "../state";
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
 
