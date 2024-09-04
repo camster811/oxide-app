@@ -127,7 +127,7 @@ const downloadChart = () => {
 
     // Set the background color
     ctx.globalCompositeOperation = "destination-over";
-    ctx.fillStyle = "#091d33"; // Set your desired background color here
+    ctx.fillStyle = "#091d33";
     ctx.fillRect(0, 0, scrollPanel.clientWidth, scrollPanel.clientHeight);
 
     // Download the image

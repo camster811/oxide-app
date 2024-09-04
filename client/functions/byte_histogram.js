@@ -19,7 +19,7 @@ const byteHistogram = (histogramData) => {
             labels: Object.keys(histogramData),
             datasets: [
                 {
-                    label: "Byte Frequency",
+                    label: "Byte Frequency (log scale)",
                     data: Object.values(histogramData),
                     backgroundColor: "rgba(75, 192, 192, 0.2)",
                     borderColor: "rgba(75, 192, 192, 1)",

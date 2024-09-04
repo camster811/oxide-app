@@ -1,7 +1,6 @@
 import {
   chartInstance,
   showTable,
-  selectedModule,
   tableData,
   collectionFiles,
 } from "../state";
