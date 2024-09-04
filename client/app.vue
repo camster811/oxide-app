@@ -6,15 +6,16 @@ import Column from "primevue/column";
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule } from "./functions";
 import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state";
+import ScrollPanel from "primevue/scrollpanel";
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
-const chartModules = ["entropy", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph"];
+const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph"];
 const viewMode = ref("chart");
 
 // Fetch modules and collections
 const [modules, collections] = await Promise.all([
     fetch("http://localhost:8000/api/modules/").then((res) => res.json()),
-    fetch("http://localhost:8000/api/collections/get").then((res) => res.json()),
+    fetch("http://localhost:8000/api/collections/").then((res) => res.json()),
 ]);
 
 // Watch for changes in collection
@@ -70,7 +71,7 @@ const runModule = async () => {
         let firstFile = Object.keys(collectionFiles.value)[0];
 
         switch (selectedModule.value) {
-            case "entropy":
+            case "entropy_graph":
                 entropyModule(responseData.value, firstFile);
                 break;
             case "byte_histogram":
@@ -104,7 +105,7 @@ const runModule = async () => {
 
 const handleFileSelection = (file) => {
     console.log(`Selected file: ${file}`);
-    if (selectedModule.value == "entropy") {
+    if (selectedModule.value == "entropy_graph") {
         entropyModule(responseData.value, file);
     }
     if (selectedModule.value == "call_graph") {
@@ -114,6 +115,11 @@ const handleFileSelection = (file) => {
 
 const downloadChart = () => {
     const canvas = document.getElementById("chartCanvas");
+    const scrollPanel = document.getElementById("scrollpanel");
+    if (!canvas) {
+        console.error('Canvas element not found');
+        return;
+    }
     const ctx = canvas.getContext("2d");
 
     // Save the current state
@@ -121,11 +127,8 @@ const downloadChart = () => {
 
     // Set the background color
     ctx.globalCompositeOperation = "destination-over";
-    ctx.fillStyle = "#091d33";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Draw the chart again to ensure it is on top of the background
-    chartInstance.update();
+    ctx.fillStyle = "#091d33"; // Set your desired background color here
+    ctx.fillRect(0, 0, scrollPanel.clientWidth, scrollPanel.clientHeight);
 
     // Download the image
     const link = document.createElement("a");
@@ -194,16 +197,16 @@ watch(viewMode, (newVal) => {
                 </div>
                 <div class="flex items-center pl-4 pb-8 pr-4" style="height: 95vh; max-width: 100%; position: relative">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
-                        <ScrollPanel style="width: auto; height: 100%; overflow: auto;">
+                        <ScrollPanel id="scrollpanel" style="width: auto; height: 100%; overflow: auto;">
                             <pre v-if="viewMode == 'json'">{{ JSON.stringify(responseData, null, 2)}}</pre>
                             <canvas v-if="viewMode == 'chart' && selectedModule != 'call_graph'" id="chartCanvas" style="width: 100%; height: 100%;"></canvas>
                             <div id="network" v-if="selectedModule == 'call_graph' && viewMode === 'chart'" style="width: 100%; height: 100%;"></div>
 
-                            <DataTable v-if="showTable && viewMode == 'chart'" :value="tableData" tableStyle="min-width: 50rem">
+                            <DataTable v-if="selectedModule == 'entropy_graph' && viewMode == 'chart'" :value="tableData" tableStyle="min-width: 50rem">
                                 <Column field="block_size" header="Block Size"></Column>
-                                <Column field="overall_entropy" header="Overall Entropy"></Column>
-                                <Column field="max_entropy" header="Max Entropy"></Column>
-                                <Column field="max_entropy_address" header="Max Entropy Address"></Column>
+                                <Column field="overall_entropy" header="Overall entropy_graph"></Column>
+                                <Column field="max_entropy" header="Max entropy_graph"></Column>
+                                <Column field="max_entropy_address" header="Max entropy_graph Address"></Column>
                             </DataTable>
                         </ScrollPanel>
                     </div>
