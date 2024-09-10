@@ -4,12 +4,12 @@ import { Chart, registerables } from "chart.js";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
-import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule } from "./functions";
+import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule, flowGraph } from "./functions";
 import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state";
 import ScrollPanel from "primevue/scrollpanel";
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
-const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph"];
+const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph"];
 const viewMode = ref("chart");
 
 // Fetch modules and collections
@@ -91,6 +91,9 @@ const runModule = async () => {
                 break;
             case "call_graph":
                 chartInstance.value = await callGraphModule(responseData.value, firstFile);
+                break;
+            case "control_flow_graph":
+                chartInstance.value = await flowGraph(responseData.value);
                 break;
             default:
                 viewMode.value = "json";
@@ -197,10 +200,10 @@ watch(viewMode, (newVal) => {
                 </div>
                 <div class="flex items-center pl-4 pb-8 pr-4" style="height: 95vh; max-width: 100%; position: relative">
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
-                        <ScrollPanel id="scrollpanel" style="width: auto; height: 100%; overflow: auto;">
+                        <ScrollPanel id="scrollpanel" style="width: 1250px; height: 100%; overflow: auto;">
                             <pre v-if="viewMode == 'json'">{{ JSON.stringify(responseData, null, 2)}}</pre>
                             <canvas v-if="viewMode == 'chart' && selectedModule != 'call_graph'" id="chartCanvas" style="width: 100%; height: 100%;"></canvas>
-                            <div id="network" v-if="selectedModule == 'call_graph' && viewMode === 'chart'" style="width: 100%; height: 100%;"></div>
+                            <div id="network" v-if="selectedModule == 'call_graph' || selectedModule == 'control_flow_graph' && viewMode === 'chart'" style="width: 100%; height: 100%;"></div>
 
                             <DataTable v-if="selectedModule == 'entropy_graph' && viewMode == 'chart'" :value="tableData" tableStyle="min-width: 50rem">
                                 <Column field="block_size" header="Block Size"></Column>
