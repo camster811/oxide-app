@@ -3,6 +3,11 @@ import dagre from "cytoscape-dagre";
 
 
 const flowGraph = async (graphData) => {
+
+    while (document.getElementById('network').firstChild) {
+        document.getElementById('network').removeChild(container.firstChild);
+    }
+
     cytoscape.use(dagre);
 
     const elements = [];
@@ -52,7 +57,9 @@ const flowGraph = async (graphData) => {
 
     // Initialize Cytoscape
     const cy = cytoscape({
+        
         container: document.getElementById('network'),
+        
         elements: elements,
         style: [
             {
