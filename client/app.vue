@@ -10,6 +10,7 @@ import ScrollPanel from "primevue/scrollpanel";
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
 const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
+const networkModules = ["call_graph", "control_flow_graph", "binary_visualizer"];
 const viewMode = ref("chart");
 
 // Fetch modules and collections
@@ -205,8 +206,9 @@ watch(viewMode, (newVal) => {
                     <div class="bg-gray-800 border border-gray-300 w-full h-full">
                         <ScrollPanel id="scrollpanel" style="width: 1250px; height: 100%; overflow: auto;">
                             <pre v-if="viewMode == 'json'">{{ JSON.stringify(responseData, null, 2)}}</pre>
-                            <canvas v-if="viewMode == 'chart' && selectedModule != 'call_graph'" id="chartCanvas" style="width: 100%; height: 100%;"></canvas>
-                            <div id="network" v-if="selectedModule == 'call_graph' || selectedModule == 'control_flow_graph' || selectedModule == 'binary_visualizer' && viewMode === 'chart'" style="width: 100%; height: 100%;"></div>
+                            <canvas v-if="viewMode == 'chart' && !networkModules.includes(selectedModule)" id="chartCanvas" style="width: 100%; height: 100%;"></canvas>
+                            <div id="network" v-if="networkModules.includes(selectedModule)  && viewMode === 'chart'" style="width: 100%; height: 100%;"></div>
+                            <div id = "infoBox" class="info-box" v-if="selectedModule == 'binary_visualizer' && viewMode == 'chart'"></div>
 
                             <DataTable v-if="selectedModule == 'entropy_graph' && viewMode == 'chart'" :value="tableData" tableStyle="min-width: 50rem">
                                 <Column field="block_size" header="Block Size"></Column>
@@ -225,4 +227,15 @@ watch(viewMode, (newVal) => {
 
 <style>
 @import url("~/assets/css/base.css");
+
+.info-box {
+    position: fixed;
+    right: 5%;
+    top: 50%;
+    width: 300p x;
+    border: 1px solid black;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 </style>
