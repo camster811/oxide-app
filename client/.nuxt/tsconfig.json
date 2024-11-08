@@ -2,6 +2,9 @@
 {
   "compilerOptions": {
     "paths": {
+      "nitropack/types": [
+        "../node_modules/nitropack/types"
+      ],
       "nitropack": [
         "../node_modules/nitropack"
       ],
@@ -29,8 +32,8 @@
       "@vue/compiler-sfc": [
         "../node_modules/@vue/compiler-sfc"
       ],
-      "@vue/runtime-dom": [
-        "../node_modules/@vue/runtime-dom"
+      "unplugin-vue-router/client": [
+        "../node_modules/unplugin-vue-router/client"
       ],
       "@nuxt/schema": [
         "../node_modules/@nuxt/schema"
@@ -62,6 +65,9 @@
       "@@/*": [
         "../*"
       ],
+      "#shared": [
+        "../shared"
+      ],
       "assets": [
         "../assets"
       ],
@@ -73,6 +79,12 @@
       ],
       "public/*": [
         "../public/*"
+      ],
+      "#build": [
+        "."
+      ],
+      "#build/*": [
+        "./*"
       ],
       "#app": [
         "../node_modules/nuxt/dist/app"
@@ -87,19 +99,13 @@
         "./primevue-style.mjs"
       ],
       "#vue-router": [
-        "./vue-router-stub"
+        "../node_modules/vue-router"
       ],
       "#imports": [
         "./imports"
       ],
       "#app-manifest": [
         "./manifest/meta/dev"
-      ],
-      "#build": [
-        "."
-      ],
-      "#build/*": [
-        "./*"
       ],
       "#components": [
         "./components"
@@ -117,12 +123,13 @@
     "noUncheckedIndexedAccess": false,
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
-    "module": "ESNext",
+    "module": "preserve",
     "noEmit": true,
     "lib": [
       "ESNext",
       "dom",
-      "dom.iterable"
+      "dom.iterable",
+      "webworker"
     ],
     "jsx": "preserve",
     "jsxImportSource": "vue",
@@ -137,18 +144,24 @@
     "../.config/nuxt.*",
     "../**/*",
     "../node_modules/@nuxtjs/tailwindcss/runtime",
+    "../node_modules/@nuxtjs/tailwindcss/dist/runtime",
     "../node_modules/@primevue/nuxt-module/runtime",
+    "../node_modules/@primevue/nuxt-module/dist/runtime",
     "../node_modules/@nuxt/telemetry/runtime",
+    "../node_modules/@nuxt/telemetry/dist/runtime",
     ".."
   ],
   "exclude": [
+    "../dist",
     "../node_modules",
     "../../node_modules",
     "../node_modules/nuxt/node_modules",
     "../node_modules/@nuxtjs/tailwindcss/runtime/server",
+    "../node_modules/@nuxtjs/tailwindcss/dist/runtime/server",
     "../node_modules/@primevue/nuxt-module/runtime/server",
+    "../node_modules/@primevue/nuxt-module/dist/runtime/server",
     "../node_modules/@nuxt/telemetry/runtime/server",
-    "../dist",
+    "../node_modules/@nuxt/telemetry/dist/runtime/server",
     "../.output"
   ]
 }

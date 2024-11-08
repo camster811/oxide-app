@@ -3,10 +3,13 @@ import Aura from "@primevue/themes/aura";
 
 export default defineNuxtConfig({
   devtools: { enabled: false },
+
   devServer: {
     port: 3000,
   },
+
   modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module"],
+
   primevue: {
     options: {
       theme: {
@@ -16,6 +19,7 @@ export default defineNuxtConfig({
     },
     autoImport: true,
   },
+
   tailwindcss: {
     config: {
       content: ["presets/**/*.{js,vue,ts}"],
@@ -45,9 +49,13 @@ export default defineNuxtConfig({
             "surface-800": "rgb(var(--surface-800))",
             "surface-900": "rgb(var(--surface-900))",
             "surface-950": "rgb(var(--surface-950))",
+            "diff-bg": '#272E33',
+            "diff-fg": '#D3C6AA',
           },
         },
       },
     },
   },
+
+  compatibilityDate: "2024-11-04",
 });

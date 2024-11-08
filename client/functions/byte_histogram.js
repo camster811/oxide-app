@@ -1,5 +1,5 @@
 import { Chart, registerables } from "chart.js";
-import { chartInstance } from "../state"; // Ensure collectionFiles is imported
+import { chartInstance } from "../pages/state"; // Ensure collectionFiles is imported
 Chart.register(...registerables);
 
 const byteHistogram = (histogramData) => {
@@ -33,7 +33,7 @@ const byteHistogram = (histogramData) => {
                     type: 'logarithmic',
                     beginAtZero: true,
                     ticks: {
-                        callback: function(value, index, values) {
+                        callback: function (value, index, values) {
                             if (value === 1 || value === 10 || value === 100 || value === 1000 || value === 10000) {
                                 return value;
                             }

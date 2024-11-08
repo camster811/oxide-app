@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { Network } from "vis-network/standalone/esm/vis-network";
-import { chartInstance, collectionFiles } from "../state";
+import { chartInstance, collectionFiles } from "../pages/state";
 
 const networkInstance = ref(null);
 
@@ -19,8 +19,8 @@ const callGraph = async (graphData) => {
         for (const nodeId in graphData._node) {
             callCounts[nodeId] = { incomingCalls: 0, outgoingCalls: 0 };
             const node = graphData._node[nodeId];
-            nodes.push({ 
-                id: nodeId, 
+            nodes.push({
+                id: nodeId,
                 label: node.label || nodeId, // Use node label if available
                 title: `Node ID: ${nodeId}\nTimes called: ${callCounts[nodeId].incomingCalls}\nCalls made: ${callCounts[nodeId].outgoingCalls}`
             });
@@ -109,42 +109,42 @@ const callGraphModule = (data, file) => {
     const keys = Object.keys(collectionFiles.value);
     let oid = null;
     console.log("All keys in collectionFiles.value:", keys);
-  
+
     // Check if the key exists
     let key = file;
     if (keys.includes(key)) {
-      oid = collectionFiles.value[key];
-      console.log(`OID for key ${key}:`, oid);
+        oid = collectionFiles.value[key];
+        console.log(`OID for key ${key}:`, oid);
     } else {
-      console.error(`Key ${key} not found in collectionFiles.value`);
+        console.error(`Key ${key} not found in collectionFiles.value`);
     }
-  
+
     // Remove the $ character
     oid = oid.toString();
     if (oid.startsWith("$")) {
-      oid = oid.substring(1);
+        oid = oid.substring(1);
     }
     console.log(`Sliced OID: ${oid}`);
-  
+
     // Check if oid exists in data
     if (data.hasOwnProperty(oid)) {
-      console.log(data[oid]);
-  
-      if (
-        typeof data[oid] === "object" &&
-        data[oid] !== null &&
-        data[oid].constructor.name === "Proxy"
-      ) {
-        data[oid] = Reflect.get(data[oid], "target");
-      }
-      let graphData = data[oid];
-  
-      callGraph(graphData);
-      
+        console.log(data[oid]);
+
+        if (
+            typeof data[oid] === "object" &&
+            data[oid] !== null &&
+            data[oid].constructor.name === "Proxy"
+        ) {
+            data[oid] = Reflect.get(data[oid], "target");
+        }
+        let graphData = data[oid];
+
+        callGraph(graphData);
+
     } else {
-      console.error(`OID ${oid} not found in data`);
+        console.error(`OID ${oid} not found in data`);
     }
     return;
-  };
+};
 
 export default callGraphModule;

@@ -1,6 +1,6 @@
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 import { Chart, registerables } from "chart.js";
-import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles } from "../state"; // Ensure collectionFiles is imported
+import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles } from "../pages/state"; // Ensure collectionFiles is imported
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
 
@@ -105,7 +105,7 @@ const ngramsHeatmap = (histogramData) => {
                     mode: 'nearest',
                     position: 'average',
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             const index = context.dataIndex;
                             const label = dataArray[index][0];
                             const value = context.raw.v;

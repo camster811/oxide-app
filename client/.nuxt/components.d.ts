@@ -1,10 +1,11 @@
 
 import type { DefineComponent, SlotsType } from 'vue'
-type IslandComponent<T extends DefineComponent> = T & DefineComponent<{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, SlotsType<{ fallback: { error: unknown } }>>
+type IslandComponent<T extends DefineComponent> = T & DefineComponent<{}, {refresh: () => Promise<void>}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, SlotsType<{ fallback: { error: unknown } }>>
 interface _GlobalComponents {
-      'ResultsChartsChartView': typeof import("../components/results/charts/chart-view.vue")['default']
-    'ResultsJsonView': typeof import("../components/results/json/json-view.vue")['default']
-    'NuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome")['default']
+      'DiffBox': typeof import("../components/diff_box.vue")['default']
+    'DiffHeader': typeof import("../components/diff_header.vue")['default']
+    'FunctionBox': typeof import("../components/function_box.vue")['default']
+    'NuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
     'NuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
     'NuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default']
     'ClientOnly': typeof import("../node_modules/nuxt/dist/app/components/client-only")['default']
@@ -13,10 +14,9 @@ interface _GlobalComponents {
     'NuxtLink': typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
     'NuxtLoadingIndicator': typeof import("../node_modules/nuxt/dist/app/components/nuxt-loading-indicator")['default']
     'NuxtRouteAnnouncer': typeof import("../node_modules/nuxt/dist/app/components/nuxt-route-announcer")['default']
-    'NuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtImg': typeof import("../node_modules/nuxt/dist/app/components/nuxt-stubs")['NuxtImg']
     'NuxtPicture': typeof import("../node_modules/nuxt/dist/app/components/nuxt-stubs")['NuxtPicture']
-    'NuxtPage': typeof import("../node_modules/nuxt/dist/pages/runtime/page-placeholder")['default']
+    'NuxtPage': typeof import("../node_modules/nuxt/dist/pages/runtime/page")['default']
     'NoScript': typeof import("../node_modules/nuxt/dist/head/runtime/components")['NoScript']
     'Link': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Link']
     'Base': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Base']
@@ -26,10 +26,12 @@ interface _GlobalComponents {
     'Head': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Head']
     'Html': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Html']
     'Body': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
+    'NuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtRouteAnnouncer': IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
-      'LazyResultsChartsChartView': typeof import("../components/results/charts/chart-view.vue")['default']
-    'LazyResultsJsonView': typeof import("../components/results/json/json-view.vue")['default']
-    'LazyNuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome")['default']
+      'LazyDiffBox': typeof import("../components/diff_box.vue")['default']
+    'LazyDiffHeader': typeof import("../components/diff_header.vue")['default']
+    'LazyFunctionBox': typeof import("../components/function_box.vue")['default']
+    'LazyNuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
     'LazyNuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
     'LazyNuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default']
     'LazyClientOnly': typeof import("../node_modules/nuxt/dist/app/components/client-only")['default']
@@ -38,10 +40,9 @@ interface _GlobalComponents {
     'LazyNuxtLink': typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
     'LazyNuxtLoadingIndicator': typeof import("../node_modules/nuxt/dist/app/components/nuxt-loading-indicator")['default']
     'LazyNuxtRouteAnnouncer': typeof import("../node_modules/nuxt/dist/app/components/nuxt-route-announcer")['default']
-    'LazyNuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'LazyNuxtImg': typeof import("../node_modules/nuxt/dist/app/components/nuxt-stubs")['NuxtImg']
     'LazyNuxtPicture': typeof import("../node_modules/nuxt/dist/app/components/nuxt-stubs")['NuxtPicture']
-    'LazyNuxtPage': typeof import("../node_modules/nuxt/dist/pages/runtime/page-placeholder")['default']
+    'LazyNuxtPage': typeof import("../node_modules/nuxt/dist/pages/runtime/page")['default']
     'LazyNoScript': typeof import("../node_modules/nuxt/dist/head/runtime/components")['NoScript']
     'LazyLink': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Link']
     'LazyBase': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Base']
@@ -51,24 +52,18 @@ interface _GlobalComponents {
     'LazyHead': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Head']
     'LazyHtml': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Html']
     'LazyBody': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
+    'LazyNuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'LazyNuxtRouteAnnouncer': IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
-}
-
-declare module '@vue/runtime-core' {
-  export interface GlobalComponents extends _GlobalComponents { }
-}
-
-declare module '@vue/runtime-dom' {
-  export interface GlobalComponents extends _GlobalComponents { }
 }
 
 declare module 'vue' {
   export interface GlobalComponents extends _GlobalComponents { }
 }
 
-export const ResultsChartsChartView: typeof import("../components/results/charts/chart-view.vue")['default']
-export const ResultsJsonView: typeof import("../components/results/json/json-view.vue")['default']
-export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome")['default']
+export const DiffBox: typeof import("../components/diff_box.vue")['default']
+export const DiffHeader: typeof import("../components/diff_header.vue")['default']
+export const FunctionBox: typeof import("../components/function_box.vue")['default']
+export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
 export const NuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default']
 export const ClientOnly: typeof import("../node_modules/nuxt/dist/app/components/client-only")['default']
@@ -77,10 +72,9 @@ export const ServerPlaceholder: typeof import("../node_modules/nuxt/dist/app/com
 export const NuxtLink: typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
 export const NuxtLoadingIndicator: typeof import("../node_modules/nuxt/dist/app/components/nuxt-loading-indicator")['default']
 export const NuxtRouteAnnouncer: typeof import("../node_modules/nuxt/dist/app/components/nuxt-route-announcer")['default']
-export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtImg: typeof import("../node_modules/nuxt/dist/app/components/nuxt-stubs")['NuxtImg']
 export const NuxtPicture: typeof import("../node_modules/nuxt/dist/app/components/nuxt-stubs")['NuxtPicture']
-export const NuxtPage: typeof import("../node_modules/nuxt/dist/pages/runtime/page-placeholder")['default']
+export const NuxtPage: typeof import("../node_modules/nuxt/dist/pages/runtime/page")['default']
 export const NoScript: typeof import("../node_modules/nuxt/dist/head/runtime/components")['NoScript']
 export const Link: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Link']
 export const Base: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Base']
@@ -90,10 +84,12 @@ export const Style: typeof import("../node_modules/nuxt/dist/head/runtime/compon
 export const Head: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Head']
 export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Html']
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
+export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
-export const LazyResultsChartsChartView: typeof import("../components/results/charts/chart-view.vue")['default']
-export const LazyResultsJsonView: typeof import("../components/results/json/json-view.vue")['default']
-export const LazyNuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome")['default']
+export const LazyDiffBox: typeof import("../components/diff_box.vue")['default']
+export const LazyDiffHeader: typeof import("../components/diff_header.vue")['default']
+export const LazyFunctionBox: typeof import("../components/function_box.vue")['default']
+export const LazyNuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const LazyNuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
 export const LazyNuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default']
 export const LazyClientOnly: typeof import("../node_modules/nuxt/dist/app/components/client-only")['default']
@@ -102,10 +98,9 @@ export const LazyServerPlaceholder: typeof import("../node_modules/nuxt/dist/app
 export const LazyNuxtLink: typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
 export const LazyNuxtLoadingIndicator: typeof import("../node_modules/nuxt/dist/app/components/nuxt-loading-indicator")['default']
 export const LazyNuxtRouteAnnouncer: typeof import("../node_modules/nuxt/dist/app/components/nuxt-route-announcer")['default']
-export const LazyNuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const LazyNuxtImg: typeof import("../node_modules/nuxt/dist/app/components/nuxt-stubs")['NuxtImg']
 export const LazyNuxtPicture: typeof import("../node_modules/nuxt/dist/app/components/nuxt-stubs")['NuxtPicture']
-export const LazyNuxtPage: typeof import("../node_modules/nuxt/dist/pages/runtime/page-placeholder")['default']
+export const LazyNuxtPage: typeof import("../node_modules/nuxt/dist/pages/runtime/page")['default']
 export const LazyNoScript: typeof import("../node_modules/nuxt/dist/head/runtime/components")['NoScript']
 export const LazyLink: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Link']
 export const LazyBase: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Base']
@@ -115,6 +110,7 @@ export const LazyStyle: typeof import("../node_modules/nuxt/dist/head/runtime/co
 export const LazyHead: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Head']
 export const LazyHtml: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Html']
 export const LazyBody: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
+export const LazyNuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const LazyNuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
 
 export const componentNames: string[]

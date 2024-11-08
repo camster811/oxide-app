@@ -1,35 +1,263 @@
-import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { Server } from 'node:http';
+import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { getRequestHeader, splitCookiesString, setResponseStatus, setResponseHeader, send, getRequestHeaders, defineEventHandler, handleCacheHeaders, createEvent, fetchWithEvent, isEvent, eventHandler, getResponseStatus, setResponseHeaders, setHeaders, sendRedirect, proxyRequest, createError, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getQuery as getQuery$1, readBody, getResponseStatusText } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/h3/dist/index.mjs';
+import { Server } from 'node:http';
+import { mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { mkdirSync } from 'node:fs';
 import { parentPort, threadId } from 'node:worker_threads';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, isEvent, createEvent, fetchWithEvent, getRequestHeader, eventHandler, setHeaders, sendRedirect, proxyRequest, createError, setResponseHeader, send, getResponseStatus, setResponseStatus, setResponseHeaders, getRequestHeaders, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getQuery as getQuery$1, readBody, getResponseStatusText } from 'file:///home/dylan/Work/oxide-app/client/node_modules/h3/dist/index.mjs';
-import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'file:///home/dylan/Work/oxide-app/client/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import { stringify, uneval } from 'file:///home/dylan/Work/oxide-app/client/node_modules/devalue/index.js';
-import destr from 'file:///home/dylan/Work/oxide-app/client/node_modules/destr/dist/index.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, joinRelativeURL } from 'file:///home/dylan/Work/oxide-app/client/node_modules/ufo/dist/index.mjs';
-import { renderToString } from 'file:///home/dylan/Work/oxide-app/client/node_modules/vue/server-renderer/index.mjs';
-import { hash } from 'file:///home/dylan/Work/oxide-app/client/node_modules/ohash/dist/index.mjs';
-import { propsToString, renderSSRHead } from 'file:///home/dylan/Work/oxide-app/client/node_modules/@unhead/ssr/dist/index.mjs';
-import { createFetch as createFetch$1, Headers as Headers$1 } from 'file:///home/dylan/Work/oxide-app/client/node_modules/ofetch/dist/node.mjs';
-import { createCall, createFetch } from 'file:///home/dylan/Work/oxide-app/client/node_modules/unenv/runtime/fetch/index.mjs';
-import { createHooks } from 'file:///home/dylan/Work/oxide-app/client/node_modules/hookable/dist/index.mjs';
-import { klona } from 'file:///home/dylan/Work/oxide-app/client/node_modules/klona/dist/index.mjs';
-import { snakeCase } from 'file:///home/dylan/Work/oxide-app/client/node_modules/scule/dist/index.mjs';
-import defu, { defuFn } from 'file:///home/dylan/Work/oxide-app/client/node_modules/defu/dist/defu.mjs';
-import { createStorage, prefixStorage } from 'file:///home/dylan/Work/oxide-app/client/node_modules/unstorage/dist/index.mjs';
-import unstorage_47drivers_47fs from 'file:///home/dylan/Work/oxide-app/client/node_modules/unstorage/drivers/fs.mjs';
-import { toRouteMatcher, createRouter } from 'file:///home/dylan/Work/oxide-app/client/node_modules/radix3/dist/index.mjs';
+import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import { stringify, uneval } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/devalue/index.js';
+import destr from 'file:///home/dylan/Projects/oxide-app/client/node_modules/destr/dist/index.mjs';
+import { withQuery, joinURL, withTrailingSlash, parseURL, withoutBase, getQuery, joinRelativeURL } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/ufo/dist/index.mjs';
+import { renderToString } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/vue/server-renderer/index.mjs';
+import { propsToString, renderSSRHead } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/@unhead/ssr/dist/index.mjs';
+import { createHooks } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/hookable/dist/index.mjs';
+import { createFetch as createFetch$1, Headers as Headers$1 } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/ofetch/dist/node.mjs';
+import { createCall, createFetch } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unenv/runtime/fetch/index.mjs';
+import { klona } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/klona/dist/index.mjs';
+import defu, { defuFn } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/defu/dist/defu.mjs';
+import { snakeCase } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/scule/dist/index.mjs';
+import { createStorage, prefixStorage } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unstorage/dist/index.mjs';
+import fsDriver from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unstorage/drivers/fs.mjs';
+import { toRouteMatcher, createRouter } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/radix3/dist/index.mjs';
+import { getContext } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unctx/dist/index.mjs';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { consola } from 'file:///home/dylan/Work/oxide-app/client/node_modules/consola/dist/index.mjs';
-import { getContext } from 'file:///home/dylan/Work/oxide-app/client/node_modules/unctx/dist/index.mjs';
-import { isVNode, version, unref } from 'file:///home/dylan/Work/oxide-app/client/node_modules/vue/index.mjs';
-import BaseStyle from 'file:///home/dylan/Work/oxide-app/client/node_modules/@primevue/core/base/style/index.mjs';
-import { Theme } from 'file:///home/dylan/Work/oxide-app/client/node_modules/@primeuix/styled/index.mjs';
-import { createServerHead as createServerHead$1, CapoPlugin } from 'file:///home/dylan/Work/oxide-app/client/node_modules/unhead/dist/index.mjs';
-import { defineHeadPlugin } from 'file:///home/dylan/Work/oxide-app/client/node_modules/@unhead/shared/dist/index.mjs';
+import { consola } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/consola/dist/index.mjs';
+import { captureRawStackTrace, parseRawStackTrace } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/errx/dist/index.js';
+import { isVNode, version, unref } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/vue/index.mjs';
+import BaseStyle from 'file:///home/dylan/Projects/oxide-app/client/node_modules/@primevue/core/base/style/index.mjs';
+import { Theme } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/@primeuix/styled/index.mjs';
+import { hash } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/ohash/dist/index.mjs';
+import { createServerHead as createServerHead$1, CapoPlugin } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unhead/dist/index.mjs';
+import { defineHeadPlugin } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/@unhead/shared/dist/index.mjs';
 
-const r=Object.create(null),E=e=>globalThis.process?.env||globalThis._importMeta_.env||globalThis.Deno?.env.toObject()||globalThis.__env__||(e?r:globalThis),s=new Proxy(r,{get(e,o){return E()[o]??r[o]},has(e,o){const i=E();return o in i||o in r},set(e,o,i){const g=E(!0);return g[o]=i,!0},deleteProperty(e,o){if(!o)return !1;const i=E(!0);return delete i[o],!0},ownKeys(){const e=E(!0);return Object.keys(e)}}),t=typeof process<"u"&&process.env&&"development"||"",p=[["APPVEYOR"],["AWS_AMPLIFY","AWS_APP_ID",{ci:!0}],["AZURE_PIPELINES","SYSTEM_TEAMFOUNDATIONCOLLECTIONURI"],["AZURE_STATIC","INPUT_AZURE_STATIC_WEB_APPS_API_TOKEN"],["APPCIRCLE","AC_APPCIRCLE"],["BAMBOO","bamboo_planKey"],["BITBUCKET","BITBUCKET_COMMIT"],["BITRISE","BITRISE_IO"],["BUDDY","BUDDY_WORKSPACE_ID"],["BUILDKITE"],["CIRCLE","CIRCLECI"],["CIRRUS","CIRRUS_CI"],["CLOUDFLARE_PAGES","CF_PAGES",{ci:!0}],["CODEBUILD","CODEBUILD_BUILD_ARN"],["CODEFRESH","CF_BUILD_ID"],["DRONE"],["DRONE","DRONE_BUILD_EVENT"],["DSARI"],["GITHUB_ACTIONS"],["GITLAB","GITLAB_CI"],["GITLAB","CI_MERGE_REQUEST_ID"],["GOCD","GO_PIPELINE_LABEL"],["LAYERCI"],["HUDSON","HUDSON_URL"],["JENKINS","JENKINS_URL"],["MAGNUM"],["NETLIFY"],["NETLIFY","NETLIFY_LOCAL",{ci:!1}],["NEVERCODE"],["RENDER"],["SAIL","SAILCI"],["SEMAPHORE"],["SCREWDRIVER"],["SHIPPABLE"],["SOLANO","TDDIUM"],["STRIDER"],["TEAMCITY","TEAMCITY_VERSION"],["TRAVIS"],["VERCEL","NOW_BUILDER"],["VERCEL","VERCEL",{ci:!1}],["VERCEL","VERCEL_ENV",{ci:!1}],["APPCENTER","APPCENTER_BUILD_ID"],["CODESANDBOX","CODESANDBOX_SSE",{ci:!1}],["STACKBLITZ"],["STORMKIT"],["CLEAVR"],["ZEABUR"],["CODESPHERE","CODESPHERE_APP_ID",{ci:!0}],["RAILWAY","RAILWAY_PROJECT_ID"],["RAILWAY","RAILWAY_SERVICE_ID"]];function B(){if(globalThis.process?.env)for(const e of p){const o=e[1]||e[0];if(globalThis.process?.env[o])return {name:e[0].toLowerCase(),...e[2]}}return globalThis.process?.env?.SHELL==="/bin/jsh"&&globalThis.process?.versions?.webcontainer?{name:"stackblitz",ci:!1}:{name:"",ci:!1}}const l=B(),d=l.name;function n(e){return e?e!=="false":!1}const I=globalThis.process?.platform||"",T=n(s.CI)||l.ci!==!1,R=n(globalThis.process?.stdout&&globalThis.process?.stdout.isTTY);n(s.DEBUG);const C=t==="test"||n(s.TEST);n(s.MINIMAL)||T||C||!R;const a=/^win/i.test(I);!n(s.NO_COLOR)&&(n(s.FORCE_COLOR)||(R||a)&&s.TERM!=="dumb"||T);const _=(globalThis.process?.versions?.node||"").replace(/^v/,"")||null;Number(_?.split(".")[0])||null;const W=globalThis.process||Object.create(null),c={versions:{}};new Proxy(W,{get(e,o){if(o==="env")return s;if(o in e)return e[o];if(o in c)return c[o]}});const A=globalThis.process?.release?.name==="node",L=!!globalThis.Bun||!!globalThis.process?.versions?.bun,D=!!globalThis.Deno,O=!!globalThis.fastly,S=!!globalThis.Netlify,N=!!globalThis.EdgeRuntime,u=globalThis.navigator?.userAgent==="Cloudflare-Workers",b=!!globalThis.__lagon__,F=[[S,"netlify"],[N,"edge-light"],[u,"workerd"],[O,"fastly"],[D,"deno"],[L,"bun"],[A,"node"],[b,"lagon"]];function G(){const e=F.find(o=>o[0]);if(e)return {name:e[1]}}const P=G();P?.name||"";
+function hasReqHeader(event, name, includes) {
+  const value = getRequestHeader(event, name);
+  return value && typeof value === "string" && value.toLowerCase().includes(includes);
+}
+function isJsonRequest(event) {
+  if (hasReqHeader(event, "accept", "text/html")) {
+    return false;
+  }
+  return hasReqHeader(event, "accept", "application/json") || hasReqHeader(event, "user-agent", "curl/") || hasReqHeader(event, "user-agent", "httpie/") || hasReqHeader(event, "sec-fetch-mode", "cors") || event.path.startsWith("/api/") || event.path.endsWith(".json");
+}
+function normalizeError(error, isDev) {
+  const cwd = typeof process.cwd === "function" ? process.cwd() : "/";
+  const stack = (error.unhandled || error.fatal) ? [] : (error.stack || "").split("\n").splice(1).filter((line) => line.includes("at ")).map((line) => {
+    const text = line.replace(cwd + "/", "./").replace("webpack:/", "").replace("file://", "").trim();
+    return {
+      text,
+      internal: line.includes("node_modules") && !line.includes(".cache") || line.includes("internal") || line.includes("new Promise")
+    };
+  });
+  const statusCode = error.statusCode || 500;
+  const statusMessage = error.statusMessage ?? (statusCode === 404 ? "Not Found" : "");
+  const message = error.unhandled ? "internal server error" : error.message || error.toString();
+  return {
+    stack,
+    statusCode,
+    statusMessage,
+    message
+  };
+}
+function _captureError(error, type) {
+  console.error(`[nitro] [${type}]`, error);
+  useNitroApp().captureError(error, { tags: [type] });
+}
+function trapUnhandledNodeErrors() {
+  process.on(
+    "unhandledRejection",
+    (error) => _captureError(error, "unhandledRejection")
+  );
+  process.on(
+    "uncaughtException",
+    (error) => _captureError(error, "uncaughtException")
+  );
+}
+function joinHeaders(value) {
+  return Array.isArray(value) ? value.join(", ") : String(value);
+}
+function normalizeFetchResponse(response) {
+  if (!response.headers.has("set-cookie")) {
+    return response;
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: normalizeCookieHeaders(response.headers)
+  });
+}
+function normalizeCookieHeader(header = "") {
+  return splitCookiesString(joinHeaders(header));
+}
+function normalizeCookieHeaders(headers) {
+  const outgoingHeaders = new Headers();
+  for (const [name, header] of headers) {
+    if (name === "set-cookie") {
+      for (const cookie of normalizeCookieHeader(header)) {
+        outgoingHeaders.append("set-cookie", cookie);
+      }
+    } else {
+      outgoingHeaders.set(name, joinHeaders(header));
+    }
+  }
+  return outgoingHeaders;
+}
+
+const errorHandler = (async function errorhandler(error, event) {
+  const { stack, statusCode, statusMessage, message } = normalizeError(error);
+  const errorObject = {
+    url: event.path,
+    statusCode,
+    statusMessage,
+    message,
+    stack: statusCode !== 404 ? `<pre>${stack.map((i) => `<span class="stack${i.internal ? " internal" : ""}">${i.text}</span>`).join("\n")}</pre>` : "",
+    // TODO: check and validate error.data for serialisation into query
+    data: error.data
+  };
+  if (error.unhandled || error.fatal) {
+    const tags = [
+      "[nuxt]",
+      "[request error]",
+      error.unhandled && "[unhandled]",
+      error.fatal && "[fatal]",
+      Number(errorObject.statusCode) !== 200 && `[${errorObject.statusCode}]`
+    ].filter(Boolean).join(" ");
+    console.error(tags, (error.message || error.toString() || "internal server error") + "\n" + stack.map((l) => "  " + l.text).join("  \n"));
+  }
+  if (event.handled) {
+    return;
+  }
+  setResponseStatus(event, errorObject.statusCode !== 200 && errorObject.statusCode || 500, errorObject.statusMessage);
+  if (isJsonRequest(event)) {
+    setResponseHeader(event, "Content-Type", "application/json");
+    return send(event, JSON.stringify(errorObject));
+  }
+  const reqHeaders = getRequestHeaders(event);
+  const isRenderingError = event.path.startsWith("/__nuxt_error") || !!reqHeaders["x-nuxt-error"];
+  const res = isRenderingError ? null : await useNitroApp().localFetch(
+    withQuery(joinURL(useRuntimeConfig(event).app.baseURL, "/__nuxt_error"), errorObject),
+    {
+      headers: { ...reqHeaders, "x-nuxt-error": "true" },
+      redirect: "manual"
+    }
+  ).catch(() => null);
+  if (!res) {
+    const { template } = await Promise.resolve().then(function () { return errorDev; }) ;
+    {
+      errorObject.description = errorObject.message;
+    }
+    if (event.handled) {
+      return;
+    }
+    setResponseHeader(event, "Content-Type", "text/html;charset=UTF-8");
+    return send(event, template(errorObject));
+  }
+  const html = await res.text();
+  if (event.handled) {
+    return;
+  }
+  for (const [header, value] of res.headers.entries()) {
+    setResponseHeader(event, header, value);
+  }
+  setResponseStatus(event, res.status && res.status !== 200 ? res.status : void 0, res.statusText);
+  return send(event, html);
+});
+
+const rootDir = "/home/dylan/Projects/oxide-app/client";
+
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
+
+const appRootTag = "div";
+
+const appRootAttrs = {"id":"__nuxt"};
+
+const appTeleportTag = "div";
+
+const appTeleportAttrs = {"id":"teleports"};
+
+const appId = "nuxt-app";
+
+const devReducers = {
+  VNode: (data) => isVNode(data) ? { type: data.type, props: data.props } : void 0,
+  URL: (data) => data instanceof URL ? data.toString() : void 0
+};
+const asyncContext = getContext("nuxt-dev", { asyncContext: true, AsyncLocalStorage });
+const _DoyVyGvLVO = (nitroApp) => {
+  const handler = nitroApp.h3App.handler;
+  nitroApp.h3App.handler = (event) => {
+    return asyncContext.callAsync({ logs: [], event }, () => handler(event));
+  };
+  onConsoleLog((_log) => {
+    const ctx = asyncContext.tryUse();
+    if (!ctx) {
+      return;
+    }
+    const rawStack = captureRawStackTrace();
+    if (!rawStack || rawStack.includes("runtime/vite-node.mjs")) {
+      return;
+    }
+    const trace = [];
+    let filename = "";
+    for (const entry of parseRawStackTrace(rawStack)) {
+      if (entry.source === globalThis._importMeta_.url) {
+        continue;
+      }
+      if (EXCLUDE_TRACE_RE.test(entry.source)) {
+        continue;
+      }
+      filename ||= entry.source.replace(withTrailingSlash(rootDir), "");
+      trace.push({
+        ...entry,
+        source: entry.source.startsWith("file://") ? entry.source.replace("file://", "") : entry.source
+      });
+    }
+    const log = {
+      ..._log,
+      // Pass along filename to allow the client to display more info about where log comes from
+      filename,
+      // Clean up file names in stack trace
+      stack: trace
+    };
+    ctx.logs.push(log);
+  });
+  nitroApp.hooks.hook("afterResponse", () => {
+    const ctx = asyncContext.tryUse();
+    if (!ctx) {
+      return;
+    }
+    return nitroApp.hooks.callHook("dev:ssr-logs", { logs: ctx.logs, path: ctx.event.path });
+  });
+  nitroApp.hooks.hook("render:html", (htmlContext) => {
+    const ctx = asyncContext.tryUse();
+    if (!ctx) {
+      return;
+    }
+    try {
+      const reducers = Object.assign(/* @__PURE__ */ Object.create(null), devReducers, ctx.event.context._payloadReducers);
+      htmlContext.bodyAppend.unshift(`<script type="application/json" data-nuxt-logs="${appId}">${stringify(ctx.logs, reducers)}<\/script>`);
+    } catch (e) {
+      const shortError = e instanceof Error && "toString" in e ? ` Received \`${e.toString()}\`.` : "";
+      console.warn(`[nuxt] Failed to stringify dev server logs.${shortError} You can define your own reducer/reviver for rich types following the instructions in https://nuxt.com/docs/api/composables/use-nuxt-app#payload.`);
+    }
+  });
+};
+const EXCLUDE_TRACE_RE = /\/node_modules\/(?:.*\/)?(?:nuxt|nuxt-nightly|nuxt-edge|nuxt3|consola|@vue)\/|core\/runtime\/nitro/;
+function onConsoleLog(callback) {
+  consola.addReporter({
+    log(logObj) {
+      callback(logObj);
+    }
+  });
+  consola.wrapConsole();
+}
+
+const inlineAppConfig = {
+  "nuxt": {}
+};
+
+
+
+const appConfig = defuFn(inlineAppConfig);
 
 function getEnv(key, opts) {
   const envKey = snakeCase(key).toUpperCase();
@@ -68,14 +296,6 @@ function _expandFromEnv(value) {
     return process.env[key] || match;
   });
 }
-
-const inlineAppConfig = {
-  "nuxt": {}
-};
-
-
-
-const appConfig = defuFn(inlineAppConfig);
 
 const _inlineRuntimeConfig = {
   "app": {
@@ -6001,36 +6221,32 @@ new Proxy(/* @__PURE__ */ Object.create(null), {
   }
 });
 
-const serverAssets = [{"baseName":"server","dir":"/home/dylan/Work/oxide-app/client/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"/home/dylan/Projects/oxide-app/client/server/assets"}];
 
 const assets = createStorage();
 
 for (const asset of serverAssets) {
-  assets.mount(asset.baseName, unstorage_47drivers_47fs({ base: asset.dir }));
+  assets.mount(asset.baseName, fsDriver({ base: asset.dir, ignore: (asset?.ignore || []) }));
 }
 
 const storage = createStorage({});
 
 storage.mount('/assets', assets);
 
-storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/home/dylan/Work/oxide-app/client","ignore":["**/node_modules/**","**/.git/**"]}));
-storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/home/dylan/Work/oxide-app/client/server","ignore":["**/node_modules/**","**/.git/**"]}));
-storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/home/dylan/Work/oxide-app/client/.nuxt","ignore":["**/node_modules/**","**/.git/**"]}));
-storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/home/dylan/Work/oxide-app/client/.nuxt/cache","ignore":["**/node_modules/**","**/.git/**"]}));
-storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/home/dylan/Work/oxide-app/client/.data/kv","ignore":["**/node_modules/**","**/.git/**"]}));
-
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
 }
 
-const defaultCacheOptions = {
-  name: "_",
-  base: "/cache",
-  swr: true,
-  maxAge: 1
-};
+function defaultCacheOptions() {
+  return {
+    name: "_",
+    base: "/cache",
+    swr: true,
+    maxAge: 1
+  };
+}
 function defineCachedFunction(fn, opts = {}) {
-  opts = { ...defaultCacheOptions, ...opts };
+  opts = { ...defaultCacheOptions(), ...opts };
   const pending = {};
   const group = opts.group || "nitro/functions";
   const name = opts.name || fn.name || "_";
@@ -6038,14 +6254,17 @@ function defineCachedFunction(fn, opts = {}) {
   const validate = opts.validate || ((entry) => entry.value !== void 0);
   async function get(key, resolver, shouldInvalidateCache, event) {
     const cacheKey = [opts.base, group, name, key + ".json"].filter(Boolean).join(":").replace(/:\/$/, ":index");
-    let entry = await useStorage().getItem(cacheKey) || {};
+    let entry = await useStorage().getItem(cacheKey).catch((error) => {
+      console.error(`[nitro] [cache] Cache read error.`, error);
+      useNitroApp().captureError(error, { event, tags: ["cache"] });
+    }) || {};
     if (typeof entry !== "object") {
       entry = {};
       const error = new Error("Malformed data read from cache.");
       console.error("[nitro] [cache]", error);
       useNitroApp().captureError(error, { event, tags: ["cache"] });
     }
-    const ttl = (opts.maxAge ?? opts.maxAge ?? 0) * 1e3;
+    const ttl = (opts.maxAge ?? 0) * 1e3;
     if (ttl) {
       entry.expires = Date.now() + ttl;
     }
@@ -6074,11 +6293,15 @@ function defineCachedFunction(fn, opts = {}) {
         entry.integrity = integrity;
         delete pending[key];
         if (validate(entry) !== false) {
-          const promise = useStorage().setItem(cacheKey, entry).catch((error) => {
+          let setOpts;
+          if (opts.maxAge && !opts.swr) {
+            setOpts = { ttl: opts.maxAge };
+          }
+          const promise = useStorage().setItem(cacheKey, entry, setOpts).catch((error) => {
             console.error(`[nitro] [cache] Cache write error.`, error);
             useNitroApp().captureError(error, { event, tags: ["cache"] });
           });
-          if (event && event.waitUntil) {
+          if (event?.waitUntil) {
             event.waitUntil(promise);
           }
         }
@@ -6119,14 +6342,16 @@ function defineCachedFunction(fn, opts = {}) {
     return value;
   };
 }
-const cachedFunction = defineCachedFunction;
+function cachedFunction(fn, opts = {}) {
+  return defineCachedFunction(fn, opts);
+}
 function getKey(...args) {
   return args.length > 0 ? hash(args, {}) : "";
 }
 function escapeKey(key) {
   return String(key).replace(/\W/g, "");
 }
-function defineCachedEventHandler(handler, opts = defaultCacheOptions) {
+function defineCachedEventHandler(handler, opts = defaultCacheOptions()) {
   const variableHeaderNames = (opts.varies || []).filter(Boolean).map((h) => h.toLowerCase()).sort();
   const _opts = {
     ...opts,
@@ -6136,7 +6361,12 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions) {
         return escapeKey(customKey);
       }
       const _path = event.node.req.originalUrl || event.node.req.url || event.path;
-      const _pathname = escapeKey(decodeURI(parseURL(_path).pathname)).slice(0, 16) || "index";
+      let _pathname;
+      try {
+        _pathname = escapeKey(decodeURI(parseURL(_path).pathname)).slice(0, 16) || "index";
+      } catch {
+        _pathname = "-";
+      }
       const _hashedPath = `${_pathname}.${hash(_path)}`;
       const _headers = variableHeaderNames.map((header) => [header, event.node.req.headers[header]]).map(([name, value]) => `${escapeKey(name)}.${hash(value)}`);
       return [_hashedPath, ..._headers].join(":");
@@ -6163,7 +6393,10 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions) {
     async (incomingEvent) => {
       const variableHeaders = {};
       for (const header of variableHeaderNames) {
-        variableHeaders[header] = incomingEvent.node.req.headers[header];
+        const value = incomingEvent.node.req.headers[header];
+        if (value !== void 0) {
+          variableHeaders[header] = value;
+        }
       }
       const reqProxy = cloneWithProxy(incomingEvent.node.req, {
         headers: variableHeaders
@@ -6212,18 +6445,27 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions) {
             _resSendBody = chunk;
           }
           if (typeof arg2 === "function") {
-            arg2();
+            arg2(void 0);
           }
           if (typeof arg3 === "function") {
             arg3();
           }
-          return this;
+          return true;
         },
         writeHead(statusCode, headers2) {
           this.statusCode = statusCode;
           if (headers2) {
+            if (Array.isArray(headers2) || typeof headers2 === "string") {
+              throw new TypeError("Raw headers  is not supported.");
+            }
             for (const header in headers2) {
-              this.setHeader(header, headers2[header]);
+              const value = headers2[header];
+              if (value !== void 0) {
+                this.setHeader(
+                  header,
+                  value
+                );
+              }
             }
           }
           return this;
@@ -6237,6 +6479,9 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions) {
         fetch: globalThis.$fetch
       });
       event.context = incomingEvent.context;
+      event.context.cache = {
+        options: _opts
+      };
       const body = await handler(event) || _resSendBody;
       const headers = event.node.res.getHeaders();
       headers.etag = String(
@@ -6277,7 +6522,9 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions) {
       }
       return handler(event);
     }
-    const response = await _cachedHandler(event);
+    const response = await _cachedHandler(
+      event
+    );
     if (event.node.res.headersSent || event.node.res.writableEnded) {
       return response.body;
     }
@@ -6297,7 +6544,9 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions) {
           splitCookiesString(value)
         );
       } else {
-        event.node.res.setHeader(name, value);
+        if (value !== void 0) {
+          event.node.res.setHeader(name, value);
+        }
       }
     }
     return response.body;
@@ -6322,77 +6571,43 @@ function cloneWithProxy(obj, overrides) {
 }
 const cachedEventHandler = defineCachedEventHandler;
 
-function hasReqHeader(event, name, includes) {
-  const value = getRequestHeader(event, name);
-  return value && typeof value === "string" && value.toLowerCase().includes(includes);
-}
-function isJsonRequest(event) {
-  if (hasReqHeader(event, "accept", "text/html")) {
-    return false;
-  }
-  return hasReqHeader(event, "accept", "application/json") || hasReqHeader(event, "user-agent", "curl/") || hasReqHeader(event, "user-agent", "httpie/") || hasReqHeader(event, "sec-fetch-mode", "cors") || event.path.startsWith("/api/") || event.path.endsWith(".json");
-}
-function normalizeError(error) {
-  const cwd = typeof process.cwd === "function" ? process.cwd() : "/";
-  const stack = (error.stack || "").split("\n").splice(1).filter((line) => line.includes("at ")).map((line) => {
-    const text = line.replace(cwd + "/", "./").replace("webpack:/", "").replace("file://", "").trim();
-    return {
-      text,
-      internal: line.includes("node_modules") && !line.includes(".cache") || line.includes("internal") || line.includes("new Promise")
-    };
-  });
-  const statusCode = error.statusCode || 500;
-  const statusMessage = error.statusMessage ?? (statusCode === 404 ? "Not Found" : "");
-  const message = error.message || error.toString();
-  return {
-    stack,
-    statusCode,
-    statusMessage,
-    message
-  };
-}
-function _captureError(error, type) {
-  console.error(`[nitro] [${type}]`, error);
-  useNitroApp().captureError(error, { tags: [type] });
-}
-function trapUnhandledNodeErrors() {
-  process.on(
-    "unhandledRejection",
-    (error) => _captureError(error, "unhandledRejection")
-  );
-  process.on(
-    "uncaughtException",
-    (error) => _captureError(error, "uncaughtException")
-  );
-}
-function joinHeaders(value) {
-  return Array.isArray(value) ? value.join(", ") : String(value);
-}
-function normalizeFetchResponse(response) {
-  if (!response.headers.has("set-cookie")) {
-    return response;
-  }
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: normalizeCookieHeaders(response.headers)
-  });
-}
-function normalizeCookieHeader(header = "") {
-  return splitCookiesString(joinHeaders(header));
-}
-function normalizeCookieHeaders(headers) {
-  const outgoingHeaders = new Headers();
-  for (const [name, header] of headers) {
-    if (name === "set-cookie") {
-      for (const cookie of normalizeCookieHeader(header)) {
-        outgoingHeaders.append("set-cookie", cookie);
+function defineRenderHandler(render) {
+  const runtimeConfig = useRuntimeConfig();
+  return eventHandler(async (event) => {
+    const nitroApp = useNitroApp();
+    const ctx = { event, render, response: void 0 };
+    await nitroApp.hooks.callHook("render:before", ctx);
+    if (!ctx.response) {
+      if (event.path === `${runtimeConfig.app.baseURL}favicon.ico`) {
+        setResponseHeader(event, "Content-Type", "image/x-icon");
+        return send(
+          event,
+          "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        );
       }
-    } else {
-      outgoingHeaders.set(name, joinHeaders(header));
+      ctx.response = await ctx.render(event);
+      if (!ctx.response) {
+        const _currentStatus = getResponseStatus(event);
+        setResponseStatus(event, _currentStatus === 200 ? 500 : _currentStatus);
+        return send(
+          event,
+          "No response returned from render handler: " + event.path
+        );
+      }
     }
-  }
-  return outgoingHeaders;
+    await nitroApp.hooks.callHook("render:response", ctx.response, ctx);
+    if (ctx.response.headers) {
+      setResponseHeaders(event, ctx.response.headers);
+    }
+    if (ctx.response.statusCode || ctx.response.statusMessage) {
+      setResponseStatus(
+        event,
+        ctx.response.statusCode,
+        ctx.response.statusMessage
+      );
+    }
+    return ctx.response.body;
+  });
 }
 
 const config$1 = useRuntimeConfig();
@@ -6453,78 +6668,12 @@ function getRouteRulesForPath(path) {
   return defu({}, ..._routeRulesMatcher.matchAll(path).reverse());
 }
 
-const rootDir = "/home/dylan/Work/oxide-app/client";
+getContext("nitro-app", {
+  asyncContext: false,
+  AsyncLocalStorage: void 0
+});
 
-const devReducers = {
-  VNode: (data) => isVNode(data) ? { type: data.type, props: data.props } : void 0,
-  URL: (data) => data instanceof URL ? data.toString() : void 0
-};
-const asyncContext = getContext("nuxt-dev", { asyncContext: true, AsyncLocalStorage });
-const _CnoBmG7Jyp = (nitroApp) => {
-  const handler = nitroApp.h3App.handler;
-  nitroApp.h3App.handler = (event) => {
-    return asyncContext.callAsync({ logs: [], event }, () => handler(event));
-  };
-  onConsoleLog((_log) => {
-    const ctx = asyncContext.tryUse();
-    if (!ctx) {
-      return;
-    }
-    const stack = getStack();
-    if (stack.includes("runtime/vite-node.mjs")) {
-      return;
-    }
-    const log = {
-      ..._log,
-      // Pass along filename to allow the client to display more info about where log comes from
-      filename: extractFilenameFromStack(stack),
-      // Clean up file names in stack trace
-      stack: normalizeFilenames(stack)
-    };
-    ctx.logs.push(log);
-  });
-  nitroApp.hooks.hook("afterResponse", () => {
-    const ctx = asyncContext.tryUse();
-    if (!ctx) {
-      return;
-    }
-    return nitroApp.hooks.callHook("dev:ssr-logs", { logs: ctx.logs, path: ctx.event.path });
-  });
-  nitroApp.hooks.hook("render:html", (htmlContext) => {
-    const ctx = asyncContext.tryUse();
-    if (!ctx) {
-      return;
-    }
-    try {
-      htmlContext.bodyAppend.unshift(`<script type="application/json" id="__NUXT_LOGS__">${stringify(ctx.logs, { ...devReducers, ...ctx.event.context._payloadReducers })}<\/script>`);
-    } catch (e) {
-      const shortError = e instanceof Error && "toString" in e ? ` Received \`${e.toString()}\`.` : "";
-      console.warn(`[nuxt] Failed to stringify dev server logs.${shortError} You can define your own reducer/reviver for rich types following the instructions in https://nuxt.com/docs/api/composables/use-nuxt-app#payload.`);
-    }
-  });
-};
-const EXCLUDE_TRACE_RE = /^.*at.*(\/node_modules\/(.*\/)?(nuxt|nuxt-nightly|nuxt-edge|nuxt3|consola|@vue)\/.*|core\/runtime\/nitro.*)$\n?/gm;
-function getStack() {
-  const stack = new Error();
-  Error.captureStackTrace(stack);
-  return stack.stack?.replace(EXCLUDE_TRACE_RE, "").replace(/^Error.*\n/, "") || "";
-}
-const FILENAME_RE = /at[^(]*\(([^:)]+)[):]/;
-const FILENAME_RE_GLOBAL = /at[^(]*\(([^)]+)\)/g;
-function extractFilenameFromStack(stacktrace) {
-  return stacktrace.match(FILENAME_RE)?.[1].replace(withTrailingSlash(rootDir), "");
-}
-function normalizeFilenames(stacktrace) {
-  return stacktrace.replace(FILENAME_RE_GLOBAL, (match, filename) => match.replace(filename, filename.replace("file:///", "/").replace(/:.*$/, "")));
-}
-function onConsoleLog(callback) {
-  consola.addReporter({
-    log(logObj) {
-      callback(logObj);
-    }
-  });
-  consola.wrapConsole();
-}
+const r=Object.create(null),E=e=>globalThis.process?.env||globalThis._importMeta_.env||globalThis.Deno?.env.toObject()||globalThis.__env__||(e?r:globalThis),s=new Proxy(r,{get(e,o){return E()[o]??r[o]},has(e,o){const i=E();return o in i||o in r},set(e,o,i){const g=E(!0);return g[o]=i,!0},deleteProperty(e,o){if(!o)return !1;const i=E(!0);return delete i[o],!0},ownKeys(){const e=E(!0);return Object.keys(e)}}),t=typeof process<"u"&&process.env&&"development"||"",p=[["APPVEYOR"],["AWS_AMPLIFY","AWS_APP_ID",{ci:!0}],["AZURE_PIPELINES","SYSTEM_TEAMFOUNDATIONCOLLECTIONURI"],["AZURE_STATIC","INPUT_AZURE_STATIC_WEB_APPS_API_TOKEN"],["APPCIRCLE","AC_APPCIRCLE"],["BAMBOO","bamboo_planKey"],["BITBUCKET","BITBUCKET_COMMIT"],["BITRISE","BITRISE_IO"],["BUDDY","BUDDY_WORKSPACE_ID"],["BUILDKITE"],["CIRCLE","CIRCLECI"],["CIRRUS","CIRRUS_CI"],["CLOUDFLARE_PAGES","CF_PAGES",{ci:!0}],["CODEBUILD","CODEBUILD_BUILD_ARN"],["CODEFRESH","CF_BUILD_ID"],["DRONE"],["DRONE","DRONE_BUILD_EVENT"],["DSARI"],["GITHUB_ACTIONS"],["GITLAB","GITLAB_CI"],["GITLAB","CI_MERGE_REQUEST_ID"],["GOCD","GO_PIPELINE_LABEL"],["LAYERCI"],["HUDSON","HUDSON_URL"],["JENKINS","JENKINS_URL"],["MAGNUM"],["NETLIFY"],["NETLIFY","NETLIFY_LOCAL",{ci:!1}],["NEVERCODE"],["RENDER"],["SAIL","SAILCI"],["SEMAPHORE"],["SCREWDRIVER"],["SHIPPABLE"],["SOLANO","TDDIUM"],["STRIDER"],["TEAMCITY","TEAMCITY_VERSION"],["TRAVIS"],["VERCEL","NOW_BUILDER"],["VERCEL","VERCEL",{ci:!1}],["VERCEL","VERCEL_ENV",{ci:!1}],["APPCENTER","APPCENTER_BUILD_ID"],["CODESANDBOX","CODESANDBOX_SSE",{ci:!1}],["STACKBLITZ"],["STORMKIT"],["CLEAVR"],["ZEABUR"],["CODESPHERE","CODESPHERE_APP_ID",{ci:!0}],["RAILWAY","RAILWAY_PROJECT_ID"],["RAILWAY","RAILWAY_SERVICE_ID"]];function B(){if(globalThis.process?.env)for(const e of p){const o=e[1]||e[0];if(globalThis.process?.env[o])return {name:e[0].toLowerCase(),...e[2]}}return globalThis.process?.env?.SHELL==="/bin/jsh"&&globalThis.process?.versions?.webcontainer?{name:"stackblitz",ci:!1}:{name:"",ci:!1}}const l=B(),d=l.name;function n(e){return e?e!=="false":!1}const I=globalThis.process?.platform||"",T=n(s.CI)||l.ci!==!1,R=n(globalThis.process?.stdout&&globalThis.process?.stdout.isTTY);n(s.DEBUG);const C=t==="test"||n(s.TEST);n(s.MINIMAL)||T||C||!R;const a=/^win/i.test(I);!n(s.NO_COLOR)&&(n(s.FORCE_COLOR)||(R||a)&&s.TERM!=="dumb"||T);const _=(globalThis.process?.versions?.node||"").replace(/^v/,"")||null;Number(_?.split(".")[0])||null;const W=globalThis.process||Object.create(null),c={versions:{}};new Proxy(W,{get(e,o){if(o==="env")return s;if(o in e)return e[o];if(o in c)return c[o]}});const A=globalThis.process?.release?.name==="node",L=!!globalThis.Bun||!!globalThis.process?.versions?.bun,D=!!globalThis.Deno,O=!!globalThis.fastly,S=!!globalThis.Netlify,N=!!globalThis.EdgeRuntime,u=globalThis.navigator?.userAgent==="Cloudflare-Workers",b=!!globalThis.__lagon__,F=[[S,"netlify"],[N,"edge-light"],[u,"workerd"],[O,"fastly"],[D,"deno"],[L,"bun"],[A,"node"],[b,"lagon"]];function G(){const e=F.find(o=>o[0]);if(e)return {name:e[1]}}const P=G();P?.name||"";
 
 const scheduledTasks = false;
 
@@ -6563,36 +6712,6 @@ async function runTask(name, {
   }
 }
 
-function defineRenderHandler(handler) {
-  return eventHandler(async (event) => {
-    if (event.path.endsWith("/favicon.ico")) {
-      setResponseHeader(event, "Content-Type", "image/x-icon");
-      return send(
-        event,
-        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-      );
-    }
-    const response = await handler(event);
-    if (!response) {
-      const _currentStatus = getResponseStatus(event);
-      setResponseStatus(event, _currentStatus === 200 ? 500 : _currentStatus);
-      return send(
-        event,
-        "No response returned from render handler: " + event.path
-      );
-    }
-    const nitroApp = useNitroApp();
-    await nitroApp.hooks.callHook("render:response", response, { event });
-    if (response.headers) {
-      setResponseHeaders(event, response.headers);
-    }
-    if (response.statusCode || response.statusMessage) {
-      setResponseStatus(event, response.statusCode, response.statusMessage);
-    }
-    return response.body;
-  });
-}
-
 function buildAssetsDir() {
   return useRuntimeConfig().app.buildAssetsDir;
 }
@@ -6605,95 +6724,6 @@ function publicAssetsURL(...path) {
   return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
 }
 
-var theme$2 = function theme(_ref) {
-  var dt = _ref.dt;
-  return "\n.p-listbox {\n    background: ".concat(dt('listbox.background'), ";\n    color: ").concat(dt('listbox.color'), ";\n    border: 1px solid ").concat(dt('listbox.border.color'), ";\n    border-radius: ").concat(dt('listbox.border.radius'), ";\n    transition: background ").concat(dt('listbox.transition.duration'), ", color ").concat(dt('listbox.transition.duration'), ", border-color ").concat(dt('listbox.transition.duration'), ",\n            box-shadow ").concat(dt('listbox.transition.duration'), ", outline-color ").concat(dt('listbox.transition.duration'), ";\n    outline-color: transparent;\n    box-shadow: ").concat(dt('listbox.shadow'), ";\n}\n\n.p-listbox.p-focus {\n    border-color: ").concat(dt('listbox.focus.border.color'), ";\n    box-shadow: ").concat(dt('listbox.focus.ring.shadow'), ";\n    outline: ").concat(dt('listbox.focus.ring.width'), " ").concat(dt('listbox.focus.ring.style'), " ").concat(dt('listbox.focus.ring.color'), ";\n    outline-offset: ").concat(dt('listbox.focus.ring.offset'), ";\n}\n\n.p-listbox.p-disabled {\n    opacity: 1;\n    background: ").concat(dt('listbox.disabled.background'), ";\n    color: ").concat(dt('listbox.disabled.color'), ";\n}\n\n.p-listbox.p-disabled .p-listbox-option {\n    color: ").concat(dt('listbox.disabled.color'), ";\n}\n\n.p-listbox.p-invalid {\n    border-color: ").concat(dt('listbox.invalid.border.color'), ";\n}\n\n.p-listbox-header {\n    padding: ").concat(dt('listbox.list.header.padding'), ";\n}\n\n.p-listbox-filter {\n    width: 100%;\n}\n\n.p-listbox-list-container {\n    overflow: auto;\n}\n\n.p-listbox-list {\n    list-style-type: none;\n    margin: 0;\n    padding: ").concat(dt('listbox.list.padding'), ";\n    outline: 0 none;\n    display: flex;\n    flex-direction: column;\n    gap: ").concat(dt('listbox.list.gap'), ";\n}\n\n.p-listbox-option {\n    display: flex;\n    align-items: center;\n    cursor: pointer;\n    position: relative;\n    overflow: hidden;\n    padding: ").concat(dt('listbox.option.padding'), ";\n    border: 0 none;\n    border-radius: ").concat(dt('listbox.option.border.radius'), ";\n    color: ").concat(dt('listbox.option.color'), ";\n    transition: background ").concat(dt('listbox.transition.duration'), ", color ").concat(dt('listbox.transition.duration'), ", border-color ").concat(dt('listbox.transition.duration'), ",\n            box-shadow ").concat(dt('listbox.transition.duration'), ", outline-color ").concat(dt('listbox.transition.duration'), ";\n}\n\n.p-listbox-striped li:nth-child(even of .p-listbox-option) {\n    background: ").concat(dt('listbox.option.striped.background'), ";\n}\n\n.p-listbox .p-listbox-list .p-listbox-option.p-listbox-option-selected {\n    background: ").concat(dt('listbox.option.selected.background'), ";\n    color: ").concat(dt('listbox.option.selected.color'), ";\n}\n\n.p-listbox:not(.p-disabled) .p-listbox-option.p-listbox-option-selected.p-focus {\n    background: ").concat(dt('listbox.option.selected.focus.background'), ";\n    color: ").concat(dt('listbox.option.selected.focus.color'), ";\n}\n\n.p-listbox:not(.p-disabled) .p-listbox-option:not(.p-listbox-option-selected):not(.p-disabled).p-focus {\n    background: ").concat(dt('listbox.option.focus.background'), ";\n    color: ").concat(dt('listbox.option.focus.color'), ";\n}\n\n.p-listbox:not(.p-disabled) .p-listbox-option:not(.p-listbox-option-selected):not(.p-disabled):hover {\n    background: ").concat(dt('listbox.option.focus.background'), ";\n    color: ").concat(dt('listbox.option.focus.color'), ";\n}\n\n.p-listbox-option-check-icon {\n    position: relative;\n    margin-inline-start: ").concat(dt('listbox.checkmark.gutter.start'), ";\n    margin-inline-end: ").concat(dt('listbox.checkmark.gutter.end'), ";\n    color: ").concat(dt('listbox.checkmark.color'), ";\n}\n\n.p-listbox-option-group {\n    margin: 0;\n    padding: ").concat(dt('listbox.option.group.padding'), ";\n    color: ").concat(dt('listbox.option.group.color'), ";\n    background: ").concat(dt('listbox.option.group.background'), ";\n    font-weight: ").concat(dt('listbox.option.group.font.weight'), ";\n}\n\n.p-listbox-empty-message {\n    padding: ").concat(dt('listbox.empty.message.padding'), ";\n}\n");
-};
-var classes$2 = {
-  root: function root(_ref2) {
-    var props = _ref2.props;
-    return ['p-listbox p-component', {
-      'p-listbox-striped': props.striped,
-      'p-disabled': props.disabled,
-      'p-invalid': props.invalid
-    }];
-  },
-  header: 'p-listbox-header',
-  pcFilter: 'p-listbox-filter',
-  listContainer: 'p-listbox-list-container',
-  list: 'p-listbox-list',
-  optionGroup: 'p-listbox-option-group',
-  option: function option(_ref3) {
-    var instance = _ref3.instance,
-      props = _ref3.props,
-      _option = _ref3.option,
-      index = _ref3.index,
-      getItemOptions = _ref3.getItemOptions;
-    return ['p-listbox-option', {
-      'p-listbox-option-selected': instance.isSelected(_option) && props.highlightOnSelect,
-      'p-focus': instance.focusedOptionIndex === instance.getOptionIndex(index, getItemOptions),
-      'p-disabled': instance.isOptionDisabled(_option)
-    }];
-  },
-  optionCheckIcon: 'p-listbox-option-check-icon',
-  optionBlankIcon: 'p-listbox-option-blank-icon',
-  emptyMessage: 'p-listbox-empty-message'
-};
-var ListboxStyle = BaseStyle.extend({
-  name: 'listbox',
-  theme: theme$2,
-  classes: classes$2
-});
-
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var theme$1 = function theme(_ref) {
-  var dt = _ref.dt;
-  return "\n.p-button {\n    display: inline-flex;\n    cursor: pointer;\n    user-select: none;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n    position: relative;\n    color: ".concat(dt('button.primary.color'), ";\n    background: ").concat(dt('button.primary.background'), ";\n    border: 1px solid ").concat(dt('button.primary.border.color'), ";\n    padding: ").concat(dt('button.padding.y'), " ").concat(dt('button.padding.x'), ";\n    font-size: 1rem;\n    font-family: inherit;\n    font-feature-settings: inherit;\n    transition: background ").concat(dt('button.transition.duration'), ", color ").concat(dt('button.transition.duration'), ", border-color ").concat(dt('button.transition.duration'), ",\n            outline-color ").concat(dt('button.transition.duration'), ", box-shadow ").concat(dt('button.transition.duration'), ";\n    border-radius: ").concat(dt('button.border.radius'), ";\n    outline-color: transparent;\n    gap: ").concat(dt('button.gap'), ";\n}\n\n.p-button:disabled {\n    cursor: default;\n}\n\n.p-button-icon-right {\n    order: 1;\n}\n\n.p-button-icon-bottom {\n    order: 2;\n}\n\n.p-button-icon-only {\n    width: ").concat(dt('button.icon.only.width'), ";\n    padding-left: 0;\n    padding-right: 0;\n    gap: 0;\n}\n\n.p-button-icon-only.p-button-rounded {\n    border-radius: 50%;\n    height: ").concat(dt('button.icon.only.width'), ";\n}\n\n.p-button-icon-only .p-button-label {\n    visibility: hidden;\n    width: 0;\n}\n\n.p-button-sm {\n    font-size: ").concat(dt('button.sm.font.size'), ";\n    padding: ").concat(dt('button.sm.padding.y'), " ").concat(dt('button.sm.padding.x'), ";\n}\n\n.p-button-sm .p-button-icon {\n    font-size: ").concat(dt('button.sm.font.size'), ";\n}\n\n.p-button-lg {\n    font-size: ").concat(dt('button.lg.font.size'), ";\n    padding: ").concat(dt('button.lg.padding.y'), " ").concat(dt('button.lg.padding.x'), ";\n}\n\n.p-button-lg .p-button-icon {\n    font-size: ").concat(dt('button.lg.font.size'), ";\n}\n\n.p-button-vertical {\n    flex-direction: column;\n}\n\n.p-button-label {\n    font-weight: ").concat(dt('button.label.font.weight'), ";\n}\n\n.p-fluid .p-button {\n    width: 100%;\n}\n\n.p-fluid .p-button-icon-only {\n    width: ").concat(dt('button.icon.only.width'), ";\n}\n\n.p-button:not(:disabled):hover {\n    background: ").concat(dt('button.primary.hover.background'), ";\n    border: 1px solid ").concat(dt('button.primary.hover.border.color'), ";\n    color: ").concat(dt('button.primary.hover.color'), ";\n}\n\n.p-button:not(:disabled):active {\n    background: ").concat(dt('button.primary.active.background'), ";\n    border: 1px solid ").concat(dt('button.primary.active.border.color'), ";\n    color: ").concat(dt('button.primary.active.color'), ";\n}\n\n.p-button:focus-visible {\n    box-shadow: ").concat(dt('button.primary.focus.ring.shadow'), ";\n    outline: ").concat(dt('button.focus.ring.width'), " ").concat(dt('button.focus.ring.style'), " ").concat(dt('button.primary.focus.ring.color'), ";\n    outline-offset: ").concat(dt('button.focus.ring.offset'), ";\n}\n\n.p-button .p-badge {\n    min-width: ").concat(dt('button.badge.size'), ";\n    height: ").concat(dt('button.badge.size'), ";\n    line-height: ").concat(dt('button.badge.size'), ";\n}\n\n.p-button-raised {\n    box-shadow: ").concat(dt('button.raised.shadow'), ";\n}\n\n.p-button-rounded {\n    border-radius: ").concat(dt('button.rounded.border.radius'), ";\n}\n\n.p-button-secondary {\n    background: ").concat(dt('button.secondary.background'), ";\n    border: 1px solid ").concat(dt('button.secondary.border.color'), ";\n    color: ").concat(dt('button.secondary.color'), ";\n}\n\n.p-button-secondary:not(:disabled):hover {\n    background: ").concat(dt('button.secondary.hover.background'), ";\n    border: 1px solid ").concat(dt('button.secondary.hover.border.color'), ";\n    color: ").concat(dt('button.secondary.hover.color'), ";\n}\n\n.p-button-secondary:not(:disabled):active {\n    background: ").concat(dt('button.secondary.active.background'), ";\n    border: 1px solid ").concat(dt('button.secondary.active.border.color'), ";\n    color: ").concat(dt('button.secondary.active.color'), ";\n}\n\n.p-button-secondary:focus-visible {\n    outline-color: ").concat(dt('button.secondary.focus.ring.color'), ";\n    box-shadow: ").concat(dt('button.secondary.focus.ring.shadow'), ";\n}\n\n.p-button-success {\n    background: ").concat(dt('button.success.background'), ";\n    border: 1px solid ").concat(dt('button.success.border.color'), ";\n    color: ").concat(dt('button.success.color'), ";\n}\n\n.p-button-success:not(:disabled):hover {\n    background: ").concat(dt('button.success.hover.background'), ";\n    border: 1px solid ").concat(dt('button.success.hover.border.color'), ";\n    color: ").concat(dt('button.success.hover.color'), ";\n}\n\n.p-button-success:not(:disabled):active {\n    background: ").concat(dt('button.success.active.background'), ";\n    border: 1px solid ").concat(dt('button.success.active.border.color'), ";\n    color: ").concat(dt('button.success.active.color'), ";\n}\n\n.p-button-success:focus-visible {\n    outline-color: ").concat(dt('button.success.focus.ring.color'), ";\n    box-shadow: ").concat(dt('button.success.focus.ring.shadow'), ";\n}\n\n.p-button-info {\n    background: ").concat(dt('button.info.background'), ";\n    border: 1px solid ").concat(dt('button.info.border.color'), ";\n    color: ").concat(dt('button.info.color'), ";\n}\n\n.p-button-info:not(:disabled):hover {\n    background: ").concat(dt('button.info.hover.background'), ";\n    border: 1px solid ").concat(dt('button.info.hover.border.color'), ";\n    color: ").concat(dt('button.info.hover.color'), ";\n}\n\n.p-button-info:not(:disabled):active {\n    background: ").concat(dt('button.info.active.background'), ";\n    border: 1px solid ").concat(dt('button.info.active.border.color'), ";\n    color: ").concat(dt('button.info.active.color'), ";\n}\n\n.p-button-info:focus-visible {\n    outline-color: ").concat(dt('button.info.focus.ring.color'), ";\n    box-shadow: ").concat(dt('button.info.focus.ring.shadow'), ";\n}\n\n.p-button-warn {\n    background: ").concat(dt('button.warn.background'), ";\n    border: 1px solid ").concat(dt('button.warn.border.color'), ";\n    color: ").concat(dt('button.warn.color'), ";\n}\n\n.p-button-warn:not(:disabled):hover {\n    background: ").concat(dt('button.warn.hover.background'), ";\n    border: 1px solid ").concat(dt('button.warn.hover.border.color'), ";\n    color: ").concat(dt('button.warn.hover.color'), ";\n}\n\n.p-button-warn:not(:disabled):active {\n    background: ").concat(dt('button.warn.active.background'), ";\n    border: 1px solid ").concat(dt('button.warn.active.border.color'), ";\n    color: ").concat(dt('button.warn.active.color'), ";\n}\n\n.p-button-warn:focus-visible {\n    outline-color: ").concat(dt('button.warn.focus.ring.color'), ";\n    box-shadow: ").concat(dt('button.warn.focus.ring.shadow'), ";\n}\n\n.p-button-help {\n    background: ").concat(dt('button.help.background'), ";\n    border: 1px solid ").concat(dt('button.help.border.color'), ";\n    color: ").concat(dt('button.help.color'), ";\n}\n\n.p-button-help:not(:disabled):hover {\n    background: ").concat(dt('button.help.hover.background'), ";\n    border: 1px solid ").concat(dt('button.help.hover.border.color'), ";\n    color: ").concat(dt('button.help.hover.color'), ";\n}\n\n.p-button-help:not(:disabled):active {\n    background: ").concat(dt('button.help.active.background'), ";\n    border: 1px solid ").concat(dt('button.help.active.border.color'), ";\n    color: ").concat(dt('button.help.active.color'), ";\n}\n\n.p-button-help:focus-visible {\n    outline-color: ").concat(dt('button.help.focus.ring.color'), ";\n    box-shadow: ").concat(dt('button.help.focus.ring.shadow'), ";\n}\n\n.p-button-danger {\n    background: ").concat(dt('button.danger.background'), ";\n    border: 1px solid ").concat(dt('button.danger.border.color'), ";\n    color: ").concat(dt('button.danger.color'), ";\n}\n\n.p-button-danger:not(:disabled):hover {\n    background: ").concat(dt('button.danger.hover.background'), ";\n    border: 1px solid ").concat(dt('button.danger.hover.border.color'), ";\n    color: ").concat(dt('button.danger.hover.color'), ";\n}\n\n.p-button-danger:not(:disabled):active {\n    background: ").concat(dt('button.danger.active.background'), ";\n    border: 1px solid ").concat(dt('button.danger.active.border.color'), ";\n    color: ").concat(dt('button.danger.active.color'), ";\n}\n\n.p-button-danger:focus-visible {\n    outline-color: ").concat(dt('button.danger.focus.ring.color'), ";\n    box-shadow: ").concat(dt('button.danger.focus.ring.shadow'), ";\n}\n\n.p-button-contrast {\n    background: ").concat(dt('button.contrast.background'), ";\n    border: 1px solid ").concat(dt('button.contrast.border.color'), ";\n    color: ").concat(dt('button.contrast.color'), ";\n}\n\n.p-button-contrast:not(:disabled):hover {\n    background: ").concat(dt('button.contrast.hover.background'), ";\n    border: 1px solid ").concat(dt('button.contrast.hover.border.color'), ";\n    color: ").concat(dt('button.contrast.hover.color'), ";\n}\n\n.p-button-contrast:not(:disabled):active {\n    background: ").concat(dt('button.contrast.active.background'), ";\n    border: 1px solid ").concat(dt('button.contrast.active.border.color'), ";\n    color: ").concat(dt('button.contrast.active.color'), ";\n}\n\n.p-button-contrast:focus-visible {\n    outline-color: ").concat(dt('button.contrast.focus.ring.color'), ";\n    box-shadow: ").concat(dt('button.contrast.focus.ring.shadow'), ";\n}\n\n.p-button-outlined {\n    background: transparent;\n    border-color: ").concat(dt('button.outlined.primary.border.color'), ";\n    color: ").concat(dt('button.outlined.primary.color'), ";\n}\n\n.p-button-outlined:not(:disabled):hover {\n    background: ").concat(dt('button.outlined.primary.hover.background'), ";\n    border-color: ").concat(dt('button.outlined.primary.border.color'), ";\n    color: ").concat(dt('button.outlined.primary.color'), ";\n}\n\n.p-button-outlined:not(:disabled):active {\n    background: ").concat(dt('button.outlined.primary.active.background'), ";\n    border-color: ").concat(dt('button.outlined.primary.border.color'), ";\n    color: ").concat(dt('button.outlined.primary.color'), ";\n}\n\n.p-button-outlined.p-button-secondary {\n    border-color: ").concat(dt('button.outlined.secondary.border.color'), ";\n    color: ").concat(dt('button.outlined.secondary.color'), ";\n}\n\n.p-button-outlined.p-button-secondary:not(:disabled):hover {\n    background: ").concat(dt('button.outlined.secondary.hover.background'), ";\n    border-color: ").concat(dt('button.outlined.secondary.border.color'), ";\n    color: ").concat(dt('button.outlined.secondary.color'), ";\n}\n\n.p-button-outlined.p-button-secondary:not(:disabled):active {\n    background: ").concat(dt('button.outlined.secondary.active.background'), ";\n    border-color: ").concat(dt('button.outlined.secondary.border.color'), ";\n    color: ").concat(dt('button.outlined.secondary.color'), ";\n}\n\n.p-button-outlined.p-button-success {\n    border-color: ").concat(dt('button.outlined.success.border.color'), ";\n    color: ").concat(dt('button.outlined.success.color'), ";\n}\n\n.p-button-outlined.p-button-success:not(:disabled):hover {\n    background: ").concat(dt('button.outlined.success.hover.background'), ";\n    border-color: ").concat(dt('button.outlined.success.border.color'), ";\n    color: ").concat(dt('button.outlined.success.color'), ";\n}\n\n.p-button-outlined.p-button-success:not(:disabled):active {\n    background: ").concat(dt('button.outlined.success.active.background'), ";\n    border-color: ").concat(dt('button.outlined.success.border.color'), ";\n    color: ").concat(dt('button.outlined.success.color'), ";\n}\n\n.p-button-outlined.p-button-info {\n    border-color: ").concat(dt('button.outlined.info.border.color'), ";\n    color: ").concat(dt('button.outlined.info.color'), ";\n}\n\n.p-button-outlined.p-button-info:not(:disabled):hover {\n    background: ").concat(dt('button.outlined.info.hover.background'), ";\n    border-color: ").concat(dt('button.outlined.info.border.color'), ";\n    color: ").concat(dt('button.outlined.info.color'), ";\n}\n\n.p-button-outlined.p-button-info:not(:disabled):active {\n    background: ").concat(dt('button.outlined.info.active.background'), ";\n    border-color: ").concat(dt('button.outlined.info.border.color'), ";\n    color: ").concat(dt('button.outlined.info.color'), ";\n}\n\n.p-button-outlined.p-button-warn {\n    border-color: ").concat(dt('button.outlined.warn.border.color'), ";\n    color: ").concat(dt('button.outlined.warn.color'), ";\n}\n\n.p-button-outlined.p-button-warn:not(:disabled):hover {\n    background: ").concat(dt('button.outlined.warn.hover.background'), ";\n    border-color: ").concat(dt('button.outlined.warn.border.color'), ";\n    color: ").concat(dt('button.outlined.warn.color'), ";\n}\n\n.p-button-outlined.p-button-warn:not(:disabled):active {\n    background: ").concat(dt('button.outlined.warn.active.background'), ";\n    border-color: ").concat(dt('button.outlined.warn.border.color'), ";\n    color: ").concat(dt('button.outlined.warn.color'), ";\n}\n\n.p-button-outlined.p-button-help {\n    border-color: ").concat(dt('button.outlined.help.border.color'), ";\n    color: ").concat(dt('button.outlined.help.color'), ";\n}\n\n.p-button-outlined.p-button-help:not(:disabled):hover {\n    background: ").concat(dt('button.outlined.help.hover.background'), ";\n    border-color: ").concat(dt('button.outlined.help.border.color'), ";\n    color: ").concat(dt('button.outlined.help.color'), ";\n}\n\n.p-button-outlined.p-button-help:not(:disabled):active {\n    background: ").concat(dt('button.outlined.help.active.background'), ";\n    border-color: ").concat(dt('button.outlined.help.border.color'), ";\n    color: ").concat(dt('button.outlined.help.color'), ";\n}\n\n.p-button-outlined.p-button-danger {\n    border-color: ").concat(dt('button.outlined.danger.border.color'), ";\n    color: ").concat(dt('button.outlined.danger.color'), ";\n}\n\n.p-button-outlined.p-button-danger:not(:disabled):hover {\n    background: ").concat(dt('button.outlined.danger.hover.background'), ";\n    border-color: ").concat(dt('button.outlined.danger.border.color'), ";\n    color: ").concat(dt('button.outlined.danger.color'), ";\n}\n\n.p-button-outlined.p-button-danger:not(:disabled):active {\n    background: ").concat(dt('button.outlined.danger.active.background'), ";\n    border-color: ").concat(dt('button.outlined.danger.border.color'), ";\n    color: ").concat(dt('button.outlined.danger.color'), ";\n}\n\n.p-button-outlined.p-button-contrast {\n    border-color: ").concat(dt('button.outlined.contrast.border.color'), ";\n    color: ").concat(dt('button.outlined.contrast.color'), ";\n}\n\n.p-button-outlined.p-button-contrast:not(:disabled):hover {\n    background: ").concat(dt('button.outlined.contrast.hover.background'), ";\n    border-color: ").concat(dt('button.outlined.contrast.border.color'), ";\n    color: ").concat(dt('button.outlined.contrast.color'), ";\n}\n\n.p-button-outlined.p-button-contrast:not(:disabled):active {\n    background: ").concat(dt('button.outlined.contrast.active.background'), ";\n    border-color: ").concat(dt('button.outlined.contrast.border.color'), ";\n    color: ").concat(dt('button.outlined.contrast.color'), ";\n}\n\n.p-button-outlined.p-button-plain {\n    border-color: ").concat(dt('button.outlined.plain.border.color'), ";\n    color: ").concat(dt('button.outlined.plain.color'), ";\n}\n\n.p-button-outlined.p-button-plain:not(:disabled):hover {\n    background: ").concat(dt('button.outlined.plain.hover.background'), ";\n    border-color: ").concat(dt('button.outlined.plain.border.color'), ";\n    color: ").concat(dt('button.outlined.plain.color'), ";\n}\n\n.p-button-outlined.p-button-plain:not(:disabled):active {\n    background: ").concat(dt('button.outlined.plain.active.background'), ";\n    border-color: ").concat(dt('button.outlined.plain.border.color'), ";\n    color: ").concat(dt('button.outlined.plain.color'), ";\n}\n\n.p-button-text {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.text.primary.color'), ";\n}\n\n.p-button-text:not(:disabled):hover {\n    background: ").concat(dt('button.text.primary.hover.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.primary.color'), ";\n}\n\n.p-button-text:not(:disabled):active {\n    background: ").concat(dt('button.text.primary.active.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.primary.color'), ";\n}\n\n.p-button-text.p-button-secondary {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.text.secondary.color'), ";\n}\n\n.p-button-text.p-button-secondary:not(:disabled):hover {\n    background: ").concat(dt('button.text.secondary.hover.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.secondary.color'), ";\n}\n\n.p-button-text.p-button-secondary:not(:disabled):active {\n    background: ").concat(dt('button.text.secondary.active.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.secondary.color'), ";\n}\n\n.p-button-text.p-button-success {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.text.success.color'), ";\n}\n\n.p-button-text.p-button-success:not(:disabled):hover {\n    background: ").concat(dt('button.text.success.hover.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.success.color'), ";\n}\n\n.p-button-text.p-button-success:not(:disabled):active {\n    background: ").concat(dt('button.text.success.active.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.success.color'), ";\n}\n\n.p-button-text.p-button-info {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.text.info.color'), ";\n}\n\n.p-button-text.p-button-info:not(:disabled):hover {\n    background: ").concat(dt('button.text.info.hover.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.info.color'), ";\n}\n\n.p-button-text.p-button-info:not(:disabled):active {\n    background: ").concat(dt('button.text.info.active.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.info.color'), ";\n}\n\n.p-button-text.p-button-warn {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.text.warn.color'), ";\n}\n\n.p-button-text.p-button-warn:not(:disabled):hover {\n    background: ").concat(dt('button.text.warn.hover.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.warn.color'), ";\n}\n\n.p-button-text.p-button-warn:not(:disabled):active {\n    background: ").concat(dt('button.text.warn.active.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.warn.color'), ";\n}\n\n.p-button-text.p-button-help {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.text.help.color'), ";\n}\n\n.p-button-text.p-button-help:not(:disabled):hover {\n    background: ").concat(dt('button.text.help.hover.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.help.color'), ";\n}\n\n.p-button-text.p-button-help:not(:disabled):active {\n    background: ").concat(dt('button.text.help.active.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.help.color'), ";\n}\n\n.p-button-text.p-button-danger {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.text.danger.color'), ";\n}\n\n.p-button-text.p-button-danger:not(:disabled):hover {\n    background: ").concat(dt('button.text.danger.hover.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.danger.color'), ";\n}\n\n.p-button-text.p-button-danger:not(:disabled):active {\n    background: ").concat(dt('button.text.danger.active.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.danger.color'), ";\n}\n\n.p-button-text.p-button-plain {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.text.plain.color'), ";\n}\n\n.p-button-text.p-button-plain:not(:disabled):hover {\n    background: ").concat(dt('button.text.plain.hover.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.plain.color'), ";\n}\n\n.p-button-text.p-button-plain:not(:disabled):active {\n    background: ").concat(dt('button.text.plain.active.background'), ";\n    border-color: transparent;\n    color: ").concat(dt('button.text.plain.color'), ";\n}\n\n.p-button-link {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.link.color'), ";\n}\n\n.p-button-link:not(:disabled):hover {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.link.hover.color'), ";\n}\n\n.p-button-link:not(:disabled):hover .p-button-label {\n    text-decoration: underline;\n}\n\n.p-button-link:not(:disabled):active {\n    background: transparent;\n    border-color: transparent;\n    color: ").concat(dt('button.link.active.color'), ";\n}\n");
-};
-var classes$1 = {
-  root: function root(_ref2) {
-    var instance = _ref2.instance,
-      props = _ref2.props;
-    return ['p-button p-component', _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty({
-      'p-button-icon-only': instance.hasIcon && !props.label && !props.badge,
-      'p-button-vertical': (props.iconPos === 'top' || props.iconPos === 'bottom') && props.label,
-      'p-button-loading': props.loading,
-      'p-button-link': props.link
-    }, "p-button-".concat(props.severity), props.severity), 'p-button-raised', props.raised), 'p-button-rounded', props.rounded), 'p-button-text', props.text), 'p-button-outlined', props.outlined), 'p-button-sm', props.size === 'small'), 'p-button-lg', props.size === 'large'), 'p-button-plain', props.plain)];
-  },
-  loadingIcon: 'p-button-loading-icon',
-  icon: function icon(_ref4) {
-    var props = _ref4.props;
-    return ['p-button-icon', _defineProperty({}, "p-button-icon-".concat(props.iconPos), props.label)];
-  },
-  label: 'p-button-label'
-};
-var ButtonStyle = BaseStyle.extend({
-  name: 'button',
-  theme: theme$1,
-  classes: classes$1
-});
-
-var theme = function theme(_ref) {
-  var dt = _ref.dt;
-  return "\n.p-scrollpanel-content-container {\n    overflow: hidden;\n    width: 100%;\n    height: 100%;\n    position: relative;\n    z-index: 1;\n    float: left;\n}\n\n.p-scrollpanel-content {\n    height: calc(100% + calc(2 * ".concat(dt('scrollpanel.bar.size'), "));\n    width: calc(100% + calc(2 * ").concat(dt('scrollpanel.bar.size'), "));\n    padding: 0 calc(2 * ").concat(dt('scrollpanel.bar.size'), ") calc(2 * ").concat(dt('scrollpanel.bar.size'), ") 0;\n    position: relative;\n    overflow: auto;\n    box-sizing: border-box;\n    scrollbar-width: none;\n}\n\n.p-scrollpanel-content::-webkit-scrollbar {\n    display: none;\n}\n\n.p-scrollpanel-bar {\n    position: relative;\n    border-radius: ").concat(dt('scrollpanel.bar.border.radius'), ";\n    z-index: 2;\n    cursor: pointer;\n    opacity: 0;\n    outline-color: transparent;\n    transition: outline-color ").concat(dt('scrollpanel.transition.duration'), ";\n    background: ").concat(dt('scrollpanel.bar.background'), ";\n    border: 0 none;\n    transition: outline-color ").concat(dt('scrollpanel.transition.duration'), ", opacity ").concat(dt('scrollpanel.transition.duration'), ";\n}\n\n.p-scrollpanel-bar:focus-visible {\n    box-shadow: ").concat(dt('scrollpanel.bar.focus.ring.shadow'), ";\n    outline: ").concat(dt('scrollpanel.barfocus.ring.width'), " ").concat(dt('scrollpanel.bar.focus.ring.style'), " ").concat(dt('scrollpanel.bar.focus.ring.color'), ";\n    outline-offset: ").concat(dt('scrollpanel.barfocus.ring.offset'), ";\n}\n\n.p-scrollpanel-bar-y {\n    width: ").concat(dt('scrollpanel.bar.size'), ";\n    top: 0;\n}\n\n.p-scrollpanel-bar-x {\n    height: ").concat(dt('scrollpanel.bar.size'), ";\n    bottom: 0;\n}\n\n.p-scrollpanel-hidden {\n    visibility: hidden;\n}\n\n.p-scrollpanel:hover .p-scrollpanel-bar,\n.p-scrollpanel:active .p-scrollpanel-bar {\n    opacity: 1;\n}\n\n.p-scrollpanel-grabbed {\n    user-select: none;\n}\n");
-};
-var classes = {
-  root: 'p-scrollpanel p-component',
-  contentContainer: 'p-scrollpanel-content-container',
-  content: 'p-scrollpanel-content',
-  barX: 'p-scrollpanel-bar p-scrollpanel-bar-x',
-  barY: 'p-scrollpanel-bar p-scrollpanel-bar-y'
-};
-var ScrollPanelStyle = BaseStyle.extend({
-  name: 'scrollpanel',
-  theme: theme,
-  classes: classes
-});
-
 const runtimeConfig = useRuntimeConfig();
 const config = runtimeConfig?.public?.primevue ?? {};
 const { options = {} } = config;
@@ -6704,18 +6734,18 @@ const styleProps = {
 };
 const styles$2 = [
   ,
-  BaseStyle && BaseStyle.getStyleSheet ? BaseStyle.getStyleSheet(undefined, styleProps) : '',ListboxStyle && ListboxStyle.getStyleSheet ? ListboxStyle.getStyleSheet(undefined, styleProps) : '',ButtonStyle && ButtonStyle.getStyleSheet ? ButtonStyle.getStyleSheet(undefined, styleProps) : '',ScrollPanelStyle && ScrollPanelStyle.getStyleSheet ? ScrollPanelStyle.getStyleSheet(undefined, styleProps) : ''
+  BaseStyle && BaseStyle.getStyleSheet ? BaseStyle.getStyleSheet(undefined, styleProps) : ''
 ].join('');
 
 Theme.setTheme(options?.theme);
 
 const themes = [
     BaseStyle && BaseStyle.getCommonThemeStyleSheet ? BaseStyle.getCommonThemeStyleSheet(undefined, styleProps) : '',
-    BaseStyle && BaseStyle.getThemeStyleSheet ? BaseStyle.getThemeStyleSheet(undefined, styleProps) : '',ListboxStyle && ListboxStyle.getThemeStyleSheet ? ListboxStyle.getThemeStyleSheet(undefined, styleProps) : '',ButtonStyle && ButtonStyle.getThemeStyleSheet ? ButtonStyle.getThemeStyleSheet(undefined, styleProps) : '',ScrollPanelStyle && ScrollPanelStyle.getThemeStyleSheet ? ScrollPanelStyle.getThemeStyleSheet(undefined, styleProps) : ''
+    BaseStyle && BaseStyle.getThemeStyleSheet ? BaseStyle.getThemeStyleSheet(undefined, styleProps) : ''
 ].join('');
 
 const defineNitroPlugin = (def) => def;
-const _IGs1plgS8c = defineNitroPlugin(async (nitroApp) => {
+const _38icEupxmW = defineNitroPlugin(async (nitroApp) => {
   nitroApp.hooks.hook("render:html", (html) => {
     html.head.unshift(stylesToTop);
     html.head.push(styles$2);
@@ -6724,83 +6754,23 @@ const _IGs1plgS8c = defineNitroPlugin(async (nitroApp) => {
 });
 
 const plugins = [
-  _CnoBmG7Jyp,
-_IGs1plgS8c
+  _DoyVyGvLVO,
+_38icEupxmW
 ];
 
-const errorHandler = (async function errorhandler(error, event) {
-  const { stack, statusCode, statusMessage, message } = normalizeError(error);
-  const errorObject = {
-    url: event.path,
-    statusCode,
-    statusMessage,
-    message,
-    stack: statusCode !== 404 ? `<pre>${stack.map((i) => `<span class="stack${i.internal ? " internal" : ""}">${i.text}</span>`).join("\n")}</pre>` : "",
-    // TODO: check and validate error.data for serialisation into query
-    data: error.data
-  };
-  if (error.unhandled || error.fatal) {
-    const tags = [
-      "[nuxt]",
-      "[request error]",
-      error.unhandled && "[unhandled]",
-      error.fatal && "[fatal]",
-      Number(errorObject.statusCode) !== 200 && `[${errorObject.statusCode}]`
-    ].filter(Boolean).join(" ");
-    console.error(tags, errorObject.message + "\n" + stack.map((l) => "  " + l.text).join("  \n"));
-  }
-  if (event.handled) {
-    return;
-  }
-  setResponseStatus(event, errorObject.statusCode !== 200 && errorObject.statusCode || 500, errorObject.statusMessage);
-  if (isJsonRequest(event)) {
-    setResponseHeader(event, "Content-Type", "application/json");
-    return send(event, JSON.stringify(errorObject));
-  }
-  const reqHeaders = getRequestHeaders(event);
-  const isRenderingError = event.path.startsWith("/__nuxt_error") || !!reqHeaders["x-nuxt-error"];
-  const res = isRenderingError ? null : await useNitroApp().localFetch(
-    withQuery(joinURL(useRuntimeConfig(event).app.baseURL, "/__nuxt_error"), errorObject),
-    {
-      headers: { ...reqHeaders, "x-nuxt-error": "true" },
-      redirect: "manual"
-    }
-  ).catch(() => null);
-  if (!res) {
-    const { template } = await Promise.resolve().then(function () { return errorDev; }) ;
-    {
-      errorObject.description = errorObject.message;
-    }
-    if (event.handled) {
-      return;
-    }
-    setResponseHeader(event, "Content-Type", "text/html;charset=UTF-8");
-    return send(event, template(errorObject));
-  }
-  const html = await res.text();
-  if (event.handled) {
-    return;
-  }
-  for (const [header, value] of res.headers.entries()) {
-    setResponseHeader(event, header, value);
-  }
-  setResponseStatus(event, res.status && res.status !== 200 ? res.status : void 0, res.statusText);
-  return send(event, html);
-});
-
-const _lazy_QOXP9a = () => Promise.resolve().then(function () { return renderer$1; });
+const _lazy_9n2BaD = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
-  { route: '/__nuxt_error', handler: _lazy_QOXP9a, lazy: true, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_QOXP9a, lazy: true, middleware: false, method: undefined }
+  { route: '/__nuxt_error', handler: _lazy_9n2BaD, lazy: true, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_9n2BaD, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
   const config = useRuntimeConfig();
   const hooks = createHooks();
   const captureError = (error, context = {}) => {
-    const promise = hooks.callHookParallel("error", error, context).catch((_err) => {
-      console.error("Error while capturing another error", _err);
+    const promise = hooks.callHookParallel("error", error, context).catch((error_) => {
+      console.error("Error while capturing another error", error_);
     });
     if (context.event && isEvent(context.event)) {
       const errors = context.event.context.nitro?.errors;
@@ -6819,17 +6789,17 @@ function createNitroApp() {
       return errorHandler(error, event);
     },
     onRequest: async (event) => {
-      await nitroApp.hooks.callHook("request", event).catch((error) => {
+      await nitroApp$1.hooks.callHook("request", event).catch((error) => {
         captureError(error, { event, tags: ["request"] });
       });
     },
     onBeforeResponse: async (event, response) => {
-      await nitroApp.hooks.callHook("beforeResponse", event, response).catch((error) => {
+      await nitroApp$1.hooks.callHook("beforeResponse", event, response).catch((error) => {
         captureError(error, { event, tags: ["request", "response"] });
       });
     },
     onAfterResponse: async (event, response) => {
-      await nitroApp.hooks.callHook("afterResponse", event, response).catch((error) => {
+      await nitroApp$1.hooks.callHook("afterResponse", event, response).catch((error) => {
         captureError(error, { event, tags: ["request", "response"] });
       });
     }
@@ -6904,19 +6874,25 @@ function createNitroApp() {
     localFetch,
     captureError
   };
-  for (const plugin of plugins) {
-    try {
-      plugin(app);
-    } catch (err) {
-      captureError(err, { tags: ["plugin"] });
-      throw err;
-    }
-  }
   return app;
 }
-const nitroApp = createNitroApp();
-const useNitroApp = () => nitroApp;
+function runNitroPlugins(nitroApp2) {
+  for (const plugin of plugins) {
+    try {
+      plugin(nitroApp2);
+    } catch (error) {
+      nitroApp2.captureError(error, { tags: ["plugin"] });
+      throw error;
+    }
+  }
+}
+const nitroApp$1 = createNitroApp();
+function useNitroApp() {
+  return nitroApp$1;
+}
+runNitroPlugins(nitroApp$1);
 
+const nitroApp = useNitroApp();
 const server = new Server(toNodeListener(nitroApp.h3App));
 function getAddress() {
   if (d === "stackblitz" || process.env.NITRO_NO_UNIX_SOCKET || process.versions.bun) {
@@ -6924,19 +6900,18 @@ function getAddress() {
   }
   const socketName = `worker-${process.pid}-${threadId}.sock`;
   if (a) {
-    return join("\\\\.\\pipe\\nitro", socketName);
-  } else {
-    const socketDir = join(tmpdir(), "nitro");
-    mkdirSync(socketDir, { recursive: true });
-    return join(socketDir, socketName);
+    return join(String.raw`\\.\pipe\nitro`, socketName);
   }
+  const socketDir = join(tmpdir(), "nitro");
+  mkdirSync(socketDir, { recursive: true });
+  return join(socketDir, socketName);
 }
 const listenAddress = getAddress();
 server.listen(listenAddress, () => {
   const _address = server.address();
-  parentPort.postMessage({
+  parentPort?.postMessage({
     event: "listen",
-    address: typeof _address === "string" ? { socketPath: _address } : { host: "localhost", port: _address.port }
+    address: typeof _address === "string" ? { socketPath: _address } : { host: "localhost", port: _address?.port }
   });
 });
 nitroApp.router.get(
@@ -6969,17 +6944,17 @@ trapUnhandledNodeErrors();
 async function onShutdown(signal) {
   await nitroApp.hooks.callHook("close");
 }
-parentPort.on("message", async (msg) => {
+parentPort?.on("message", async (msg) => {
   if (msg && msg.event === "shutdown") {
     await onShutdown();
-    parentPort.postMessage({ event: "exit" });
+    parentPort?.postMessage({ event: "exit" });
   }
 });
 
 const _messages = { "appName": "Nuxt", "version": "", "statusCode": 500, "statusMessage": "Server error", "description": "An error occurred in the application and the page could not be served. If you are the application owner, check your server logs for details.", "stack": "" };
 const template$1 = (messages) => {
   messages = { ..._messages, ...messages };
-  return "<!DOCTYPE html><html data-critters-container><head><title>" + messages.statusCode + " - " + messages.statusMessage + " | " + messages.appName + `</title><meta charset="utf-8"><meta content="width=device-width,initial-scale=1,minimum-scale=1" name="viewport"><style>.spotlight{background:linear-gradient(45deg, #00DC82 0%, #36E4DA 50%, #0047E1 100%);opacity:0.8;filter:blur(30vh);height:60vh;bottom:-40vh}*,:before,:after{box-sizing:border-box;border-width:0;border-style:solid;border-color:var(--un-default-border-color, #e5e7eb)}:before,:after{--un-content:""}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}h1{font-size:inherit;font-weight:inherit}pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}h1,p,pre{margin:0}*,:before,:after{--un-rotate:0;--un-rotate-x:0;--un-rotate-y:0;--un-rotate-z:0;--un-scale-x:1;--un-scale-y:1;--un-scale-z:1;--un-skew-x:0;--un-skew-y:0;--un-translate-x:0;--un-translate-y:0;--un-translate-z:0;--un-pan-x: ;--un-pan-y: ;--un-pinch-zoom: ;--un-scroll-snap-strictness:proximity;--un-ordinal: ;--un-slashed-zero: ;--un-numeric-figure: ;--un-numeric-spacing: ;--un-numeric-fraction: ;--un-border-spacing-x:0;--un-border-spacing-y:0;--un-ring-offset-shadow:0 0 rgb(0 0 0 / 0);--un-ring-shadow:0 0 rgb(0 0 0 / 0);--un-shadow-inset: ;--un-shadow:0 0 rgb(0 0 0 / 0);--un-ring-inset: ;--un-ring-offset-width:0px;--un-ring-offset-color:#fff;--un-ring-width:0px;--un-ring-color:rgb(147 197 253 / .5);--un-blur: ;--un-brightness: ;--un-contrast: ;--un-drop-shadow: ;--un-grayscale: ;--un-hue-rotate: ;--un-invert: ;--un-saturate: ;--un-sepia: ;--un-backdrop-blur: ;--un-backdrop-brightness: ;--un-backdrop-contrast: ;--un-backdrop-grayscale: ;--un-backdrop-hue-rotate: ;--un-backdrop-invert: ;--un-backdrop-opacity: ;--un-backdrop-saturate: ;--un-backdrop-sepia: }.fixed{position:fixed}.left-0{left:0}.right-0{right:0}.z-10{z-index:10}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.h-auto{height:auto}.min-h-screen{min-height:100vh}.flex{display:flex}.flex-1{flex:1 1 0%}.flex-col{flex-direction:column}.overflow-y-auto{overflow-y:auto}.rounded-t-md{border-top-left-radius:.375rem;border-top-right-radius:.375rem}.bg-black\\/5{background-color:#0000000d}.bg-white{--un-bg-opacity:1;background-color:rgb(255 255 255 / var(--un-bg-opacity))}.p-8{padding:2rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.pt-14{padding-top:3.5rem}.text-6xl{font-size:3.75rem;line-height:1}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-black{--un-text-opacity:1;color:rgb(0 0 0 / var(--un-text-opacity))}.font-light{font-weight:300}.font-medium{font-weight:500}.leading-tight{line-height:1.25}.font-sans{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}@media (prefers-color-scheme: dark){.dark\\:bg-black{--un-bg-opacity:1;background-color:rgb(0 0 0 / var(--un-bg-opacity))}.dark\\:bg-white\\/10{background-color:#ffffff1a}.dark\\:text-white{--un-text-opacity:1;color:rgb(255 255 255 / var(--un-text-opacity))}}@media (min-width: 640px){.sm\\:text-2xl{font-size:1.5rem;line-height:2rem}.sm\\:text-8xl{font-size:6rem;line-height:1}}</style><script>(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))i(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const o of r.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&i(o)}).observe(document,{childList:!0,subtree:!0});function s(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?r.credentials="include":e.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function i(e){if(e.ep)return;e.ep=!0;const r=s(e);fetch(e.href,r)}})();<\/script></head><body class="font-sans antialiased bg-white px-10 pt-14 dark:bg-black text-black dark:text-white min-h-screen flex flex-col"><div class="fixed left-0 right-0 spotlight"></div><h1 class="text-6xl sm:text-8xl font-medium mb-6">` + messages.statusCode + '</h1><p class="text-xl sm:text-2xl font-light mb-8 leading-tight">' + messages.description + '</p><div class="bg-white rounded-t-md bg-black/5 dark:bg-white/10 flex-1 overflow-y-auto h-auto"><pre class="text-xl font-light leading-tight z-10 p-8">' + messages.stack + "</pre></div></body></html>";
+  return '<!DOCTYPE html><html lang="en"><head><title>' + messages.statusCode + " - " + messages.statusMessage + " | " + messages.appName + `</title><meta charset="utf-8"><meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0" name="viewport"><style>.spotlight{background:linear-gradient(45deg,#00dc82,#36e4da 50%,#0047e1);bottom:-40vh;filter:blur(30vh);height:60vh;opacity:.8}*,:after,:before{border-color:var(--un-default-border-color,#e5e7eb);border-style:solid;border-width:0;box-sizing:border-box}:after,:before{--un-content:""}html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-moz-tab-size:4;tab-size:4;-webkit-tap-highlight-color:transparent}body{line-height:inherit;margin:0}h1{font-size:inherit;font-weight:inherit}pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-size:1em;font-variation-settings:normal}h1,p,pre{margin:0}*,:after,:before{--un-rotate:0;--un-rotate-x:0;--un-rotate-y:0;--un-rotate-z:0;--un-scale-x:1;--un-scale-y:1;--un-scale-z:1;--un-skew-x:0;--un-skew-y:0;--un-translate-x:0;--un-translate-y:0;--un-translate-z:0;--un-pan-x: ;--un-pan-y: ;--un-pinch-zoom: ;--un-scroll-snap-strictness:proximity;--un-ordinal: ;--un-slashed-zero: ;--un-numeric-figure: ;--un-numeric-spacing: ;--un-numeric-fraction: ;--un-border-spacing-x:0;--un-border-spacing-y:0;--un-ring-offset-shadow:0 0 transparent;--un-ring-shadow:0 0 transparent;--un-shadow-inset: ;--un-shadow:0 0 transparent;--un-ring-inset: ;--un-ring-offset-width:0px;--un-ring-offset-color:#fff;--un-ring-width:0px;--un-ring-color:rgba(147,197,253,.5);--un-blur: ;--un-brightness: ;--un-contrast: ;--un-drop-shadow: ;--un-grayscale: ;--un-hue-rotate: ;--un-invert: ;--un-saturate: ;--un-sepia: ;--un-backdrop-blur: ;--un-backdrop-brightness: ;--un-backdrop-contrast: ;--un-backdrop-grayscale: ;--un-backdrop-hue-rotate: ;--un-backdrop-invert: ;--un-backdrop-opacity: ;--un-backdrop-saturate: ;--un-backdrop-sepia: }.fixed{position:fixed}.left-0{left:0}.right-0{right:0}.z-10{z-index:10}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.h-auto{height:auto}.min-h-screen{min-height:100vh}.flex{display:flex}.flex-1{flex:1 1 0%}.flex-col{flex-direction:column}.overflow-y-auto{overflow-y:auto}.rounded-t-md{border-top-left-radius:.375rem;border-top-right-radius:.375rem}.bg-black\\/5{background-color:#0000000d}.bg-white{--un-bg-opacity:1;background-color:rgb(255 255 255/var(--un-bg-opacity))}.p-8{padding:2rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.pt-14{padding-top:3.5rem}.text-6xl{font-size:3.75rem;line-height:1}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-black{--un-text-opacity:1;color:rgb(0 0 0/var(--un-text-opacity))}.font-light{font-weight:300}.font-medium{font-weight:500}.leading-tight{line-height:1.25}.font-sans{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}@media (prefers-color-scheme:dark){.dark\\:bg-black{--un-bg-opacity:1;background-color:rgb(0 0 0/var(--un-bg-opacity))}.dark\\:bg-white\\/10{background-color:#ffffff1a}.dark\\:text-white{--un-text-opacity:1;color:rgb(255 255 255/var(--un-text-opacity))}}@media (min-width:640px){.sm\\:text-2xl{font-size:1.5rem;line-height:2rem}.sm\\:text-8xl{font-size:6rem;line-height:1}}</style><script>!function(){const e=document.createElement("link").relList;if(!(e&&e.supports&&e.supports("modulepreload"))){for(const e of document.querySelectorAll('link[rel="modulepreload"]'))r(e);new MutationObserver((e=>{for(const o of e)if("childList"===o.type)for(const e of o.addedNodes)"LINK"===e.tagName&&"modulepreload"===e.rel&&r(e)})).observe(document,{childList:!0,subtree:!0})}function r(e){if(e.ep)return;e.ep=!0;const r=function(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),"use-credentials"===e.crossOrigin?r.credentials="include":"anonymous"===e.crossOrigin?r.credentials="omit":r.credentials="same-origin",r}(e);fetch(e.href,r)}}();<\/script></head><body class="antialiased bg-white dark:bg-black dark:text-white flex flex-col font-sans min-h-screen pt-14 px-10 text-black"><div class="fixed left-0 right-0 spotlight"></div><h1 class="font-medium mb-6 sm:text-8xl text-6xl">` + messages.statusCode + '</h1><p class="font-light leading-tight mb-8 sm:text-2xl text-xl">' + messages.description + '</p><div class="bg-black/5 bg-white dark:bg-white/10 flex-1 h-auto overflow-y-auto rounded-t-md"><pre class="font-light leading-tight p-8 text-xl z-10">' + messages.stack + "</pre></div></body></html>";
 };
 
 const errorDev = /*#__PURE__*/Object.freeze({
@@ -6987,34 +6962,39 @@ const errorDev = /*#__PURE__*/Object.freeze({
   template: template$1
 });
 
-const Vue3 = version.startsWith("3");
+const Vue3 = version[0] === "3";
 
 function resolveUnref(r) {
   return typeof r === "function" ? r() : unref(r);
 }
-function resolveUnrefHeadInput(ref, lastKey = "") {
-  if (ref instanceof Promise)
+function resolveUnrefHeadInput(ref) {
+  if (ref instanceof Promise || ref instanceof Date || ref instanceof RegExp)
     return ref;
   const root = resolveUnref(ref);
   if (!ref || !root)
     return root;
   if (Array.isArray(root))
-    return root.map((r) => resolveUnrefHeadInput(r, lastKey));
+    return root.map((r) => resolveUnrefHeadInput(r));
   if (typeof root === "object") {
-    return Object.fromEntries(
-      Object.entries(root).map(([k, v]) => {
-        if (k === "titleTemplate" || k.startsWith("on"))
-          return [k, unref(v)];
-        return [k, resolveUnrefHeadInput(v, k)];
-      })
-    );
+    const resolved = {};
+    for (const k in root) {
+      if (!Object.prototype.hasOwnProperty.call(root, k)) {
+        continue;
+      }
+      if (k === "titleTemplate" || k[0] === "o" && k[1] === "n") {
+        resolved[k] = unref(root[k]);
+        continue;
+      }
+      resolved[k] = resolveUnrefHeadInput(root[k]);
+    }
+    return resolved;
   }
   return root;
 }
 
 const VueReactivityPlugin = defineHeadPlugin({
   hooks: {
-    "entries:resolve": function(ctx) {
+    "entries:resolve": (ctx) => {
       for (const entry of ctx.entries)
         entry.resolvedInput = resolveUnrefHeadInput(entry.input);
     }
@@ -7043,22 +7023,12 @@ function createServerHead(options = {}) {
 
 const unheadPlugins = true ? [CapoPlugin({ track: true })] : [];
 
-const renderSSRHeadOptions = {};
-
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
-
-const appRootTag = "div";
-
-const appRootAttrs = {"id":"__nuxt"};
-
-const appTeleportTag = "div";
-
-const appTeleportAttrs = {"id":"teleports"};
+const renderSSRHeadOptions = {"omitLineBreaks":false};
 
 globalThis.__buildAssetsURL = buildAssetsURL;
 globalThis.__publicAssetsURL = publicAssetsURL;
-const getClientManifest = () => import('file:///home/dylan/Work/oxide-app/client/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
-const getServerEntry = () => import('file:///home/dylan/Work/oxide-app/client/.nuxt/dist/server/server.mjs').then((r) => r.default || r);
+const getClientManifest = () => import('file:///home/dylan/Projects/oxide-app/client/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
+const getServerEntry = () => import('file:///home/dylan/Projects/oxide-app/client/.nuxt/dist/server/server.mjs').then((r) => r.default || r);
 const getSSRStyles = lazyCachedFunction(() => Promise.resolve().then(function () { return styles$1; }).then((r) => r.default || r));
 const getSSRRenderer = lazyCachedFunction(async () => {
   const manifest = await getClientManifest();
@@ -7098,13 +7068,7 @@ const getSPARenderer = lazyCachedFunction(async () => {
   const renderToString = (ssrContext) => {
     const config = useRuntimeConfig(ssrContext.event);
     ssrContext.modules = ssrContext.modules || /* @__PURE__ */ new Set();
-    ssrContext.payload = {
-      _errors: {},
-      serverRendered: false,
-      data: {},
-      state: {},
-      once: /* @__PURE__ */ new Set()
-    };
+    ssrContext.payload.serverRendered = false;
     ssrContext.config = {
       public: config.public,
       app: config.app
@@ -7180,14 +7144,8 @@ const renderer = defineRenderHandler(async (event) => {
     nuxt: void 0,
     /* NuxtApp */
     payload: ssrError ? { error: ssrError } : {},
-    _payloadReducers: {},
+    _payloadReducers: /* @__PURE__ */ Object.create(null),
     modules: /* @__PURE__ */ new Set(),
-    set _registeredComponents(value) {
-      this.modules = value;
-    },
-    get _registeredComponents() {
-      return this.modules;
-    },
     islandContext
   };
   const renderer = ssrContext.noSSR ? await getSPARenderer() : await getSSRRenderer();
@@ -7213,19 +7171,22 @@ const renderer = defineRenderHandler(async (event) => {
   const inlinedStyles = isRenderingIsland ? await renderInlineStyles(ssrContext.modules ?? []) : [];
   const NO_SCRIPTS = routeOptions.experimentalNoScripts;
   const { styles, scripts } = getRequestDependencies(ssrContext, renderer.rendererContext);
-  head.push({ style: inlinedStyles });
+  if (inlinedStyles.length) {
+    head.push({ style: inlinedStyles });
+  }
   if (!isRenderingIsland || true) {
     const link = [];
-    for (const style in styles) {
-      const resource = styles[style];
+    for (const resource of Object.values(styles)) {
       if ("inline" in getQuery(resource.file)) {
         continue;
       }
       if (!isRenderingIsland || resource.file.includes("scoped") && !resource.file.includes("pages/")) {
-        link.push({ rel: "stylesheet", href: renderer.rendererContext.buildAssetsURL(resource.file) });
+        link.push({ rel: "stylesheet", href: renderer.rendererContext.buildAssetsURL(resource.file), crossorigin: "" });
       }
     }
-    head.push({ link }, headEntryOptions);
+    if (link.length) {
+      head.push({ link }, headEntryOptions);
+    }
   }
   if (!NO_SCRIPTS && !isRenderingIsland) {
     head.push({
@@ -7235,7 +7196,7 @@ const renderer = defineRenderHandler(async (event) => {
       link: getPrefetchLinks(ssrContext, renderer.rendererContext)
     }, headEntryOptions);
     head.push({
-      script: renderPayloadJsonScript({ id: "__NUXT_DATA__", ssrContext, data: ssrContext.payload }) 
+      script: renderPayloadJsonScript({ ssrContext, data: ssrContext.payload }) 
     }, {
       ...headEntryOptions,
       // this should come before another end of body scripts
@@ -7271,17 +7232,18 @@ const renderer = defineRenderHandler(async (event) => {
   };
   await nitroApp.hooks.callHook("render:html", htmlContext, { event });
   if (isRenderingIsland && islandContext) {
-    const islandHead = {
-      link: [],
-      style: []
-    };
-    for (const tag of await head.resolveTags()) {
-      if (tag.tag === "link") {
-        islandHead.link.push({ key: "island-link-" + hash(tag.props), ...tag.props });
-      } else if (tag.tag === "style" && tag.innerHTML) {
-        islandHead.style.push({ key: "island-style-" + hash(tag.innerHTML), innerHTML: tag.innerHTML });
+    const islandHead = {};
+    for (const entry of head.headEntries()) {
+      for (const [key, value] of Object.entries(resolveUnrefHeadInput(entry.input))) {
+        const currentValue = islandHead[key];
+        if (Array.isArray(currentValue)) {
+          currentValue.push(...value);
+        }
+        islandHead[key] = value;
       }
     }
+    islandHead.link = islandHead.link || [];
+    islandHead.style = islandHead.style || [];
     const islandResponse = {
       id: islandContext.id,
       head: islandHead,
@@ -7343,7 +7305,7 @@ async function renderInlineStyles(usedModules) {
   const styleMap = await getSSRStyles();
   const inlinedStyles = /* @__PURE__ */ new Set();
   for (const mod of usedModules) {
-    if (mod in styleMap) {
+    if (mod in styleMap && styleMap[mod]) {
       for (const style of await styleMap[mod]()) {
         inlinedStyles.add(style);
       }
@@ -7366,17 +7328,21 @@ function renderPayloadJsonScript(opts) {
   const contents = opts.data ? stringify(opts.data, opts.ssrContext._payloadReducers) : "";
   const payload = {
     "type": "application/json",
-    "id": opts.id,
     "innerHTML": contents,
+    "data-nuxt-data": appId,
     "data-ssr": !(opts.ssrContext.noSSR)
   };
+  {
+    payload.id = "__NUXT_DATA__";
+  }
   if (opts.src) {
     payload["data-src"] = opts.src;
   }
+  const config = uneval(opts.ssrContext.config);
   return [
     payload,
     {
-      innerHTML: `window.__NUXT__={};window.__NUXT__.config=${uneval(opts.ssrContext.config)}`
+      innerHTML: `window.__NUXT__={};window.__NUXT__.config=${config}`
     }
   ];
 }
@@ -7389,7 +7355,7 @@ function splitPayload(ssrContext) {
 }
 function getServerComponentHTML(body) {
   const match = body[0].match(ROOT_NODE_REGEX);
-  return match ? match[1] : body[0];
+  return match?.[1] || body[0];
 }
 const SSR_SLOT_TELEPORT_MARKER = /^uid=([^;]*);slot=(.*)$/;
 const SSR_CLIENT_TELEPORT_MARKER = /^uid=([^;]*);client=(.*)$/;
@@ -7399,10 +7365,10 @@ function getSlotIslandResponse(ssrContext) {
     return void 0;
   }
   const response = {};
-  for (const slot in ssrContext.islandContext.slots) {
-    response[slot] = {
-      ...ssrContext.islandContext.slots[slot],
-      fallback: ssrContext.teleports?.[`island-fallback=${slot}`]
+  for (const [name, slot] of Object.entries(ssrContext.islandContext.slots)) {
+    response[name] = {
+      ...slot,
+      fallback: ssrContext.teleports?.[`island-fallback=${name}`]
     };
   }
   return response;
@@ -7412,10 +7378,10 @@ function getClientIslandResponse(ssrContext) {
     return void 0;
   }
   const response = {};
-  for (const clientUid in ssrContext.islandContext.components) {
-    const html = ssrContext.teleports?.[clientUid] || "";
+  for (const [clientUid, component] of Object.entries(ssrContext.islandContext.components)) {
+    const html = ssrContext.teleports?.[clientUid]?.replaceAll("<!--teleport start anchor-->", "") || "";
     response[clientUid] = {
-      ...ssrContext.islandContext.components[clientUid],
+      ...component,
       html,
       slots: getComponentSlotTeleport(ssrContext.teleports ?? {})
     };
@@ -7449,7 +7415,7 @@ function replaceIslandTeleports(ssrContext, html) {
       if (!uid || !clientId) {
         continue;
       }
-      html = html.replace(new RegExp(` data-island-component="${clientId}"[^>]*>`), (full) => {
+      html = html.replace(new RegExp(` data-island-uid="${uid}" data-island-component="${clientId}"[^>]*>`), (full) => {
         return full + teleports[key];
       });
       continue;

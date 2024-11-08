@@ -1,9 +1,9 @@
 {
-  "_hash": "2gSlDWvkzV",
+  "_hash": "eiLQv2iegh",
   "project": {
-    "rootDir": "/home/dylan/Work/oxide-app/client"
+    "rootDir": "/home/dylan/Projects/oxide-app/client"
   },
   "versions": {
-    "nuxt": "3.12.1"
+    "nuxt": "3.14.0"
   }
 }

@@ -1,5 +1,5 @@
 import { Chart, registerables } from "chart.js";
-import { chartInstance } from "../state"; // Ensure chartInstance is imported
+import { chartInstance } from "../pages/state"; // Ensure chartInstance is imported
 Chart.register(...registerables);
 
 const opcodeHistogram = (histogramData) => {
@@ -21,7 +21,7 @@ const opcodeHistogram = (histogramData) => {
                     backgroundColor: "rgba(75, 192, 192, 0.2)",
                     borderColor: "rgba(75, 192, 192, 1)",
                     borderWidth: 1,
-                    
+
                 },
             ],
         },
@@ -31,7 +31,7 @@ const opcodeHistogram = (histogramData) => {
                     type: 'logarithmic',
                     beginAtZero: true,
                     ticks: {
-                        callback: function(value, index, values) {
+                        callback: function (value, index, values) {
                             if (value === 1 || value === 10 || value === 100 || value === 1000 || value === 10000) {
                                 return value;
                             }
