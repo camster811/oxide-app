@@ -2,7 +2,8 @@
 import type { DefineComponent, SlotsType } from 'vue'
 type IslandComponent<T extends DefineComponent> = T & DefineComponent<{}, {refresh: () => Promise<void>}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, SlotsType<{ fallback: { error: unknown } }>>
 interface _GlobalComponents {
-      'ChartPopup': typeof import("../components/chart_popup.vue")['default']
+      'EntropyChart': typeof import("../components/EntropyChart.vue")['default']
+    'ChartPopup': typeof import("../components/chart_popup.vue")['default']
     'DiffBox': typeof import("../components/diff_box.vue")['default']
     'DiffHeader': typeof import("../components/diff_header.vue")['default']
     'FunctionBox': typeof import("../components/function_box.vue")['default']
@@ -29,7 +30,8 @@ interface _GlobalComponents {
     'Body': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
     'NuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtRouteAnnouncer': IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
-      'LazyChartPopup': typeof import("../components/chart_popup.vue")['default']
+      'LazyEntropyChart': typeof import("../components/EntropyChart.vue")['default']
+    'LazyChartPopup': typeof import("../components/chart_popup.vue")['default']
     'LazyDiffBox': typeof import("../components/diff_box.vue")['default']
     'LazyDiffHeader': typeof import("../components/diff_header.vue")['default']
     'LazyFunctionBox': typeof import("../components/function_box.vue")['default']
@@ -62,6 +64,7 @@ declare module 'vue' {
   export interface GlobalComponents extends _GlobalComponents { }
 }
 
+export const EntropyChart: typeof import("../components/EntropyChart.vue")['default']
 export const ChartPopup: typeof import("../components/chart_popup.vue")['default']
 export const DiffBox: typeof import("../components/diff_box.vue")['default']
 export const DiffHeader: typeof import("../components/diff_header.vue")['default']
@@ -89,6 +92,7 @@ export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
+export const LazyEntropyChart: typeof import("../components/EntropyChart.vue")['default']
 export const LazyChartPopup: typeof import("../components/chart_popup.vue")['default']
 export const LazyDiffBox: typeof import("../components/diff_box.vue")['default']
 export const LazyDiffHeader: typeof import("../components/diff_header.vue")['default']
