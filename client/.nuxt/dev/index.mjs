@@ -1,34 +1,34 @@
-import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { getRequestHeader, splitCookiesString, setResponseStatus, setResponseHeader, send, getRequestHeaders, defineEventHandler, handleCacheHeaders, createEvent, fetchWithEvent, isEvent, eventHandler, getResponseStatus, setResponseHeaders, setHeaders, sendRedirect, proxyRequest, createError, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getQuery as getQuery$1, readBody, getResponseStatusText } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/h3/dist/index.mjs';
+import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { getRequestHeader, splitCookiesString, setResponseStatus, setResponseHeader, send, getRequestHeaders, defineEventHandler, handleCacheHeaders, createEvent, fetchWithEvent, isEvent, eventHandler, getResponseStatus, setResponseHeaders, setHeaders, sendRedirect, proxyRequest, createError, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getQuery as getQuery$1, readBody, getResponseStatusText } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/h3/dist/index.mjs';
 import { Server } from 'node:http';
 import { mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parentPort, threadId } from 'node:worker_threads';
-import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import { stringify, uneval } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/devalue/index.js';
-import destr from 'file:///home/dylan/Projects/oxide-app/client/node_modules/destr/dist/index.mjs';
-import { withQuery, joinURL, withTrailingSlash, parseURL, withoutBase, getQuery, joinRelativeURL } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/ufo/dist/index.mjs';
-import { renderToString } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/vue/server-renderer/index.mjs';
-import { propsToString, renderSSRHead } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/@unhead/ssr/dist/index.mjs';
-import { createHooks } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/hookable/dist/index.mjs';
-import { createFetch as createFetch$1, Headers as Headers$1 } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/ofetch/dist/node.mjs';
-import { createCall, createFetch } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unenv/runtime/fetch/index.mjs';
-import { klona } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/klona/dist/index.mjs';
-import defu, { defuFn } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/defu/dist/defu.mjs';
-import { snakeCase } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/scule/dist/index.mjs';
-import { createStorage, prefixStorage } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unstorage/dist/index.mjs';
-import fsDriver from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unstorage/drivers/fs.mjs';
-import { toRouteMatcher, createRouter } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/radix3/dist/index.mjs';
-import { getContext } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unctx/dist/index.mjs';
+import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import { stringify, uneval } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/devalue/index.js';
+import destr from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/destr/dist/index.mjs';
+import { withQuery, joinURL, withTrailingSlash, parseURL, withoutBase, getQuery, joinRelativeURL } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/ufo/dist/index.mjs';
+import { renderToString } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/vue/server-renderer/index.mjs';
+import { propsToString, renderSSRHead } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/@unhead/ssr/dist/index.mjs';
+import { createHooks } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/hookable/dist/index.mjs';
+import { createFetch as createFetch$1, Headers as Headers$1 } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/ofetch/dist/node.mjs';
+import { createCall, createFetch } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/unenv/runtime/fetch/index.mjs';
+import { klona } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/klona/dist/index.mjs';
+import defu, { defuFn } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/defu/dist/defu.mjs';
+import { snakeCase } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/scule/dist/index.mjs';
+import { createStorage, prefixStorage } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/unstorage/dist/index.mjs';
+import unstorage_47drivers_47fs from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/unstorage/drivers/fs.mjs';
+import { toRouteMatcher, createRouter } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/radix3/dist/index.mjs';
+import { getContext } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/unctx/dist/index.mjs';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { consola } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/consola/dist/index.mjs';
-import { captureRawStackTrace, parseRawStackTrace } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/errx/dist/index.js';
-import { isVNode, version, unref } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/vue/index.mjs';
-import BaseStyle from 'file:///home/dylan/Projects/oxide-app/client/node_modules/@primevue/core/base/style/index.mjs';
-import { Theme } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/@primeuix/styled/index.mjs';
-import { hash } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/ohash/dist/index.mjs';
-import { createServerHead as createServerHead$1, CapoPlugin } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/unhead/dist/index.mjs';
-import { defineHeadPlugin } from 'file:///home/dylan/Projects/oxide-app/client/node_modules/@unhead/shared/dist/index.mjs';
+import { consola } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/consola/dist/index.mjs';
+import { captureRawStackTrace, parseRawStackTrace } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/errx/dist/index.js';
+import { isVNode, version, unref } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/vue/index.mjs';
+import BaseStyle from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/@primevue/core/base/style/index.mjs';
+import { Theme } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/@primeuix/styled/index.mjs';
+import { hash } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/ohash/dist/index.mjs';
+import { createServerHead as createServerHead$1, CapoPlugin } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/unhead/dist/index.mjs';
+import { defineHeadPlugin } from 'file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/@unhead/shared/dist/index.mjs';
 
 function hasReqHeader(event, name, includes) {
   const value = getRequestHeader(event, name);
@@ -163,7 +163,7 @@ const errorHandler = (async function errorhandler(error, event) {
   return send(event, html);
 });
 
-const rootDir = "/home/dylan/Projects/oxide-app/client";
+const rootDir = "/home/camster/Desktop/Repos/oxide-app/client";
 
 const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
 
@@ -182,7 +182,7 @@ const devReducers = {
   URL: (data) => data instanceof URL ? data.toString() : void 0
 };
 const asyncContext = getContext("nuxt-dev", { asyncContext: true, AsyncLocalStorage });
-const _DoyVyGvLVO = (nitroApp) => {
+const _TvmITHjA87 = (nitroApp) => {
   const handler = nitroApp.h3App.handler;
   nitroApp.h3App.handler = (event) => {
     return asyncContext.callAsync({ logs: [], event }, () => handler(event));
@@ -329,6 +329,7 @@ const _inlineRuntimeConfig = {
       "resolvePath": "",
       "importPT": "",
       "importTheme": "",
+      "loadStyles": true,
       "options": {
         "theme": {
           "preset": {
@@ -656,6 +657,16 @@ const _inlineRuntimeConfig = {
               "formField": {
                 "paddingX": "0.75rem",
                 "paddingY": "0.5rem",
+                "sm": {
+                  "fontSize": "0.875rem",
+                  "paddingX": "0.625rem",
+                  "paddingY": "0.375rem"
+                },
+                "lg": {
+                  "fontSize": "1.125rem",
+                  "paddingX": "0.875rem",
+                  "paddingY": "0.625rem"
+                },
                 "borderRadius": "{border.radius.md}",
                 "focusRing": {
                   "width": "0",
@@ -670,7 +681,7 @@ const _inlineRuntimeConfig = {
                 "padding": "0.25rem 0.25rem",
                 "gap": "2px",
                 "header": {
-                  "padding": "0.5rem 0.75rem 0.25rem 0.75rem"
+                  "padding": "0.5rem 1rem 0.25rem 1rem"
                 },
                 "option": {
                   "padding": "0.5rem 0.75rem",
@@ -760,6 +771,7 @@ const _inlineRuntimeConfig = {
                     "background": "{surface.0}",
                     "disabledBackground": "{surface.200}",
                     "filledBackground": "{surface.50}",
+                    "filledHoverBackground": "{surface.50}",
                     "filledFocusBackground": "{surface.50}",
                     "borderColor": "{surface.300}",
                     "hoverBorderColor": "{surface.400}",
@@ -768,9 +780,11 @@ const _inlineRuntimeConfig = {
                     "color": "{surface.700}",
                     "disabledColor": "{surface.500}",
                     "placeholderColor": "{surface.500}",
+                    "invalidPlaceholderColor": "{red.600}",
                     "floatLabelColor": "{surface.500}",
-                    "floatLabelFocusColor": "{surface.500}",
-                    "floatLabelInvalidColor": "{red.400}",
+                    "floatLabelFocusColor": "{primary.600}",
+                    "floatLabelActiveColor": "{surface.500}",
+                    "floatLabelInvalidColor": "{form.field.invalid.placeholder.color}",
                     "iconColor": "{surface.400}",
                     "shadow": "0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05)"
                   },
@@ -882,17 +896,20 @@ const _inlineRuntimeConfig = {
                     "background": "{surface.950}",
                     "disabledBackground": "{surface.700}",
                     "filledBackground": "{surface.800}",
+                    "filledHoverBackground": "{surface.800}",
                     "filledFocusBackground": "{surface.800}",
-                    "borderColor": "{surface.700}",
-                    "hoverBorderColor": "{surface.600}",
+                    "borderColor": "{surface.600}",
+                    "hoverBorderColor": "{surface.500}",
                     "focusBorderColor": "{primary.color}",
                     "invalidBorderColor": "{red.300}",
                     "color": "{surface.0}",
                     "disabledColor": "{surface.400}",
                     "placeholderColor": "{surface.400}",
+                    "invalidPlaceholderColor": "{red.400}",
                     "floatLabelColor": "{surface.400}",
-                    "floatLabelFocusColor": "{surface.400}",
-                    "floatLabelInvalidColor": "{red.300}",
+                    "floatLabelFocusColor": "{primary.color}",
+                    "floatLabelActiveColor": "{surface.400}",
+                    "floatLabelInvalidColor": "{form.field.invalid.placeholder.color}",
                     "iconColor": "{surface.400}",
                     "shadow": "0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05)"
                   },
@@ -997,7 +1014,7 @@ const _inlineRuntimeConfig = {
                     "width": "{focus.ring.width}",
                     "style": "{focus.ring.style}",
                     "color": "{focus.ring.color}",
-                    "offset": "{focus.ring.offset}",
+                    "offset": "-1px",
                     "shadow": "{focus.ring.shadow}"
                   },
                   "toggleIcon": {
@@ -1028,6 +1045,7 @@ const _inlineRuntimeConfig = {
                   "background": "{form.field.background}",
                   "disabledBackground": "{form.field.disabled.background}",
                   "filledBackground": "{form.field.filled.background}",
+                  "filledHoverBackground": "{form.field.filled.hover.background}",
                   "filledFocusBackground": "{form.field.filled.focus.background}",
                   "borderColor": "{form.field.border.color}",
                   "hoverBorderColor": "{form.field.hover.border.color}",
@@ -1036,6 +1054,7 @@ const _inlineRuntimeConfig = {
                   "color": "{form.field.color}",
                   "disabledColor": "{form.field.disabled.color}",
                   "placeholderColor": "{form.field.placeholder.color}",
+                  "invalidPlaceholderColor": "{form.field.invalid.placeholder.color}",
                   "shadow": "{form.field.shadow}",
                   "paddingX": "{form.field.padding.x}",
                   "paddingY": "{form.field.padding.y}",
@@ -1079,6 +1098,12 @@ const _inlineRuntimeConfig = {
                 },
                 "dropdown": {
                   "width": "2.5rem",
+                  "sm": {
+                    "width": "2rem"
+                  },
+                  "lg": {
+                    "width": "3rem"
+                  },
                   "borderColor": "{form.field.border.color}",
                   "hoverBorderColor": "{form.field.border.color}",
                   "activeBorderColor": "{form.field.border.color}",
@@ -1099,6 +1124,10 @@ const _inlineRuntimeConfig = {
                 },
                 "colorScheme": {
                   "light": {
+                    "chip": {
+                      "focusBackground": "{surface.200}",
+                      "focusColor": "{surface.800}"
+                    },
                     "dropdown": {
                       "background": "{surface.100}",
                       "hoverBackground": "{surface.200}",
@@ -1109,6 +1138,10 @@ const _inlineRuntimeConfig = {
                     }
                   },
                   "dark": {
+                    "chip": {
+                      "focusBackground": "{surface.700}",
+                      "focusColor": "{surface.0}"
+                    },
                     "dropdown": {
                       "background": "{surface.800}",
                       "hoverBackground": "{surface.700}",
@@ -1126,21 +1159,37 @@ const _inlineRuntimeConfig = {
                   "height": "2rem",
                   "fontSize": "1rem",
                   "background": "{content.border.color}",
+                  "color": "{content.color}",
                   "borderRadius": "{content.border.radius}"
+                },
+                "icon": {
+                  "size": "1rem"
                 },
                 "group": {
                   "borderColor": "{content.background}",
-                  "offset": "-1rem"
+                  "offset": "-0.75rem"
                 },
                 "lg": {
                   "width": "3rem",
                   "height": "3rem",
-                  "fontSize": "1.5rem"
+                  "fontSize": "1.5rem",
+                  "icon": {
+                    "size": "1.5rem"
+                  },
+                  "group": {
+                    "offset": "-1rem"
+                  }
                 },
                 "xl": {
                   "width": "4rem",
                   "height": "4rem",
-                  "fontSize": "2rem"
+                  "fontSize": "2rem",
+                  "icon": {
+                    "size": "2rem"
+                  },
+                  "group": {
+                    "offset": "-1.5rem"
+                  }
                 }
               },
               "badge": {
@@ -1248,8 +1297,12 @@ const _inlineRuntimeConfig = {
                 "item": {
                   "color": "{text.muted.color}",
                   "hoverColor": "{text.color}",
-                  "iconColor": "{navigation.item.icon.color}",
                   "borderRadius": "{content.border.radius}",
+                  "gap": "{navigation.item.gap}",
+                  "icon": {
+                    "color": "{navigation.item.icon.color}",
+                    "hoverColor": "{navigation.item.icon.focus.color}"
+                  },
                   "focusRing": {
                     "width": "{focus.ring.width}",
                     "style": "{focus.ring.style}",
@@ -1271,14 +1324,14 @@ const _inlineRuntimeConfig = {
                   "paddingY": "{form.field.padding.y}",
                   "iconOnlyWidth": "2.5rem",
                   "sm": {
-                    "fontSize": "0.875rem",
-                    "paddingX": "0.625rem",
-                    "paddingY": "0.375rem"
+                    "fontSize": "{form.field.sm.font.size}",
+                    "paddingX": "{form.field.sm.padding.x}",
+                    "paddingY": "{form.field.sm.padding.y}"
                   },
                   "lg": {
-                    "fontSize": "1.125rem",
-                    "paddingX": "0.875rem",
-                    "paddingY": "0.625rem"
+                    "fontSize": "{form.field.lg.font.size}",
+                    "paddingX": "{form.field.lg.padding.x}",
+                    "paddingY": "{form.field.lg.padding.y}"
                   },
                   "label": {
                     "fontWeight": "500"
@@ -1508,6 +1561,11 @@ const _inlineRuntimeConfig = {
                         "activeBackground": "{red.100}",
                         "color": "{red.500}"
                       },
+                      "contrast": {
+                        "hoverBackground": "{surface.50}",
+                        "activeBackground": "{surface.100}",
+                        "color": "{surface.950}"
+                      },
                       "plain": {
                         "hoverBackground": "{surface.50}",
                         "activeBackground": "{surface.100}",
@@ -1675,14 +1733,14 @@ const _inlineRuntimeConfig = {
                         "color": "{orange.400}"
                       },
                       "help": {
-                        "hoverBackground": "color-mix(in srgb, {help.400}, transparent 96%)",
-                        "activeBackground": "color-mix(in srgb, {help.400}, transparent 84%)",
+                        "hoverBackground": "color-mix(in srgb, {purple.400}, transparent 96%)",
+                        "activeBackground": "color-mix(in srgb, {purple.400}, transparent 84%)",
                         "borderColor": "{purple.700}",
                         "color": "{purple.400}"
                       },
                       "danger": {
-                        "hoverBackground": "color-mix(in srgb, {danger.400}, transparent 96%)",
-                        "activeBackground": "color-mix(in srgb, {danger.400}, transparent 84%)",
+                        "hoverBackground": "color-mix(in srgb, {red.400}, transparent 96%)",
+                        "activeBackground": "color-mix(in srgb, {red.400}, transparent 84%)",
                         "borderColor": "{red.700}",
                         "color": "{red.400}"
                       },
@@ -1735,6 +1793,11 @@ const _inlineRuntimeConfig = {
                         "activeBackground": "color-mix(in srgb, {red.400}, transparent 84%)",
                         "color": "{red.400}"
                       },
+                      "contrast": {
+                        "hoverBackground": "{surface.800}",
+                        "activeBackground": "{surface.700}",
+                        "color": "{surface.0}"
+                      },
                       "plain": {
                         "hoverBackground": "{surface.800}",
                         "activeBackground": "{surface.700}",
@@ -1765,9 +1828,7 @@ const _inlineRuntimeConfig = {
                   "background": "{content.background}",
                   "borderColor": "{content.border.color}",
                   "color": "{content.color}",
-                  "padding": "0 0 0.5rem 0",
-                  "fontWeight": "500",
-                  "gap": "0.5rem"
+                  "padding": "0 0 0.5rem 0"
                 },
                 "title": {
                   "gap": "0.5rem",
@@ -1775,6 +1836,12 @@ const _inlineRuntimeConfig = {
                 },
                 "dropdown": {
                   "width": "2.5rem",
+                  "sm": {
+                    "width": "2rem"
+                  },
+                  "lg": {
+                    "width": "3rem"
+                  },
                   "borderColor": "{form.field.border.color}",
                   "hoverBorderColor": "{form.field.border.color}",
                   "activeBorderColor": "{form.field.border.color}",
@@ -1840,12 +1907,14 @@ const _inlineRuntimeConfig = {
                   "margin": "0.5rem 0 0 0"
                 },
                 "month": {
+                  "padding": "0.375rem",
                   "borderRadius": "{content.border.radius}"
                 },
                 "yearView": {
                   "margin": "0.5rem 0 0 0"
                 },
                 "year": {
+                  "padding": "0.375rem",
                   "borderRadius": "{content.border.radius}"
                 },
                 "buttonbar": {
@@ -1913,23 +1982,26 @@ const _inlineRuntimeConfig = {
               },
               "carousel": {
                 "root": {
-                  "indicatorList": {
-                    "padding": "1rem",
-                    "gap": "0.5rem"
-                  },
-                  "indicator": {
-                    "width": "2rem",
-                    "height": "0.5rem",
-                    "borderRadius": "{content.border.radius}",
-                    "focusRing": {
-                      "width": "{focus.ring.width}",
-                      "style": "{focus.ring.style}",
-                      "color": "{focus.ring.color}",
-                      "offset": "{focus.ring.offset}",
-                      "shadow": "{focus.ring.shadow}"
-                    }
-                  },
                   "transitionDuration": "{transition.duration}"
+                },
+                "content": {
+                  "gap": "0.25rem"
+                },
+                "indicatorList": {
+                  "padding": "1rem",
+                  "gap": "0.5rem"
+                },
+                "indicator": {
+                  "width": "2rem",
+                  "height": "0.5rem",
+                  "borderRadius": "{content.border.radius}",
+                  "focusRing": {
+                    "width": "{focus.ring.width}",
+                    "style": "{focus.ring.style}",
+                    "color": "{focus.ring.color}",
+                    "offset": "{focus.ring.offset}",
+                    "shadow": "{focus.ring.shadow}"
+                  }
                 },
                 "colorScheme": {
                   "light": {
@@ -1953,6 +2025,7 @@ const _inlineRuntimeConfig = {
                   "background": "{form.field.background}",
                   "disabledBackground": "{form.field.disabled.background}",
                   "filledBackground": "{form.field.filled.background}",
+                  "filledHoverBackground": "{form.field.filled.hover.background}",
                   "filledFocusBackground": "{form.field.filled.focus.background}",
                   "borderColor": "{form.field.border.color}",
                   "hoverBorderColor": "{form.field.hover.border.color}",
@@ -1961,6 +2034,7 @@ const _inlineRuntimeConfig = {
                   "color": "{form.field.color}",
                   "disabledColor": "{form.field.disabled.color}",
                   "placeholderColor": "{form.field.placeholder.color}",
+                  "invalidPlaceholderColor": "{form.field.invalid.placeholder.color}",
                   "shadow": "{form.field.shadow}",
                   "paddingX": "{form.field.padding.x}",
                   "paddingY": "{form.field.padding.y}",
@@ -1972,7 +2046,17 @@ const _inlineRuntimeConfig = {
                     "offset": "{form.field.focus.ring.offset}",
                     "shadow": "{form.field.focus.ring.shadow}"
                   },
-                  "transitionDuration": "{form.field.transition.duration}"
+                  "transitionDuration": "{form.field.transition.duration}",
+                  "sm": {
+                    "fontSize": "{form.field.sm.font.size}",
+                    "paddingX": "{form.field.sm.padding.x}",
+                    "paddingY": "{form.field.sm.padding.y}"
+                  },
+                  "lg": {
+                    "fontSize": "{form.field.lg.font.size}",
+                    "paddingX": "{form.field.lg.padding.x}",
+                    "paddingY": "{form.field.lg.padding.y}"
+                  }
                 },
                 "dropdown": {
                   "width": "2.5rem",
@@ -1987,7 +2071,8 @@ const _inlineRuntimeConfig = {
                 },
                 "list": {
                   "padding": "{list.padding}",
-                  "gap": "{list.gap}"
+                  "gap": "{list.gap}",
+                  "mobileIndent": "1rem"
                 },
                 "option": {
                   "focusBackground": "{list.option.focus.background}",
@@ -2004,6 +2089,9 @@ const _inlineRuntimeConfig = {
                     "focusColor": "{list.option.icon.focus.color}",
                     "size": "0.875rem"
                   }
+                },
+                "clearIcon": {
+                  "color": "{form.field.icon.color}"
                 }
               },
               "checkbox": {
@@ -2022,6 +2110,7 @@ const _inlineRuntimeConfig = {
                   "checkedBorderColor": "{primary.color}",
                   "checkedHoverBorderColor": "{primary.hover.color}",
                   "checkedFocusBorderColor": "{primary.color}",
+                  "checkedDisabledBorderColor": "{form.field.border.color}",
                   "invalidBorderColor": "{form.field.invalid.border.color}",
                   "shadow": "{form.field.shadow}",
                   "focusRing": {
@@ -2031,14 +2120,28 @@ const _inlineRuntimeConfig = {
                     "offset": "{focus.ring.offset}",
                     "shadow": "{focus.ring.shadow}"
                   },
-                  "transitionDuration": "{form.field.transition.duration}"
+                  "transitionDuration": "{form.field.transition.duration}",
+                  "sm": {
+                    "width": "1rem",
+                    "height": "1rem"
+                  },
+                  "lg": {
+                    "width": "1.5rem",
+                    "height": "1.5rem"
+                  }
                 },
                 "icon": {
                   "size": "0.875rem",
                   "color": "{form.field.color}",
                   "checkedColor": "{primary.contrast.color}",
                   "checkedHoverColor": "{primary.contrast.color}",
-                  "disabledColor": "{form.field.disabled.color}"
+                  "disabledColor": "{form.field.disabled.color}",
+                  "sm": {
+                    "size": "0.75rem"
+                  },
+                  "lg": {
+                    "size": "1rem"
+                  }
                 }
               },
               "chip": {
@@ -2057,6 +2160,7 @@ const _inlineRuntimeConfig = {
                   "size": "1rem"
                 },
                 "removeIcon": {
+                  "size": "1rem",
                   "focusRing": {
                     "width": "{focus.ring.width}",
                     "style": "{focus.ring.style}",
@@ -2087,7 +2191,7 @@ const _inlineRuntimeConfig = {
                       "color": "{surface.0}"
                     },
                     "removeIcon": {
-                      "color": "{surfaec.0}"
+                      "color": "{surface.0}"
                     }
                   }
                 }
@@ -2192,6 +2296,9 @@ const _inlineRuntimeConfig = {
                     "focusColor": "{navigation.item.icon.focus.color}",
                     "activeColor": "{navigation.item.icon.active.color}"
                   }
+                },
+                "submenu": {
+                  "mobileIndent": "1rem"
                 },
                 "submenuIcon": {
                   "size": "{navigation.submenu.icon.size}",
@@ -2310,7 +2417,9 @@ const _inlineRuntimeConfig = {
                   "borderWidth": "0 0 1px 0",
                   "padding": "0.75rem 1rem"
                 },
-                "dropPointColor": "{primary.color}",
+                "dropPoint": {
+                  "color": "{primary.color}"
+                },
                 "columnResizerWidth": "0.5rem",
                 "resizeIndicator": {
                   "width": "1px",
@@ -2318,7 +2427,8 @@ const _inlineRuntimeConfig = {
                 },
                 "sortIcon": {
                   "color": "{text.muted.color}",
-                  "hoverColor": "{text.hover.muted.color}"
+                  "hoverColor": "{text.hover.muted.color}",
+                  "size": "0.875rem"
                 },
                 "loadingIcon": {
                   "size": "2rem"
@@ -2484,7 +2594,6 @@ const _inlineRuntimeConfig = {
                   "background": "{overlay.modal.background}",
                   "borderColor": "{overlay.modal.border.color}",
                   "color": "{overlay.modal.color}",
-                  "borderRadius": "{overlay.modal.border.radius}",
                   "shadow": "{overlay.modal.shadow}"
                 },
                 "header": {
@@ -2496,6 +2605,9 @@ const _inlineRuntimeConfig = {
                 },
                 "content": {
                   "padding": "0 {overlay.modal.padding} {overlay.modal.padding} {overlay.modal.padding}"
+                },
+                "footer": {
+                  "padding": "{overlay.modal.padding}"
                 }
               },
               "editor": {
@@ -2579,13 +2691,15 @@ const _inlineRuntimeConfig = {
                   "background": "transparent",
                   "color": "{text.color}",
                   "padding": "1.125rem",
+                  "borderColor": "unset",
                   "borderWidth": "0",
                   "borderRadius": "0",
                   "gap": "0.5rem"
                 },
                 "content": {
                   "highlightBorderColor": "{primary.color}",
-                  "padding": "0 1.125rem 1.125rem 1.125rem"
+                  "padding": "0 1.125rem 1.125rem 1.125rem",
+                  "gap": "1rem"
                 },
                 "file": {
                   "padding": "1rem",
@@ -2595,6 +2709,9 @@ const _inlineRuntimeConfig = {
                     "gap": "0.5rem"
                   }
                 },
+                "fileList": {
+                  "gap": "0.5rem"
+                },
                 "progressbar": {
                   "height": "0.25rem"
                 },
@@ -2602,12 +2719,57 @@ const _inlineRuntimeConfig = {
                   "gap": "0.5rem"
                 }
               },
-              "floatlabel": {
+              "iftalabel": {
                 "root": {
                   "color": "{form.field.float.label.color}",
                   "focusColor": "{form.field.float.label.focus.color}",
                   "invalidColor": "{form.field.float.label.invalid.color}",
-                  "transitionDuration": "0.2s"
+                  "transitionDuration": "0.2s",
+                  "positionX": "{form.field.padding.x}",
+                  "top": "{form.field.padding.y}",
+                  "fontSize": "0.75rem",
+                  "fontWeight": "400"
+                },
+                "input": {
+                  "paddingTop": "1.5rem",
+                  "paddingBottom": "{form.field.padding.y}"
+                }
+              },
+              "floatlabel": {
+                "root": {
+                  "color": "{form.field.float.label.color}",
+                  "focusColor": "{form.field.float.label.focus.color}",
+                  "activeColor": "{form.field.float.label.active.color}",
+                  "invalidColor": "{form.field.float.label.invalid.color}",
+                  "transitionDuration": "0.2s",
+                  "positionX": "{form.field.padding.x}",
+                  "positionY": "{form.field.padding.y}",
+                  "fontWeight": "500",
+                  "active": {
+                    "fontSize": "0.75rem",
+                    "fontWeight": "400"
+                  }
+                },
+                "over": {
+                  "active": {
+                    "top": "-1.25rem"
+                  }
+                },
+                "in": {
+                  "input": {
+                    "paddingTop": "1.5rem",
+                    "paddingBottom": "{form.field.padding.y}"
+                  },
+                  "active": {
+                    "top": "{form.field.padding.y}"
+                  }
+                },
+                "on": {
+                  "borderRadius": "{border.radius.xs}",
+                  "active": {
+                    "background": "{form.field.background}",
+                    "padding": "0 0.125rem"
+                  }
                 }
               },
               "galleria": {
@@ -2689,10 +2851,6 @@ const _inlineRuntimeConfig = {
                   "background": "rgba(255, 255, 255, 0.4)",
                   "hoverBackground": "rgba(255, 255, 255, 0.6)",
                   "activeBackground": "rgba(255, 255, 255, 0.9)"
-                },
-                "mask": {
-                  "background": "{mask.background}",
-                  "color": "{mask.color}"
                 },
                 "closeButton": {
                   "size": "3rem",
@@ -2782,6 +2940,26 @@ const _inlineRuntimeConfig = {
                     "width": "{focus.ring.width}",
                     "style": "{focus.ring.style}",
                     "color": "{focus.ring.color}",
+                    "offset": "{focus.ring.offset}",
+                    "shadow": "{focus.ring.shadow}"
+                  }
+                }
+              },
+              "imagecompare": {
+                "handle": {
+                  "size": "15px",
+                  "hoverSize": "30px",
+                  "background": "rgba(255,255,255,0.3)",
+                  "hoverBackground": "rgba(255,255,255,0.3)",
+                  "borderColor": "unset",
+                  "hoverBorderColor": "unset",
+                  "borderWidth": "0",
+                  "borderRadius": "50%",
+                  "transitionDuration": "{transition.duration}",
+                  "focusRing": {
+                    "width": "{focus.ring.width}",
+                    "style": "{focus.ring.style}",
+                    "color": "rgba(255,255,255,0.3)",
                     "offset": "{focus.ring.offset}",
                     "shadow": "{focus.ring.shadow}"
                   }
@@ -2945,7 +3123,9 @@ const _inlineRuntimeConfig = {
                   "background": "{form.field.background}",
                   "borderColor": "{form.field.border.color}",
                   "color": "{form.field.icon.color}",
-                  "borderRadius": "{form.field.border.radius}"
+                  "borderRadius": "{form.field.border.radius}",
+                  "padding": "0.5rem",
+                  "minWidth": "2.5rem"
                 }
               },
               "inputnumber": {
@@ -2986,11 +3166,26 @@ const _inlineRuntimeConfig = {
                   }
                 }
               },
+              "inputotp": {
+                "root": {
+                  "gap": "0.5rem"
+                },
+                "input": {
+                  "width": "2.5rem",
+                  "sm": {
+                    "width": "2rem"
+                  },
+                  "lg": {
+                    "width": "3rem"
+                  }
+                }
+              },
               "inputtext": {
                 "root": {
                   "background": "{form.field.background}",
                   "disabledBackground": "{form.field.disabled.background}",
                   "filledBackground": "{form.field.filled.background}",
+                  "filledHoverBackground": "{form.field.filled.hover.background}",
                   "filledFocusBackground": "{form.field.filled.focus.background}",
                   "borderColor": "{form.field.border.color}",
                   "hoverBorderColor": "{form.field.hover.border.color}",
@@ -2999,6 +3194,7 @@ const _inlineRuntimeConfig = {
                   "color": "{form.field.color}",
                   "disabledColor": "{form.field.disabled.color}",
                   "placeholderColor": "{form.field.placeholder.color}",
+                  "invalidPlaceholderColor": "{form.field.invalid.placeholder.color}",
                   "shadow": "{form.field.shadow}",
                   "paddingX": "{form.field.padding.x}",
                   "paddingY": "{form.field.padding.y}",
@@ -3012,14 +3208,14 @@ const _inlineRuntimeConfig = {
                   },
                   "transitionDuration": "{form.field.transition.duration}",
                   "sm": {
-                    "fontSize": "0.875rem",
-                    "paddingX": "0.625rem",
-                    "paddingY": "0.375rem"
+                    "fontSize": "{form.field.sm.font.size}",
+                    "paddingX": "{form.field.sm.padding.x}",
+                    "paddingY": "{form.field.sm.padding.y}"
                   },
                   "lg": {
-                    "fontSize": "1.125rem",
-                    "paddingX": "0.875rem",
-                    "paddingY": "0.625rem"
+                    "fontSize": "{form.field.lg.font.size}",
+                    "paddingX": "{form.field.lg.padding.x}",
+                    "paddingY": "{form.field.lg.padding.y}"
                   }
                 }
               },
@@ -3049,20 +3245,11 @@ const _inlineRuntimeConfig = {
                   "background": "{form.field.background}",
                   "disabledBackground": "{form.field.disabled.background}",
                   "borderColor": "{form.field.border.color}",
-                  "hoverBorderColor": "{form.field.hover.border.color}",
-                  "focusBorderColor": "{form.field.focus.border.color}",
                   "invalidBorderColor": "{form.field.invalid.border.color}",
                   "color": "{form.field.color}",
                   "disabledColor": "{form.field.disabled.color}",
                   "shadow": "{form.field.shadow}",
                   "borderRadius": "{form.field.border.radius}",
-                  "focusRing": {
-                    "width": "{form.field.focus.ring.width}",
-                    "style": "{form.field.focus.ring.style}",
-                    "color": "{form.field.focus.ring.color}",
-                    "offset": "{form.field.focus.ring.offset}",
-                    "shadow": "{form.field.focus.ring.shadow}"
-                  },
                   "transitionDuration": "{form.field.transition.duration}"
                 },
                 "list": {
@@ -3119,10 +3306,11 @@ const _inlineRuntimeConfig = {
                   "gap": "0.5rem",
                   "verticalOrientation": {
                     "padding": "{navigation.list.padding}",
-                    "gap": "0"
+                    "gap": "{navigation.list.gap}"
                   },
                   "horizontalOrientation": {
-                    "padding": "0.5rem 0.75rem"
+                    "padding": "0.5rem 0.75rem",
+                    "gap": "0.5rem"
                   },
                   "transitionDuration": "{transition.duration}"
                 },
@@ -3177,7 +3365,7 @@ const _inlineRuntimeConfig = {
                   "borderRadius": "50%",
                   "size": "1.75rem",
                   "color": "{text.muted.color}",
-                  "hoverColor": "{text.muted.hover.color}",
+                  "hoverColor": "{text.hover.muted.color}",
                   "hoverBackground": "{content.hover.background}",
                   "focusRing": {
                     "width": "{focus.ring.width}",
@@ -3259,13 +3447,13 @@ const _inlineRuntimeConfig = {
                   "borderColor": "{content.border.color}",
                   "borderRadius": "{content.border.radius}",
                   "shadow": "{overlay.navigation.shadow}",
-                  "mobileIndent": "1rem"
-                },
-                "submenuIcon": {
-                  "size": "{navigation.submenu.icon.size}",
-                  "color": "{navigation.submenu.icon.color}",
-                  "focusColor": "{navigation.submenu.icon.focus.color}",
-                  "activeColor": "{navigation.submenu.icon.active.color}"
+                  "mobileIndent": "1rem",
+                  "icon": {
+                    "size": "{navigation.submenu.icon.size}",
+                    "color": "{navigation.submenu.icon.color}",
+                    "focusColor": "{navigation.submenu.icon.focus.color}",
+                    "activeColor": "{navigation.submenu.icon.active.color}"
+                  }
                 },
                 "separator": {
                   "borderColor": "{content.border.color}"
@@ -3274,7 +3462,7 @@ const _inlineRuntimeConfig = {
                   "borderRadius": "50%",
                   "size": "1.75rem",
                   "color": "{text.muted.color}",
-                  "hoverColor": "{text.muted.hover.color}",
+                  "hoverColor": "{text.hover.muted.color}",
                   "hoverBackground": "{content.hover.background}",
                   "focusRing": {
                     "width": "{focus.ring.width}",
@@ -3293,14 +3481,32 @@ const _inlineRuntimeConfig = {
                 },
                 "content": {
                   "padding": "0.5rem 0.75rem",
-                  "gap": "0.5rem"
+                  "gap": "0.5rem",
+                  "sm": {
+                    "padding": "0.375rem 0.625rem"
+                  },
+                  "lg": {
+                    "padding": "0.625rem 0.875rem"
+                  }
                 },
                 "text": {
                   "fontSize": "1rem",
-                  "fontWeight": "500"
+                  "fontWeight": "500",
+                  "sm": {
+                    "fontSize": "0.875rem"
+                  },
+                  "lg": {
+                    "fontSize": "1.125rem"
+                  }
                 },
                 "icon": {
-                  "size": "1.125rem"
+                  "size": "1.125rem",
+                  "sm": {
+                    "size": "1rem"
+                  },
+                  "lg": {
+                    "size": "1.25rem"
+                  }
                 },
                 "closeButton": {
                   "width": "1.75rem",
@@ -3313,7 +3519,23 @@ const _inlineRuntimeConfig = {
                   }
                 },
                 "closeIcon": {
-                  "size": "1rem"
+                  "size": "1rem",
+                  "sm": {
+                    "size": "0.875rem"
+                  },
+                  "lg": {
+                    "size": "1.125rem"
+                  }
+                },
+                "outlined": {
+                  "root": {
+                    "borderWidth": "1px"
+                  }
+                },
+                "simple": {
+                  "content": {
+                    "padding": "0"
+                  }
                 },
                 "colorScheme": {
                   "light": {
@@ -3328,6 +3550,13 @@ const _inlineRuntimeConfig = {
                           "color": "{blue.600}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{blue.600}",
+                        "borderColor": "{blue.600}"
+                      },
+                      "simple": {
+                        "color": "{blue.600}"
                       }
                     },
                     "success": {
@@ -3341,6 +3570,13 @@ const _inlineRuntimeConfig = {
                           "color": "{green.600}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{green.600}",
+                        "borderColor": "{green.600}"
+                      },
+                      "simple": {
+                        "color": "{green.600}"
                       }
                     },
                     "warn": {
@@ -3354,6 +3590,13 @@ const _inlineRuntimeConfig = {
                           "color": "{yellow.600}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{yellow.600}",
+                        "borderColor": "{yellow.600}"
+                      },
+                      "simple": {
+                        "color": "{yellow.600}"
                       }
                     },
                     "error": {
@@ -3367,6 +3610,13 @@ const _inlineRuntimeConfig = {
                           "color": "{red.600}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{red.600}",
+                        "borderColor": "{red.600}"
+                      },
+                      "simple": {
+                        "color": "{red.600}"
                       }
                     },
                     "secondary": {
@@ -3380,6 +3630,13 @@ const _inlineRuntimeConfig = {
                           "color": "{surface.600}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{surface.500}",
+                        "borderColor": "{surface.500}"
+                      },
+                      "simple": {
+                        "color": "{surface.500}"
                       }
                     },
                     "contrast": {
@@ -3393,6 +3650,13 @@ const _inlineRuntimeConfig = {
                           "color": "{surface.50}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{surface.950}",
+                        "borderColor": "{surface.950}"
+                      },
+                      "simple": {
+                        "color": "{surface.950}"
                       }
                     }
                   },
@@ -3408,6 +3672,13 @@ const _inlineRuntimeConfig = {
                           "color": "{blue.500}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{blue.500}",
+                        "borderColor": "{blue.500}"
+                      },
+                      "simple": {
+                        "color": "{blue.500}"
                       }
                     },
                     "success": {
@@ -3421,6 +3692,13 @@ const _inlineRuntimeConfig = {
                           "color": "{green.500}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{green.500}",
+                        "borderColor": "{green.500}"
+                      },
+                      "simple": {
+                        "color": "{green.500}"
                       }
                     },
                     "warn": {
@@ -3434,6 +3712,13 @@ const _inlineRuntimeConfig = {
                           "color": "{yellow.500}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{yellow.500}",
+                        "borderColor": "{yellow.500}"
+                      },
+                      "simple": {
+                        "color": "{yellow.500}"
                       }
                     },
                     "error": {
@@ -3447,6 +3732,13 @@ const _inlineRuntimeConfig = {
                           "color": "{red.500}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{red.500}",
+                        "borderColor": "{red.500}"
+                      },
+                      "simple": {
+                        "color": "{red.500}"
                       }
                     },
                     "secondary": {
@@ -3460,6 +3752,13 @@ const _inlineRuntimeConfig = {
                           "color": "{surface.300}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{surface.400}",
+                        "borderColor": "{surface.400}"
+                      },
+                      "simple": {
+                        "color": "{surface.400}"
                       }
                     },
                     "contrast": {
@@ -3473,6 +3772,13 @@ const _inlineRuntimeConfig = {
                           "color": "{surface.950}",
                           "shadow": "none"
                         }
+                      },
+                      "outlined": {
+                        "color": "{surface.0}",
+                        "borderColor": "{surface.0}"
+                      },
+                      "simple": {
+                        "color": "{surface.0}"
                       }
                     }
                   }
@@ -3506,6 +3812,7 @@ const _inlineRuntimeConfig = {
                   "background": "{form.field.background}",
                   "disabledBackground": "{form.field.disabled.background}",
                   "filledBackground": "{form.field.filled.background}",
+                  "filledHoverBackground": "{form.field.filled.hover.background}",
                   "filledFocusBackground": "{form.field.filled.focus.background}",
                   "borderColor": "{form.field.border.color}",
                   "hoverBorderColor": "{form.field.hover.border.color}",
@@ -3514,6 +3821,7 @@ const _inlineRuntimeConfig = {
                   "color": "{form.field.color}",
                   "disabledColor": "{form.field.disabled.color}",
                   "placeholderColor": "{form.field.placeholder.color}",
+                  "invalidPlaceholderColor": "{form.field.invalid.placeholder.color}",
                   "shadow": "{form.field.shadow}",
                   "paddingX": "{form.field.padding.x}",
                   "paddingY": "{form.field.padding.y}",
@@ -3525,7 +3833,17 @@ const _inlineRuntimeConfig = {
                     "offset": "{form.field.focus.ring.offset}",
                     "shadow": "{form.field.focus.ring.shadow}"
                   },
-                  "transitionDuration": "{form.field.transition.duration}"
+                  "transitionDuration": "{form.field.transition.duration}",
+                  "sm": {
+                    "fontSize": "{form.field.sm.font.size}",
+                    "paddingX": "{form.field.sm.padding.x}",
+                    "paddingY": "{form.field.sm.padding.y}"
+                  },
+                  "lg": {
+                    "fontSize": "{form.field.lg.font.size}",
+                    "paddingX": "{form.field.lg.padding.x}",
+                    "paddingY": "{form.field.lg.padding.y}"
+                  }
                 },
                 "dropdown": {
                   "width": "2.5rem",
@@ -3562,6 +3880,9 @@ const _inlineRuntimeConfig = {
                   "color": "{list.option.group.color}",
                   "fontWeight": "{list.option.group.font.weight}",
                   "padding": "{list.option.group.padding}"
+                },
+                "clearIcon": {
+                  "color": "{form.field.icon.color}"
                 },
                 "chip": {
                   "borderRadius": "{border.radius.sm}"
@@ -3837,6 +4158,7 @@ const _inlineRuntimeConfig = {
                   "checkedBorderColor": "{primary.color}",
                   "checkedHoverBorderColor": "{primary.hover.color}",
                   "checkedFocusBorderColor": "{primary.color}",
+                  "checkedDisabledBorderColor": "{form.field.border.color}",
                   "invalidBorderColor": "{form.field.invalid.border.color}",
                   "shadow": "{form.field.shadow}",
                   "focusRing": {
@@ -3846,19 +4168,40 @@ const _inlineRuntimeConfig = {
                     "offset": "{focus.ring.offset}",
                     "shadow": "{focus.ring.shadow}"
                   },
-                  "transitionDuration": "{form.field.transition.duration}"
+                  "transitionDuration": "{form.field.transition.duration}",
+                  "sm": {
+                    "width": "1rem",
+                    "height": "1rem"
+                  },
+                  "lg": {
+                    "width": "1.5rem",
+                    "height": "1.5rem"
+                  }
                 },
                 "icon": {
                   "size": "0.75rem",
                   "checkedColor": "{primary.contrast.color}",
                   "checkedHoverColor": "{primary.contrast.color}",
-                  "disabledColor": "{form.field.disabled.color}"
+                  "disabledColor": "{form.field.disabled.color}",
+                  "sm": {
+                    "size": "0.5rem"
+                  },
+                  "lg": {
+                    "size": "1rem"
+                  }
                 }
               },
               "rating": {
                 "root": {
                   "gap": "0.25rem",
-                  "transitionDuration": "{transition.duration}"
+                  "transitionDuration": "{transition.duration}",
+                  "focusRing": {
+                    "width": "{focus.ring.width}",
+                    "style": "{focus.ring.style}",
+                    "color": "{focus.ring.color}",
+                    "offset": "{focus.ring.offset}",
+                    "shadow": "{focus.ring.shadow}"
+                  }
                 },
                 "icon": {
                   "size": "1rem",
@@ -3900,6 +4243,7 @@ const _inlineRuntimeConfig = {
                   "background": "{form.field.background}",
                   "disabledBackground": "{form.field.disabled.background}",
                   "filledBackground": "{form.field.filled.background}",
+                  "filledHoverBackground": "{form.field.filled.hover.background}",
                   "filledFocusBackground": "{form.field.filled.focus.background}",
                   "borderColor": "{form.field.border.color}",
                   "hoverBorderColor": "{form.field.hover.border.color}",
@@ -3908,6 +4252,7 @@ const _inlineRuntimeConfig = {
                   "color": "{form.field.color}",
                   "disabledColor": "{form.field.disabled.color}",
                   "placeholderColor": "{form.field.placeholder.color}",
+                  "invalidPlaceholderColor": "{form.field.invalid.placeholder.color}",
                   "shadow": "{form.field.shadow}",
                   "paddingX": "{form.field.padding.x}",
                   "paddingY": "{form.field.padding.y}",
@@ -3919,7 +4264,17 @@ const _inlineRuntimeConfig = {
                     "offset": "{form.field.focus.ring.offset}",
                     "shadow": "{form.field.focus.ring.shadow}"
                   },
-                  "transitionDuration": "{form.field.transition.duration}"
+                  "transitionDuration": "{form.field.transition.duration}",
+                  "sm": {
+                    "fontSize": "{form.field.sm.font.size}",
+                    "paddingX": "{form.field.sm.padding.x}",
+                    "paddingY": "{form.field.sm.padding.y}"
+                  },
+                  "lg": {
+                    "fontSize": "{form.field.lg.font.size}",
+                    "paddingX": "{form.field.lg.padding.x}",
+                    "paddingY": "{form.field.lg.padding.y}"
+                  }
                 },
                 "dropdown": {
                   "width": "2.5rem",
@@ -4136,10 +4491,8 @@ const _inlineRuntimeConfig = {
                 "steppanel": {
                   "background": "{content.background}",
                   "color": "{content.color}",
-                  "padding": "0 0 0 1rem",
-                  "last": {
-                    "padding": "0 0 0 1.625rem"
-                  }
+                  "padding": "0",
+                  "indent": "1rem"
                 }
               },
               "steps": {
@@ -4250,7 +4603,7 @@ const _inlineRuntimeConfig = {
                     "width": "{focus.ring.width}",
                     "style": "{focus.ring.style}",
                     "color": "{focus.ring.color}",
-                    "offset": "{focus.ring.offset}",
+                    "offset": "-1px",
                     "shadow": "{focus.ring.shadow}"
                   }
                 },
@@ -4287,12 +4640,12 @@ const _inlineRuntimeConfig = {
                 "colorScheme": {
                   "light": {
                     "navButton": {
-                      "boxShadow": "0px 0px 10px 50px rgba(255, 255, 255, 0.6)"
+                      "shadow": "0px 0px 10px 50px rgba(255, 255, 255, 0.6)"
                     }
                   },
                   "dark": {
                     "navButton": {
-                      "boxShadow": "0px 0px 10px 50px color-mix(in srgb, {content.background}, transparent 50%)"
+                      "shadow": "0px 0px 10px 50px color-mix(in srgb, {content.background}, transparent 50%)"
                     }
                   }
                 }
@@ -4324,12 +4677,12 @@ const _inlineRuntimeConfig = {
                 "colorScheme": {
                   "light": {
                     "navButton": {
-                      "boxShadow": "0px 0px 10px 50px rgba(255, 255, 255, 0.6)"
+                      "shadow": "0px 0px 10px 50px rgba(255, 255, 255, 0.6)"
                     }
                   },
                   "dark": {
                     "navButton": {
-                      "boxShadow": "0px 0px 10px 50px color-mix(in srgb, {content.background}, transparent 50%)"
+                      "shadow": "0px 0px 10px 50px color-mix(in srgb, {content.background}, transparent 50%)"
                     }
                   }
                 }
@@ -4347,6 +4700,7 @@ const _inlineRuntimeConfig = {
                   "color": "{form.field.color}",
                   "disabledColor": "{form.field.disabled.color}",
                   "placeholderColor": "{form.field.placeholder.color}",
+                  "invalidPlaceholderColor": "{form.field.invalid.placeholder.color}",
                   "shadow": "{form.field.shadow}",
                   "paddingX": "{form.field.padding.x}",
                   "paddingY": "{form.field.padding.y}",
@@ -4358,7 +4712,17 @@ const _inlineRuntimeConfig = {
                     "offset": "{form.field.focus.ring.offset}",
                     "shadow": "{form.field.focus.ring.shadow}"
                   },
-                  "transitionDuration": "{form.field.transition.duration}"
+                  "transitionDuration": "{form.field.transition.duration}",
+                  "sm": {
+                    "fontSize": "{form.field.sm.font.size}",
+                    "paddingX": "{form.field.sm.padding.x}",
+                    "paddingY": "{form.field.sm.padding.y}"
+                  },
+                  "lg": {
+                    "fontSize": "{form.field.lg.font.size}",
+                    "paddingX": "{form.field.lg.padding.x}",
+                    "paddingY": "{form.field.lg.padding.y}"
+                  }
                 }
               },
               "tieredmenu": {
@@ -4389,11 +4753,8 @@ const _inlineRuntimeConfig = {
                     "activeColor": "{navigation.item.icon.active.color}"
                   }
                 },
-                "submenuLabel": {
-                  "padding": "{navigation.submenu.label.padding}",
-                  "fontWeight": "{navigation.submenu.label.font.weight}",
-                  "background": "{navigation.submenu.label.background.}",
-                  "color": "{navigation.submenu.label.color}"
+                "submenu": {
+                  "mobileIndent": "1rem"
                 },
                 "submenuIcon": {
                   "size": "{navigation.submenu.icon.size}",
@@ -4545,7 +4906,15 @@ const _inlineRuntimeConfig = {
                     "offset": "{focus.ring.offset}",
                     "shadow": "{focus.ring.shadow}"
                   },
-                  "transitionDuration": "{form.field.transition.duration}"
+                  "transitionDuration": "{form.field.transition.duration}",
+                  "sm": {
+                    "fontSize": "{form.field.sm.font.size}",
+                    "padding": "0.375rem 0.75rem"
+                  },
+                  "lg": {
+                    "fontSize": "{form.field.lg.font.size}",
+                    "padding": "0.625rem 1.25rem"
+                  }
                 },
                 "icon": {
                   "disabledColor": "{form.field.disabled.color}"
@@ -4629,29 +4998,41 @@ const _inlineRuntimeConfig = {
                   "light": {
                     "root": {
                       "background": "{surface.300}",
+                      "disabledBackground": "{form.field.disabled.background}",
                       "hoverBackground": "{surface.400}",
                       "checkedBackground": "{primary.color}",
                       "checkedHoverBackground": "{primary.hover.color}"
                     },
                     "handle": {
                       "background": "{surface.0}",
+                      "disabledBackground": "{form.field.disabled.color}",
                       "hoverBackground": "{surface.0}",
                       "checkedBackground": "{surface.0}",
-                      "checkedHoverBackground": "{surface.0}"
+                      "checkedHoverBackground": "{surface.0}",
+                      "color": "{text.muted.color}",
+                      "hoverColor": "{text.color}",
+                      "checkedColor": "{primary.color}",
+                      "checkedHoverColor": "{primary.hover.color}"
                     }
                   },
                   "dark": {
                     "root": {
                       "background": "{surface.700}",
+                      "disabledBackground": "{surface.600}",
                       "hoverBackground": "{surface.600}",
                       "checkedBackground": "{primary.color}",
                       "checkedHoverBackground": "{primary.hover.color}"
                     },
                     "handle": {
                       "background": "{surface.400}",
+                      "disabledBackground": "{surface.900}",
                       "hoverBackground": "{surface.300}",
                       "checkedBackground": "{surface.900}",
-                      "checkedHoverBackground": "{surface.900}"
+                      "checkedHoverBackground": "{surface.900}",
+                      "color": "{surface.900}",
+                      "hoverColor": "{surface.800}",
+                      "checkedColor": "{primary.color}",
+                      "checkedHoverColor": "{primary.hover.color}"
                     }
                   }
                 }
@@ -4705,6 +5086,9 @@ const _inlineRuntimeConfig = {
                 },
                 "loadingIcon": {
                   "size": "2rem"
+                },
+                "filter": {
+                  "margin": "0 0 0.5rem 0"
                 }
               },
               "treeselect": {
@@ -4712,6 +5096,7 @@ const _inlineRuntimeConfig = {
                   "background": "{form.field.background}",
                   "disabledBackground": "{form.field.disabled.background}",
                   "filledBackground": "{form.field.filled.background}",
+                  "filledHoverBackground": "{form.field.filled.hover.background}",
                   "filledFocusBackground": "{form.field.filled.focus.background}",
                   "borderColor": "{form.field.border.color}",
                   "hoverBorderColor": "{form.field.hover.border.color}",
@@ -4720,6 +5105,7 @@ const _inlineRuntimeConfig = {
                   "color": "{form.field.color}",
                   "disabledColor": "{form.field.disabled.color}",
                   "placeholderColor": "{form.field.placeholder.color}",
+                  "invalidPlaceholderColor": "{form.field.invalid.placeholder.color}",
                   "shadow": "{form.field.shadow}",
                   "paddingX": "{form.field.padding.x}",
                   "paddingY": "{form.field.padding.y}",
@@ -4731,7 +5117,17 @@ const _inlineRuntimeConfig = {
                     "offset": "{form.field.focus.ring.offset}",
                     "shadow": "{form.field.focus.ring.shadow}"
                   },
-                  "transitionDuration": "{form.field.transition.duration}"
+                  "transitionDuration": "{form.field.transition.duration}",
+                  "sm": {
+                    "fontSize": "{form.field.sm.font.size}",
+                    "paddingX": "{form.field.sm.padding.x}",
+                    "paddingY": "{form.field.sm.padding.y}"
+                  },
+                  "lg": {
+                    "fontSize": "{form.field.lg.font.size}",
+                    "paddingX": "{form.field.lg.padding.x}",
+                    "paddingY": "{form.field.lg.padding.y}"
+                  }
                 },
                 "dropdown": {
                   "width": "2.5rem",
@@ -4746,6 +5142,9 @@ const _inlineRuntimeConfig = {
                 },
                 "tree": {
                   "padding": "{list.padding}"
+                },
+                "clearIcon": {
+                  "color": "{form.field.icon.color}"
                 },
                 "emptyMessage": {
                   "padding": "{list.option.padding}"
@@ -4829,7 +5228,8 @@ const _inlineRuntimeConfig = {
                 },
                 "sortIcon": {
                   "color": "{text.muted.color}",
-                  "hoverColor": "{text.hover.muted.color}"
+                  "hoverColor": "{text.hover.muted.color}",
+                  "size": "0.875rem"
                 },
                 "loadingIcon": {
                   "size": "2rem"
@@ -5101,6 +5501,17 @@ const _inlineRuntimeConfig = {
                   "gap": "0.5rem",
                   "padding": "0.75rem"
                 }
+              },
+              "virtualscroller": {
+                "loader": {
+                  "mask": {
+                    "background": "{content.background}",
+                    "color": "{text.muted.color}"
+                  },
+                  "icon": {
+                    "size": "2rem"
+                  }
+                }
               }
             },
             "directives": {
@@ -5180,6 +5591,14 @@ const _inlineRuntimeConfig = {
           "global": true
         },
         {
+          "name": "CheckboxGroup",
+          "as": "CheckboxGroup",
+          "from": "primevue/checkboxgroup",
+          "export": "default",
+          "filePath": "primevue/checkboxgroup",
+          "global": true
+        },
+        {
           "name": "Chips",
           "as": "Chips",
           "from": "primevue/chips",
@@ -5220,11 +5639,27 @@ const _inlineRuntimeConfig = {
           "global": true
         },
         {
+          "name": "Fluid",
+          "as": "Fluid",
+          "from": "primevue/fluid",
+          "export": "default",
+          "filePath": "primevue/fluid",
+          "global": true
+        },
+        {
           "name": "IconField",
           "as": "IconField",
           "from": "primevue/iconfield",
           "export": "default",
           "filePath": "primevue/iconfield",
+          "global": true
+        },
+        {
+          "name": "IftaLabel",
+          "as": "IftaLabel",
+          "from": "primevue/iftalabel",
+          "export": "default",
+          "filePath": "primevue/iftalabel",
           "global": true
         },
         {
@@ -5337,6 +5772,14 @@ const _inlineRuntimeConfig = {
           "from": "primevue/radiobutton",
           "export": "default",
           "filePath": "primevue/radiobutton",
+          "global": true
+        },
+        {
+          "name": "RadioButtonGroup",
+          "as": "RadioButtonGroup",
+          "from": "primevue/radiobuttongroup",
+          "export": "default",
+          "filePath": "primevue/radiobuttongroup",
           "global": true
         },
         {
@@ -5692,14 +6135,6 @@ const _inlineRuntimeConfig = {
           "global": true
         },
         {
-          "name": "StepperPanel",
-          "as": "StepperPanel",
-          "from": "primevue/stepperpanel",
-          "export": "default",
-          "filePath": "primevue/stepperpanel",
-          "global": true
-        },
-        {
           "name": "TabView",
           "as": "TabView",
           "from": "primevue/tabview",
@@ -5968,6 +6403,14 @@ const _inlineRuntimeConfig = {
           "global": true
         },
         {
+          "name": "ImageCompare",
+          "as": "ImageCompare",
+          "from": "primevue/imagecompare",
+          "export": "default",
+          "filePath": "primevue/imagecompare",
+          "global": true
+        },
+        {
           "name": "Avatar",
           "as": "Avatar",
           "from": "primevue/avatar",
@@ -6078,6 +6521,22 @@ const _inlineRuntimeConfig = {
           "export": "default",
           "filePath": "primevue/terminal",
           "global": true
+        },
+        {
+          "name": "Form",
+          "from": "@primevue/forms/form",
+          "as": "Form",
+          "export": "default",
+          "filePath": "@primevue/forms/form",
+          "global": true
+        },
+        {
+          "name": "FormField",
+          "from": "@primevue/forms/formfield",
+          "as": "FormField",
+          "export": "default",
+          "filePath": "@primevue/forms/formfield",
+          "global": true
         }
       ],
       "directives": [
@@ -6110,6 +6569,11 @@ const _inlineRuntimeConfig = {
           "name": "animateonscroll",
           "as": "AnimateOnScroll",
           "from": "primevue/animateonscroll"
+        },
+        {
+          "name": "keyfilter",
+          "as": "KeyFilter",
+          "from": "primevue/keyfilter"
         }
       ],
       "composables": [
@@ -6221,17 +6685,23 @@ new Proxy(/* @__PURE__ */ Object.create(null), {
   }
 });
 
-const serverAssets = [{"baseName":"server","dir":"/home/dylan/Projects/oxide-app/client/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"/home/camster/Desktop/Repos/oxide-app/client/server/assets"}];
 
 const assets = createStorage();
 
 for (const asset of serverAssets) {
-  assets.mount(asset.baseName, fsDriver({ base: asset.dir, ignore: (asset?.ignore || []) }));
+  assets.mount(asset.baseName, unstorage_47drivers_47fs({ base: asset.dir, ignore: (asset?.ignore || []) }));
 }
 
 const storage = createStorage({});
 
 storage.mount('/assets', assets);
+
+storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/home/camster/Desktop/Repos/oxide-app/client","ignore":["**/node_modules/**","**/.git/**"]}));
+storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/home/camster/Desktop/Repos/oxide-app/client/server","ignore":["**/node_modules/**","**/.git/**"]}));
+storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/home/camster/Desktop/Repos/oxide-app/client/.nuxt","ignore":["**/node_modules/**","**/.git/**"]}));
+storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/home/camster/Desktop/Repos/oxide-app/client/.nuxt/cache","ignore":["**/node_modules/**","**/.git/**"]}));
+storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/home/camster/Desktop/Repos/oxide-app/client/.data/kv","ignore":["**/node_modules/**","**/.git/**"]}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
@@ -6673,7 +7143,7 @@ getContext("nitro-app", {
   AsyncLocalStorage: void 0
 });
 
-const r=Object.create(null),E=e=>globalThis.process?.env||globalThis._importMeta_.env||globalThis.Deno?.env.toObject()||globalThis.__env__||(e?r:globalThis),s=new Proxy(r,{get(e,o){return E()[o]??r[o]},has(e,o){const i=E();return o in i||o in r},set(e,o,i){const g=E(!0);return g[o]=i,!0},deleteProperty(e,o){if(!o)return !1;const i=E(!0);return delete i[o],!0},ownKeys(){const e=E(!0);return Object.keys(e)}}),t=typeof process<"u"&&process.env&&"development"||"",p=[["APPVEYOR"],["AWS_AMPLIFY","AWS_APP_ID",{ci:!0}],["AZURE_PIPELINES","SYSTEM_TEAMFOUNDATIONCOLLECTIONURI"],["AZURE_STATIC","INPUT_AZURE_STATIC_WEB_APPS_API_TOKEN"],["APPCIRCLE","AC_APPCIRCLE"],["BAMBOO","bamboo_planKey"],["BITBUCKET","BITBUCKET_COMMIT"],["BITRISE","BITRISE_IO"],["BUDDY","BUDDY_WORKSPACE_ID"],["BUILDKITE"],["CIRCLE","CIRCLECI"],["CIRRUS","CIRRUS_CI"],["CLOUDFLARE_PAGES","CF_PAGES",{ci:!0}],["CODEBUILD","CODEBUILD_BUILD_ARN"],["CODEFRESH","CF_BUILD_ID"],["DRONE"],["DRONE","DRONE_BUILD_EVENT"],["DSARI"],["GITHUB_ACTIONS"],["GITLAB","GITLAB_CI"],["GITLAB","CI_MERGE_REQUEST_ID"],["GOCD","GO_PIPELINE_LABEL"],["LAYERCI"],["HUDSON","HUDSON_URL"],["JENKINS","JENKINS_URL"],["MAGNUM"],["NETLIFY"],["NETLIFY","NETLIFY_LOCAL",{ci:!1}],["NEVERCODE"],["RENDER"],["SAIL","SAILCI"],["SEMAPHORE"],["SCREWDRIVER"],["SHIPPABLE"],["SOLANO","TDDIUM"],["STRIDER"],["TEAMCITY","TEAMCITY_VERSION"],["TRAVIS"],["VERCEL","NOW_BUILDER"],["VERCEL","VERCEL",{ci:!1}],["VERCEL","VERCEL_ENV",{ci:!1}],["APPCENTER","APPCENTER_BUILD_ID"],["CODESANDBOX","CODESANDBOX_SSE",{ci:!1}],["STACKBLITZ"],["STORMKIT"],["CLEAVR"],["ZEABUR"],["CODESPHERE","CODESPHERE_APP_ID",{ci:!0}],["RAILWAY","RAILWAY_PROJECT_ID"],["RAILWAY","RAILWAY_SERVICE_ID"]];function B(){if(globalThis.process?.env)for(const e of p){const o=e[1]||e[0];if(globalThis.process?.env[o])return {name:e[0].toLowerCase(),...e[2]}}return globalThis.process?.env?.SHELL==="/bin/jsh"&&globalThis.process?.versions?.webcontainer?{name:"stackblitz",ci:!1}:{name:"",ci:!1}}const l=B(),d=l.name;function n(e){return e?e!=="false":!1}const I=globalThis.process?.platform||"",T=n(s.CI)||l.ci!==!1,R=n(globalThis.process?.stdout&&globalThis.process?.stdout.isTTY);n(s.DEBUG);const C=t==="test"||n(s.TEST);n(s.MINIMAL)||T||C||!R;const a=/^win/i.test(I);!n(s.NO_COLOR)&&(n(s.FORCE_COLOR)||(R||a)&&s.TERM!=="dumb"||T);const _=(globalThis.process?.versions?.node||"").replace(/^v/,"")||null;Number(_?.split(".")[0])||null;const W=globalThis.process||Object.create(null),c={versions:{}};new Proxy(W,{get(e,o){if(o==="env")return s;if(o in e)return e[o];if(o in c)return c[o]}});const A=globalThis.process?.release?.name==="node",L=!!globalThis.Bun||!!globalThis.process?.versions?.bun,D=!!globalThis.Deno,O=!!globalThis.fastly,S=!!globalThis.Netlify,N=!!globalThis.EdgeRuntime,u=globalThis.navigator?.userAgent==="Cloudflare-Workers",b=!!globalThis.__lagon__,F=[[S,"netlify"],[N,"edge-light"],[u,"workerd"],[O,"fastly"],[D,"deno"],[L,"bun"],[A,"node"],[b,"lagon"]];function G(){const e=F.find(o=>o[0]);if(e)return {name:e[1]}}const P=G();P?.name||"";
+const r=Object.create(null),i=e=>globalThis.process?.env||globalThis._importMeta_.env||globalThis.Deno?.env.toObject()||globalThis.__env__||(e?r:globalThis),s=new Proxy(r,{get(e,o){return i()[o]??r[o]},has(e,o){const E=i();return o in E||o in r},set(e,o,E){const b=i(!0);return b[o]=E,!0},deleteProperty(e,o){if(!o)return !1;const E=i(!0);return delete E[o],!0},ownKeys(){const e=i(!0);return Object.keys(e)}}),t=typeof process<"u"&&process.env&&"development"||"",B=[["APPVEYOR"],["AWS_AMPLIFY","AWS_APP_ID",{ci:!0}],["AZURE_PIPELINES","SYSTEM_TEAMFOUNDATIONCOLLECTIONURI"],["AZURE_STATIC","INPUT_AZURE_STATIC_WEB_APPS_API_TOKEN"],["APPCIRCLE","AC_APPCIRCLE"],["BAMBOO","bamboo_planKey"],["BITBUCKET","BITBUCKET_COMMIT"],["BITRISE","BITRISE_IO"],["BUDDY","BUDDY_WORKSPACE_ID"],["BUILDKITE"],["CIRCLE","CIRCLECI"],["CIRRUS","CIRRUS_CI"],["CLOUDFLARE_PAGES","CF_PAGES",{ci:!0}],["CODEBUILD","CODEBUILD_BUILD_ARN"],["CODEFRESH","CF_BUILD_ID"],["DRONE"],["DRONE","DRONE_BUILD_EVENT"],["DSARI"],["GITHUB_ACTIONS"],["GITLAB","GITLAB_CI"],["GITLAB","CI_MERGE_REQUEST_ID"],["GOCD","GO_PIPELINE_LABEL"],["LAYERCI"],["HUDSON","HUDSON_URL"],["JENKINS","JENKINS_URL"],["MAGNUM"],["NETLIFY"],["NETLIFY","NETLIFY_LOCAL",{ci:!1}],["NEVERCODE"],["RENDER"],["SAIL","SAILCI"],["SEMAPHORE"],["SCREWDRIVER"],["SHIPPABLE"],["SOLANO","TDDIUM"],["STRIDER"],["TEAMCITY","TEAMCITY_VERSION"],["TRAVIS"],["VERCEL","NOW_BUILDER"],["VERCEL","VERCEL",{ci:!1}],["VERCEL","VERCEL_ENV",{ci:!1}],["APPCENTER","APPCENTER_BUILD_ID"],["CODESANDBOX","CODESANDBOX_SSE",{ci:!1}],["STACKBLITZ"],["STORMKIT"],["CLEAVR"],["ZEABUR"],["CODESPHERE","CODESPHERE_APP_ID",{ci:!0}],["RAILWAY","RAILWAY_PROJECT_ID"],["RAILWAY","RAILWAY_SERVICE_ID"],["DENO-DEPLOY","DENO_DEPLOYMENT_ID"],["FIREBASE_APP_HOSTING","FIREBASE_APP_HOSTING",{ci:!0}]];function p(){if(globalThis.process?.env)for(const e of B){const o=e[1]||e[0];if(globalThis.process?.env[o])return {name:e[0].toLowerCase(),...e[2]}}return globalThis.process?.env?.SHELL==="/bin/jsh"&&globalThis.process?.versions?.webcontainer?{name:"stackblitz",ci:!1}:{name:"",ci:!1}}const l=p(),d=l.name;function n(e){return e?e!=="false":!1}const I=globalThis.process?.platform||"",T=n(s.CI)||l.ci!==!1,R=n(globalThis.process?.stdout&&globalThis.process?.stdout.isTTY);n(s.DEBUG);const A=t==="test"||n(s.TEST);n(s.MINIMAL)||T||A||!R;const _=/^win/i.test(I);!n(s.NO_COLOR)&&(n(s.FORCE_COLOR)||(R||_)&&s.TERM!=="dumb"||T);const C=(globalThis.process?.versions?.node||"").replace(/^v/,"")||null;Number(C?.split(".")[0])||null;const y=globalThis.process||Object.create(null),c={versions:{}};new Proxy(y,{get(e,o){if(o==="env")return s;if(o in e)return e[o];if(o in c)return c[o]}});const L=globalThis.process?.release?.name==="node",a=!!globalThis.Bun||!!globalThis.process?.versions?.bun,D=!!globalThis.Deno,O=!!globalThis.fastly,S=!!globalThis.Netlify,N=!!globalThis.EdgeRuntime,P=globalThis.navigator?.userAgent==="Cloudflare-Workers",F=[[S,"netlify"],[N,"edge-light"],[P,"workerd"],[O,"fastly"],[D,"deno"],[a,"bun"],[L,"node"]];function G(){const e=F.find(o=>o[0]);if(e)return {name:e[1]}}const u=G();u?.name||"";
 
 const scheduledTasks = false;
 
@@ -6730,22 +7200,23 @@ const { options = {} } = config;
 
 const stylesToTop = [].join('');
 const styleProps = {
-  
+    
 };
 const styles$2 = [
-  ,
-  BaseStyle && BaseStyle.getStyleSheet ? BaseStyle.getStyleSheet(undefined, styleProps) : ''
+    ,
+    BaseStyle && BaseStyle.getStyleSheet ? BaseStyle.getStyleSheet(undefined, styleProps) : ''
 ].join('');
 
 Theme.setTheme(options?.theme);
 
-const themes = [
+const themes = 
+[
     BaseStyle && BaseStyle.getCommonThemeStyleSheet ? BaseStyle.getCommonThemeStyleSheet(undefined, styleProps) : '',
     BaseStyle && BaseStyle.getThemeStyleSheet ? BaseStyle.getThemeStyleSheet(undefined, styleProps) : ''
 ].join('');
 
 const defineNitroPlugin = (def) => def;
-const _38icEupxmW = defineNitroPlugin(async (nitroApp) => {
+const _ne0YYX6jA4 = defineNitroPlugin(async (nitroApp) => {
   nitroApp.hooks.hook("render:html", (html) => {
     html.head.unshift(stylesToTop);
     html.head.push(styles$2);
@@ -6754,15 +7225,15 @@ const _38icEupxmW = defineNitroPlugin(async (nitroApp) => {
 });
 
 const plugins = [
-  _DoyVyGvLVO,
-_38icEupxmW
+  _TvmITHjA87,
+_ne0YYX6jA4
 ];
 
-const _lazy_9n2BaD = () => Promise.resolve().then(function () { return renderer$1; });
+const _lazy_6NxlGK = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
-  { route: '/__nuxt_error', handler: _lazy_9n2BaD, lazy: true, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_9n2BaD, lazy: true, middleware: false, method: undefined }
+  { route: '/__nuxt_error', handler: _lazy_6NxlGK, lazy: true, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_6NxlGK, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
@@ -6899,7 +7370,7 @@ function getAddress() {
     return 0;
   }
   const socketName = `worker-${process.pid}-${threadId}.sock`;
-  if (a) {
+  if (_) {
     return join(String.raw`\\.\pipe\nitro`, socketName);
   }
   const socketDir = join(tmpdir(), "nitro");
@@ -7027,8 +7498,8 @@ const renderSSRHeadOptions = {"omitLineBreaks":false};
 
 globalThis.__buildAssetsURL = buildAssetsURL;
 globalThis.__publicAssetsURL = publicAssetsURL;
-const getClientManifest = () => import('file:///home/dylan/Projects/oxide-app/client/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
-const getServerEntry = () => import('file:///home/dylan/Projects/oxide-app/client/.nuxt/dist/server/server.mjs').then((r) => r.default || r);
+const getClientManifest = () => import('file:///home/camster/Desktop/Repos/oxide-app/client/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
+const getServerEntry = () => import('file:///home/camster/Desktop/Repos/oxide-app/client/.nuxt/dist/server/server.mjs').then((r) => r.default || r);
 const getSSRStyles = lazyCachedFunction(() => Promise.resolve().then(function () { return styles$1; }).then((r) => r.default || r));
 const getSSRRenderer = lazyCachedFunction(async () => {
   const manifest = await getClientManifest();

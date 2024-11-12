@@ -93,6 +93,8 @@ declare module 'nuxt/schema' {
 
       importTheme: any,
 
+      loadStyles: boolean,
+
       options: {
          theme: {
             preset: {
@@ -690,6 +692,22 @@ declare module 'nuxt/schema' {
 
                      paddingY: string,
 
+                     sm: {
+                        fontSize: string,
+
+                        paddingX: string,
+
+                        paddingY: string,
+                     },
+
+                     lg: {
+                        fontSize: string,
+
+                        paddingX: string,
+
+                        paddingY: string,
+                     },
+
                      borderRadius: string,
 
                      focusRing: {
@@ -852,6 +870,8 @@ declare module 'nuxt/schema' {
 
                            filledBackground: string,
 
+                           filledHoverBackground: string,
+
                            filledFocusBackground: string,
 
                            borderColor: string,
@@ -868,9 +888,13 @@ declare module 'nuxt/schema' {
 
                            placeholderColor: string,
 
+                           invalidPlaceholderColor: string,
+
                            floatLabelColor: string,
 
                            floatLabelFocusColor: string,
+
+                           floatLabelActiveColor: string,
 
                            floatLabelInvalidColor: string,
 
@@ -1054,6 +1078,8 @@ declare module 'nuxt/schema' {
 
                            filledBackground: string,
 
+                           filledHoverBackground: string,
+
                            filledFocusBackground: string,
 
                            borderColor: string,
@@ -1070,9 +1096,13 @@ declare module 'nuxt/schema' {
 
                            placeholderColor: string,
 
+                           invalidPlaceholderColor: string,
+
                            floatLabelColor: string,
 
                            floatLabelFocusColor: string,
+
+                           floatLabelActiveColor: string,
 
                            floatLabelInvalidColor: string,
 
@@ -1291,6 +1321,8 @@ declare module 'nuxt/schema' {
 
                         filledBackground: string,
 
+                        filledHoverBackground: string,
+
                         filledFocusBackground: string,
 
                         borderColor: string,
@@ -1306,6 +1338,8 @@ declare module 'nuxt/schema' {
                         disabledColor: string,
 
                         placeholderColor: string,
+
+                        invalidPlaceholderColor: string,
 
                         shadow: string,
 
@@ -1381,6 +1415,14 @@ declare module 'nuxt/schema' {
                      dropdown: {
                         width: string,
 
+                        sm: {
+                           width: string,
+                        },
+
+                        lg: {
+                           width: string,
+                        },
+
                         borderColor: string,
 
                         hoverBorderColor: string,
@@ -1412,6 +1454,12 @@ declare module 'nuxt/schema' {
 
                      colorScheme: {
                         light: {
+                           chip: {
+                              focusBackground: string,
+
+                              focusColor: string,
+                           },
+
                            dropdown: {
                               background: string,
 
@@ -1428,6 +1476,12 @@ declare module 'nuxt/schema' {
                         },
 
                         dark: {
+                           chip: {
+                              focusBackground: string,
+
+                              focusColor: string,
+                           },
+
                            dropdown: {
                               background: string,
 
@@ -1455,7 +1509,13 @@ declare module 'nuxt/schema' {
 
                         background: string,
 
+                        color: string,
+
                         borderRadius: string,
+                     },
+
+                     icon: {
+                        size: string,
                      },
 
                      group: {
@@ -1470,6 +1530,14 @@ declare module 'nuxt/schema' {
                         height: string,
 
                         fontSize: string,
+
+                        icon: {
+                           size: string,
+                        },
+
+                        group: {
+                           offset: string,
+                        },
                      },
 
                      xl: {
@@ -1478,6 +1546,14 @@ declare module 'nuxt/schema' {
                         height: string,
 
                         fontSize: string,
+
+                        icon: {
+                           size: string,
+                        },
+
+                        group: {
+                           offset: string,
+                        },
                      },
                   },
 
@@ -1637,9 +1713,15 @@ declare module 'nuxt/schema' {
 
                         hoverColor: string,
 
-                        iconColor: string,
-
                         borderRadius: string,
+
+                        gap: string,
+
+                        icon: {
+                           color: string,
+
+                           hoverColor: string,
+                        },
 
                         focusRing: {
                            width: string,
@@ -2069,6 +2151,14 @@ declare module 'nuxt/schema' {
                                  color: string,
                               },
 
+                              contrast: {
+                                 hoverBackground: string,
+
+                                 activeBackground: string,
+
+                                 color: string,
+                              },
+
                               plain: {
                                  hoverBackground: string,
 
@@ -2447,6 +2537,14 @@ declare module 'nuxt/schema' {
                                  color: string,
                               },
 
+                              contrast: {
+                                 hoverBackground: string,
+
+                                 activeBackground: string,
+
+                                 color: string,
+                              },
+
                               plain: {
                                  hoverBackground: string,
 
@@ -2494,10 +2592,6 @@ declare module 'nuxt/schema' {
                         color: string,
 
                         padding: string,
-
-                        fontWeight: string,
-
-                        gap: string,
                      },
 
                      title: {
@@ -2508,6 +2602,14 @@ declare module 'nuxt/schema' {
 
                      dropdown: {
                         width: string,
+
+                        sm: {
+                           width: string,
+                        },
+
+                        lg: {
+                           width: string,
+                        },
 
                         borderColor: string,
 
@@ -2617,6 +2719,8 @@ declare module 'nuxt/schema' {
                      },
 
                      month: {
+                        padding: string,
+
                         borderRadius: string,
                      },
 
@@ -2625,6 +2729,8 @@ declare module 'nuxt/schema' {
                      },
 
                      year: {
+                        padding: string,
+
                         borderRadius: string,
                      },
 
@@ -2725,33 +2831,37 @@ declare module 'nuxt/schema' {
 
                   carousel: {
                      root: {
-                        indicatorList: {
-                           padding: string,
+                        transitionDuration: string,
+                     },
 
-                           gap: string,
-                        },
+                     content: {
+                        gap: string,
+                     },
 
-                        indicator: {
+                     indicatorList: {
+                        padding: string,
+
+                        gap: string,
+                     },
+
+                     indicator: {
+                        width: string,
+
+                        height: string,
+
+                        borderRadius: string,
+
+                        focusRing: {
                            width: string,
 
-                           height: string,
+                           style: string,
 
-                           borderRadius: string,
+                           color: string,
 
-                           focusRing: {
-                              width: string,
+                           offset: string,
 
-                              style: string,
-
-                              color: string,
-
-                              offset: string,
-
-                              shadow: string,
-                           },
+                           shadow: string,
                         },
-
-                        transitionDuration: string,
                      },
 
                      colorScheme: {
@@ -2785,6 +2895,8 @@ declare module 'nuxt/schema' {
 
                         filledBackground: string,
 
+                        filledHoverBackground: string,
+
                         filledFocusBackground: string,
 
                         borderColor: string,
@@ -2800,6 +2912,8 @@ declare module 'nuxt/schema' {
                         disabledColor: string,
 
                         placeholderColor: string,
+
+                        invalidPlaceholderColor: string,
 
                         shadow: string,
 
@@ -2822,6 +2936,22 @@ declare module 'nuxt/schema' {
                         },
 
                         transitionDuration: string,
+
+                        sm: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
+
+                        lg: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
                      },
 
                      dropdown: {
@@ -2846,6 +2976,8 @@ declare module 'nuxt/schema' {
                         padding: string,
 
                         gap: string,
+
+                        mobileIndent: string,
                      },
 
                      option: {
@@ -2874,6 +3006,10 @@ declare module 'nuxt/schema' {
 
                            size: string,
                         },
+                     },
+
+                     clearIcon: {
+                        color: string,
                      },
                   },
 
@@ -2907,6 +3043,8 @@ declare module 'nuxt/schema' {
 
                         checkedFocusBorderColor: string,
 
+                        checkedDisabledBorderColor: string,
+
                         invalidBorderColor: string,
 
                         shadow: string,
@@ -2924,6 +3062,18 @@ declare module 'nuxt/schema' {
                         },
 
                         transitionDuration: string,
+
+                        sm: {
+                           width: string,
+
+                           height: string,
+                        },
+
+                        lg: {
+                           width: string,
+
+                           height: string,
+                        },
                      },
 
                      icon: {
@@ -2936,6 +3086,14 @@ declare module 'nuxt/schema' {
                         checkedHoverColor: string,
 
                         disabledColor: string,
+
+                        sm: {
+                           size: string,
+                        },
+
+                        lg: {
+                           size: string,
+                        },
                      },
                   },
 
@@ -2963,6 +3121,8 @@ declare module 'nuxt/schema' {
                      },
 
                      removeIcon: {
+                        size: string,
+
                         focusRing: {
                            width: string,
 
@@ -3164,6 +3324,10 @@ declare module 'nuxt/schema' {
                         },
                      },
 
+                     submenu: {
+                        mobileIndent: string,
+                     },
+
                      submenuIcon: {
                         size: string,
 
@@ -3356,7 +3520,9 @@ declare module 'nuxt/schema' {
                         padding: string,
                      },
 
-                     dropPointColor: string,
+                     dropPoint: {
+                        color: string,
+                     },
 
                      columnResizerWidth: string,
 
@@ -3370,6 +3536,8 @@ declare module 'nuxt/schema' {
                         color: string,
 
                         hoverColor: string,
+
+                        size: string,
                      },
 
                      loadingIcon: {
@@ -3621,8 +3789,6 @@ declare module 'nuxt/schema' {
 
                         color: string,
 
-                        borderRadius: string,
-
                         shadow: string,
                      },
 
@@ -3637,6 +3803,10 @@ declare module 'nuxt/schema' {
                      },
 
                      content: {
+                        padding: string,
+                     },
+
+                     footer: {
                         padding: string,
                      },
                   },
@@ -3775,6 +3945,8 @@ declare module 'nuxt/schema' {
 
                         padding: string,
 
+                        borderColor: string,
+
                         borderWidth: string,
 
                         borderRadius: string,
@@ -3786,6 +3958,8 @@ declare module 'nuxt/schema' {
                         highlightBorderColor: string,
 
                         padding: string,
+
+                        gap: string,
                      },
 
                      file: {
@@ -3800,6 +3974,10 @@ declare module 'nuxt/schema' {
                         },
                      },
 
+                     fileList: {
+                        gap: string,
+                     },
+
                      progressbar: {
                         height: string,
                      },
@@ -3809,7 +3987,7 @@ declare module 'nuxt/schema' {
                      },
                   },
 
-                  floatlabel: {
+                  iftalabel: {
                      root: {
                         color: string,
 
@@ -3818,6 +3996,74 @@ declare module 'nuxt/schema' {
                         invalidColor: string,
 
                         transitionDuration: string,
+
+                        positionX: string,
+
+                        top: string,
+
+                        fontSize: string,
+
+                        fontWeight: string,
+                     },
+
+                     input: {
+                        paddingTop: string,
+
+                        paddingBottom: string,
+                     },
+                  },
+
+                  floatlabel: {
+                     root: {
+                        color: string,
+
+                        focusColor: string,
+
+                        activeColor: string,
+
+                        invalidColor: string,
+
+                        transitionDuration: string,
+
+                        positionX: string,
+
+                        positionY: string,
+
+                        fontWeight: string,
+
+                        active: {
+                           fontSize: string,
+
+                           fontWeight: string,
+                        },
+                     },
+
+                     over: {
+                        active: {
+                           top: string,
+                        },
+                     },
+
+                     in: {
+                        input: {
+                           paddingTop: string,
+
+                           paddingBottom: string,
+                        },
+
+                        active: {
+                           top: string,
+                        },
+                     },
+
+                     on: {
+                        borderRadius: string,
+
+                        active: {
+                           background: string,
+
+                           padding: string,
+                        },
                      },
                   },
 
@@ -3948,12 +4194,6 @@ declare module 'nuxt/schema' {
                         activeBackground: string,
                      },
 
-                     mask: {
-                        background: string,
-
-                        color: string,
-                     },
-
                      closeButton: {
                         size: string,
 
@@ -4082,6 +4322,40 @@ declare module 'nuxt/schema' {
                         iconSize: string,
 
                         borderRadius: string,
+
+                        focusRing: {
+                           width: string,
+
+                           style: string,
+
+                           color: string,
+
+                           offset: string,
+
+                           shadow: string,
+                        },
+                     },
+                  },
+
+                  imagecompare: {
+                     handle: {
+                        size: string,
+
+                        hoverSize: string,
+
+                        background: string,
+
+                        hoverBackground: string,
+
+                        borderColor: string,
+
+                        hoverBorderColor: string,
+
+                        borderWidth: string,
+
+                        borderRadius: string,
+
+                        transitionDuration: string,
 
                         focusRing: {
                            width: string,
@@ -4348,6 +4622,10 @@ declare module 'nuxt/schema' {
                         color: string,
 
                         borderRadius: string,
+
+                        padding: string,
+
+                        minWidth: string,
                      },
                   },
 
@@ -4411,6 +4689,24 @@ declare module 'nuxt/schema' {
                      },
                   },
 
+                  inputotp: {
+                     root: {
+                        gap: string,
+                     },
+
+                     input: {
+                        width: string,
+
+                        sm: {
+                           width: string,
+                        },
+
+                        lg: {
+                           width: string,
+                        },
+                     },
+                  },
+
                   inputtext: {
                      root: {
                         background: string,
@@ -4418,6 +4714,8 @@ declare module 'nuxt/schema' {
                         disabledBackground: string,
 
                         filledBackground: string,
+
+                        filledHoverBackground: string,
 
                         filledFocusBackground: string,
 
@@ -4434,6 +4732,8 @@ declare module 'nuxt/schema' {
                         disabledColor: string,
 
                         placeholderColor: string,
+
+                        invalidPlaceholderColor: string,
 
                         shadow: string,
 
@@ -4513,10 +4813,6 @@ declare module 'nuxt/schema' {
 
                         borderColor: string,
 
-                        hoverBorderColor: string,
-
-                        focusBorderColor: string,
-
                         invalidBorderColor: string,
 
                         color: string,
@@ -4526,18 +4822,6 @@ declare module 'nuxt/schema' {
                         shadow: string,
 
                         borderRadius: string,
-
-                        focusRing: {
-                           width: string,
-
-                           style: string,
-
-                           color: string,
-
-                           offset: string,
-
-                           shadow: string,
-                        },
 
                         transitionDuration: string,
                      },
@@ -4629,6 +4913,8 @@ declare module 'nuxt/schema' {
 
                         horizontalOrientation: {
                            padding: string,
+
+                           gap: string,
                         },
 
                         transitionDuration: string,
@@ -4856,16 +5142,16 @@ declare module 'nuxt/schema' {
                         shadow: string,
 
                         mobileIndent: string,
-                     },
 
-                     submenuIcon: {
-                        size: string,
+                        icon: {
+                           size: string,
 
-                        color: string,
+                           color: string,
 
-                        focusColor: string,
+                           focusColor: string,
 
-                        activeColor: string,
+                           activeColor: string,
+                        },
                      },
 
                      separator: {
@@ -4910,16 +5196,40 @@ declare module 'nuxt/schema' {
                         padding: string,
 
                         gap: string,
+
+                        sm: {
+                           padding: string,
+                        },
+
+                        lg: {
+                           padding: string,
+                        },
                      },
 
                      text: {
                         fontSize: string,
 
                         fontWeight: string,
+
+                        sm: {
+                           fontSize: string,
+                        },
+
+                        lg: {
+                           fontSize: string,
+                        },
                      },
 
                      icon: {
                         size: string,
+
+                        sm: {
+                           size: string,
+                        },
+
+                        lg: {
+                           size: string,
+                        },
                      },
 
                      closeButton: {
@@ -4940,6 +5250,26 @@ declare module 'nuxt/schema' {
 
                      closeIcon: {
                         size: string,
+
+                        sm: {
+                           size: string,
+                        },
+
+                        lg: {
+                           size: string,
+                        },
+                     },
+
+                     outlined: {
+                        root: {
+                           borderWidth: string,
+                        },
+                     },
+
+                     simple: {
+                        content: {
+                           padding: string,
+                        },
                      },
 
                      colorScheme: {
@@ -4962,6 +5292,16 @@ declare module 'nuxt/schema' {
                                     shadow: string,
                                  },
                               },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
+                              },
                            },
 
                            success: {
@@ -4981,6 +5321,16 @@ declare module 'nuxt/schema' {
 
                                     shadow: string,
                                  },
+                              },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
                               },
                            },
 
@@ -5002,6 +5352,16 @@ declare module 'nuxt/schema' {
                                     shadow: string,
                                  },
                               },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
+                              },
                            },
 
                            error: {
@@ -5021,6 +5381,16 @@ declare module 'nuxt/schema' {
 
                                     shadow: string,
                                  },
+                              },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
                               },
                            },
 
@@ -5042,6 +5412,16 @@ declare module 'nuxt/schema' {
                                     shadow: string,
                                  },
                               },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
+                              },
                            },
 
                            contrast: {
@@ -5061,6 +5441,16 @@ declare module 'nuxt/schema' {
 
                                     shadow: string,
                                  },
+                              },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
                               },
                            },
                         },
@@ -5084,6 +5474,16 @@ declare module 'nuxt/schema' {
                                     shadow: string,
                                  },
                               },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
+                              },
                            },
 
                            success: {
@@ -5103,6 +5503,16 @@ declare module 'nuxt/schema' {
 
                                     shadow: string,
                                  },
+                              },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
                               },
                            },
 
@@ -5124,6 +5534,16 @@ declare module 'nuxt/schema' {
                                     shadow: string,
                                  },
                               },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
+                              },
                            },
 
                            error: {
@@ -5143,6 +5563,16 @@ declare module 'nuxt/schema' {
 
                                     shadow: string,
                                  },
+                              },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
                               },
                            },
 
@@ -5164,6 +5594,16 @@ declare module 'nuxt/schema' {
                                     shadow: string,
                                  },
                               },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
+                              },
                            },
 
                            contrast: {
@@ -5183,6 +5623,16 @@ declare module 'nuxt/schema' {
 
                                     shadow: string,
                                  },
+                              },
+
+                              outlined: {
+                                 color: string,
+
+                                 borderColor: string,
+                              },
+
+                              simple: {
+                                 color: string,
                               },
                            },
                         },
@@ -5229,6 +5679,8 @@ declare module 'nuxt/schema' {
 
                         filledBackground: string,
 
+                        filledHoverBackground: string,
+
                         filledFocusBackground: string,
 
                         borderColor: string,
@@ -5244,6 +5696,8 @@ declare module 'nuxt/schema' {
                         disabledColor: string,
 
                         placeholderColor: string,
+
+                        invalidPlaceholderColor: string,
 
                         shadow: string,
 
@@ -5266,6 +5720,22 @@ declare module 'nuxt/schema' {
                         },
 
                         transitionDuration: string,
+
+                        sm: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
+
+                        lg: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
                      },
 
                      dropdown: {
@@ -5326,6 +5796,10 @@ declare module 'nuxt/schema' {
                         fontWeight: string,
 
                         padding: string,
+                     },
+
+                     clearIcon: {
+                        color: string,
                      },
 
                      chip: {
@@ -5749,6 +6223,8 @@ declare module 'nuxt/schema' {
 
                         checkedFocusBorderColor: string,
 
+                        checkedDisabledBorderColor: string,
+
                         invalidBorderColor: string,
 
                         shadow: string,
@@ -5766,6 +6242,18 @@ declare module 'nuxt/schema' {
                         },
 
                         transitionDuration: string,
+
+                        sm: {
+                           width: string,
+
+                           height: string,
+                        },
+
+                        lg: {
+                           width: string,
+
+                           height: string,
+                        },
                      },
 
                      icon: {
@@ -5776,6 +6264,14 @@ declare module 'nuxt/schema' {
                         checkedHoverColor: string,
 
                         disabledColor: string,
+
+                        sm: {
+                           size: string,
+                        },
+
+                        lg: {
+                           size: string,
+                        },
                      },
                   },
 
@@ -5784,6 +6280,18 @@ declare module 'nuxt/schema' {
                         gap: string,
 
                         transitionDuration: string,
+
+                        focusRing: {
+                           width: string,
+
+                           style: string,
+
+                           color: string,
+
+                           offset: string,
+
+                           shadow: string,
+                        },
                      },
 
                      icon: {
@@ -5843,6 +6351,8 @@ declare module 'nuxt/schema' {
 
                         filledBackground: string,
 
+                        filledHoverBackground: string,
+
                         filledFocusBackground: string,
 
                         borderColor: string,
@@ -5858,6 +6368,8 @@ declare module 'nuxt/schema' {
                         disabledColor: string,
 
                         placeholderColor: string,
+
+                        invalidPlaceholderColor: string,
 
                         shadow: string,
 
@@ -5880,6 +6392,22 @@ declare module 'nuxt/schema' {
                         },
 
                         transitionDuration: string,
+
+                        sm: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
+
+                        lg: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
                      },
 
                      dropdown: {
@@ -6207,9 +6735,7 @@ declare module 'nuxt/schema' {
 
                         padding: string,
 
-                        last: {
-                           padding: string,
-                        },
+                        indent: string,
                      },
                   },
 
@@ -6453,13 +6979,13 @@ declare module 'nuxt/schema' {
                      colorScheme: {
                         light: {
                            navButton: {
-                              boxShadow: string,
+                              shadow: string,
                            },
                         },
 
                         dark: {
                            navButton: {
-                              boxShadow: string,
+                              shadow: string,
                            },
                         },
                      },
@@ -6505,13 +7031,13 @@ declare module 'nuxt/schema' {
                      colorScheme: {
                         light: {
                            navButton: {
-                              boxShadow: string,
+                              shadow: string,
                            },
                         },
 
                         dark: {
                            navButton: {
-                              boxShadow: string,
+                              shadow: string,
                            },
                         },
                      },
@@ -6541,6 +7067,8 @@ declare module 'nuxt/schema' {
 
                         placeholderColor: string,
 
+                        invalidPlaceholderColor: string,
+
                         shadow: string,
 
                         paddingX: string,
@@ -6562,6 +7090,22 @@ declare module 'nuxt/schema' {
                         },
 
                         transitionDuration: string,
+
+                        sm: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
+
+                        lg: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
                      },
                   },
 
@@ -6612,14 +7156,8 @@ declare module 'nuxt/schema' {
                         },
                      },
 
-                     submenuLabel: {
-                        padding: string,
-
-                        fontWeight: string,
-
-                        background: string,
-
-                        color: string,
+                     submenu: {
+                        mobileIndent: string,
                      },
 
                      submenuIcon: {
@@ -6848,6 +7386,18 @@ declare module 'nuxt/schema' {
                         },
 
                         transitionDuration: string,
+
+                        sm: {
+                           fontSize: string,
+
+                           padding: string,
+                        },
+
+                        lg: {
+                           fontSize: string,
+
+                           padding: string,
+                        },
                      },
 
                      icon: {
@@ -6981,6 +7531,8 @@ declare module 'nuxt/schema' {
                            root: {
                               background: string,
 
+                              disabledBackground: string,
+
                               hoverBackground: string,
 
                               checkedBackground: string,
@@ -6991,11 +7543,21 @@ declare module 'nuxt/schema' {
                            handle: {
                               background: string,
 
+                              disabledBackground: string,
+
                               hoverBackground: string,
 
                               checkedBackground: string,
 
                               checkedHoverBackground: string,
+
+                              color: string,
+
+                              hoverColor: string,
+
+                              checkedColor: string,
+
+                              checkedHoverColor: string,
                            },
                         },
 
@@ -7003,6 +7565,8 @@ declare module 'nuxt/schema' {
                            root: {
                               background: string,
 
+                              disabledBackground: string,
+
                               hoverBackground: string,
 
                               checkedBackground: string,
@@ -7013,11 +7577,21 @@ declare module 'nuxt/schema' {
                            handle: {
                               background: string,
 
+                              disabledBackground: string,
+
                               hoverBackground: string,
 
                               checkedBackground: string,
 
                               checkedHoverBackground: string,
+
+                              color: string,
+
+                              hoverColor: string,
+
+                              checkedColor: string,
+
+                              checkedHoverColor: string,
                            },
                         },
                      },
@@ -7107,6 +7681,10 @@ declare module 'nuxt/schema' {
                      loadingIcon: {
                         size: string,
                      },
+
+                     filter: {
+                        margin: string,
+                     },
                   },
 
                   treeselect: {
@@ -7116,6 +7694,8 @@ declare module 'nuxt/schema' {
                         disabledBackground: string,
 
                         filledBackground: string,
+
+                        filledHoverBackground: string,
 
                         filledFocusBackground: string,
 
@@ -7132,6 +7712,8 @@ declare module 'nuxt/schema' {
                         disabledColor: string,
 
                         placeholderColor: string,
+
+                        invalidPlaceholderColor: string,
 
                         shadow: string,
 
@@ -7154,6 +7736,22 @@ declare module 'nuxt/schema' {
                         },
 
                         transitionDuration: string,
+
+                        sm: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
+
+                        lg: {
+                           fontSize: string,
+
+                           paddingX: string,
+
+                           paddingY: string,
+                        },
                      },
 
                      dropdown: {
@@ -7176,6 +7774,10 @@ declare module 'nuxt/schema' {
 
                      tree: {
                         padding: string,
+                     },
+
+                     clearIcon: {
+                        color: string,
                      },
 
                      emptyMessage: {
@@ -7312,6 +7914,8 @@ declare module 'nuxt/schema' {
                         color: string,
 
                         hoverColor: string,
+
+                        size: string,
                      },
 
                      loadingIcon: {
@@ -7726,6 +8330,20 @@ declare module 'nuxt/schema' {
                         gap: string,
 
                         padding: string,
+                     },
+                  },
+
+                  virtualscroller: {
+                     loader: {
+                        mask: {
+                           background: string,
+
+                           color: string,
+                        },
+
+                        icon: {
+                           size: string,
+                        },
                      },
                   },
                },

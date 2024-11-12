@@ -4,6 +4,7 @@ export default {
         return {
             nav: [
                 { label: 'Modules Visuals', to: '/oxide_visuals' },
+                { label: 'Chart Views', to: '/chart_views' },
                 { label: 'Disassembly Differences', to: '/diff_view' },
                 { label: 'Binary Visual Map', to: '/binary_visualizer' },
             ]

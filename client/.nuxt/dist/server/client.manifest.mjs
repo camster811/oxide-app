@@ -1,1 +1,1 @@
-export { default } from "file:///home/dylan/Projects/oxide-app/client/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"
+export { default } from "file:///home/camster/Desktop/Repos/oxide-app/client/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"

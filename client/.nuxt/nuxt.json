@@ -1,9 +1,9 @@
 {
-  "_hash": "eiLQv2iegh",
+  "_hash": "dLEP1VAAq7",
   "project": {
-    "rootDir": "/home/dylan/Projects/oxide-app/client"
+    "rootDir": "/home/camster/Desktop/Repos/oxide-app/client"
   },
   "versions": {
-    "nuxt": "3.14.0"
+    "nuxt": "3.14.159"
   }
 }
