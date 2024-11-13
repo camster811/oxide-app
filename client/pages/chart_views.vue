@@ -23,7 +23,7 @@ import ByteHistogram from './components/byte_histogram.vue';
 import ngramsHeatmap from './components/byte_ngrams.vue';
 
 
-const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
+const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
 const collections = ref([]);
 const selectedFile = ref('');
 const selectedModule = ref('');
