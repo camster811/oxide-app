@@ -169,8 +169,8 @@ button {
 h1 {
     font-size: x-large;
     color: #272E33;
-    margin-top: -15px;
-    margin-bottom: 20px;
+
+    margin-bottom: 50px;
     border-radius: 5px;
     border: 2px solid #272E33;;
 

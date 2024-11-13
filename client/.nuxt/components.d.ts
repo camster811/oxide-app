@@ -4,6 +4,7 @@ type IslandComponent<T extends DefineComponent> = T & DefineComponent<{}, {refre
 interface _GlobalComponents {
       'EntropyChart': typeof import("../components/EntropyChart.vue")['default']
     'ByteHistogram': typeof import("../components/byte_histogram.vue")['default']
+    'ByteNgrams': typeof import("../components/byte_ngrams.vue")['default']
     'ChartPopup': typeof import("../components/chart_popup.vue")['default']
     'DiffBox': typeof import("../components/diff_box.vue")['default']
     'DiffHeader': typeof import("../components/diff_header.vue")['default']
@@ -34,6 +35,7 @@ interface _GlobalComponents {
     'NuxtRouteAnnouncer': IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
       'LazyEntropyChart': typeof import("../components/EntropyChart.vue")['default']
     'LazyByteHistogram': typeof import("../components/byte_histogram.vue")['default']
+    'LazyByteNgrams': typeof import("../components/byte_ngrams.vue")['default']
     'LazyChartPopup': typeof import("../components/chart_popup.vue")['default']
     'LazyDiffBox': typeof import("../components/diff_box.vue")['default']
     'LazyDiffHeader': typeof import("../components/diff_header.vue")['default']
@@ -70,6 +72,7 @@ declare module 'vue' {
 
 export const EntropyChart: typeof import("../components/EntropyChart.vue")['default']
 export const ByteHistogram: typeof import("../components/byte_histogram.vue")['default']
+export const ByteNgrams: typeof import("../components/byte_ngrams.vue")['default']
 export const ChartPopup: typeof import("../components/chart_popup.vue")['default']
 export const DiffBox: typeof import("../components/diff_box.vue")['default']
 export const DiffHeader: typeof import("../components/diff_header.vue")['default']
@@ -100,6 +103,7 @@ export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components
 export const NuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
 export const LazyEntropyChart: typeof import("../components/EntropyChart.vue")['default']
 export const LazyByteHistogram: typeof import("../components/byte_histogram.vue")['default']
+export const LazyByteNgrams: typeof import("../components/byte_ngrams.vue")['default']
 export const LazyChartPopup: typeof import("../components/chart_popup.vue")['default']
 export const LazyDiffBox: typeof import("../components/diff_box.vue")['default']
 export const LazyDiffHeader: typeof import("../components/diff_header.vue")['default']
