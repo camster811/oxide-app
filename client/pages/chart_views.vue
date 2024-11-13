@@ -1,20 +1,21 @@
 <template>
-    <div class="flex flex-col min-h-screen h-screen bg-zinc-900">
+    <div id="container" class="flex flex-col min-h-screen h-screen bg-zinc-900">
+        <Sidebar @openPopup="togglePopup" @goToRoot="goToRootPage" />
         <ChartPopup
             :chartModules="chartModules"
             :collections="collections"
             @selectionConfirmed="handleSelectionConfirmed"
+            v-if="showPopup"
         />
-        <component :is="currentChartComponent" :file="selectedFile" :selectedModule="selectedModule" :selectedCollection="selectedCollection" v-if="currentChartComponent"></component>
-        <!-- Rest of your template -->
+        <component :is="currentChartComponent" :file="selectedFile" :selectedModule="selectedModule" :selectedCollection="selectedCollection" v-if="currentChartComponent" style="padding-right: 100px;"></component>
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import ChartPopup from './components/chart_popup.vue';
-import EntropyChart from './components/EntropyChart.vue'; // Import the EntropyChart component
-import { entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule, flowGraph, plotBinary } from './functions';
+import Sidebar from './components/sidebar.vue';
+import EntropyChart from './components/EntropyChart.vue';
 
 const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
 const collections = ref([]);
@@ -22,10 +23,10 @@ const selectedFile = ref('');
 const selectedModule = ref('');
 const selectedCollection = ref('');
 const currentChartComponent = ref(null);
+const showPopup = ref(true);
 
 onMounted(async () => {
-    const [modules, collectionsData] = await Promise.all([
-        fetch("http://localhost:8000/api/modules/").then((res) => res.json()),
+    const [collectionsData] = await Promise.all([
         fetch("http://localhost:8000/api/collections/").then((res) => res.json()),
     ]);
     collections.value = collectionsData;
@@ -33,13 +34,14 @@ onMounted(async () => {
 
 const handleSelectionConfirmed = ({ chartType, collection, file }) => {
     console.log(`Selected Chart Type: ${chartType}, Collection: ${collection}, File: ${file}`);
+    togglePopup();
     selectedFile.value = file;
     selectedModule.value = chartType;
     selectedCollection.value = collection;
 
     switch (chartType) {
         case "entropy_graph":
-            currentChartComponent.value = EntropyChart; // Set the component to EntropyChart
+            currentChartComponent.value = EntropyChart;
             break;
         case "byte_histogram":
             currentChartComponent.value = byteHistogram;
@@ -70,6 +72,14 @@ const handleSelectionConfirmed = ({ chartType, collection, file }) => {
             break;
     }
 };
+const togglePopup = () => {
+    showPopup.value = !showPopup.value;
+    currentChartComponent.value = null;
+};
+
+const goToRootPage = () => {
+    window.location.href = '/';
+};
 </script>
 
 <style>
@@ -85,4 +95,5 @@ const handleSelectionConfirmed = ({ chartType, collection, file }) => {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
+
 </style>

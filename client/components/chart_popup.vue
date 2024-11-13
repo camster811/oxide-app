@@ -1,9 +1,9 @@
 <template>
     <div class="chartpopup" v-if="showPopup">
         <div class="popup-content">
-            <h1>Select Chart Type and Collection</h1>
+            <h1>Select Chart Type and File</h1>
             <div v-if="step === 1">
-                <label for="chartType">Chart Type:</label>
+                <label for="chartType" style="font-size: larger;">Chart Type:</label>
                 <select v-model="selectedChartType" class="styled-select">
                     <option v-for="module in chartModules" :key="module" :value="module">{{ module }}</option>
                 </select>
@@ -156,18 +156,23 @@ export default {
 
 .buttons {
     margin-top: 20px;
+    
 }
 
 button {
     margin: 0 10px;
+    border-radius: 5px;
+    border: 2px solid #272E33;;
+    padding: 5px;
 }
 
 h1 {
     font-size: x-large;
-    background: #272E33;
-    color: white;
-    position: fixed;
-    top: 30%;
-    left: 41.5%;
+    color: #272E33;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 2px solid #272E33;;
+
 }
 </style>
