@@ -1,16 +1,14 @@
 <script setup>
 import { ref, watch } from "vue";
 import { Chart, registerables } from "chart.js";
-import DataTable from "primevue/datatable";
-import Column from "primevue/column";
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
-import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule, flowGraph, plotBinary } from "./functions";
+import { ngramsHeatmap, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule, flowGraph, plotBinary } from "./functions";
 import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state";
 import ScrollPanel from "primevue/scrollpanel";
 import Sidebar from './components/sidebar.vue';
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
-const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
+const chartModules = ["byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
 const networkModules = ["call_graph", "control_flow_graph", "binary_visualizer"];
 const viewMode = ref("chart");
 
@@ -73,9 +71,6 @@ const runModule = async () => {
         let firstFile = Object.keys(collectionFiles.value)[0];
 
         switch (selectedModule.value) {
-            case "entropy_graph":
-                entropyModule(responseData.value, firstFile);
-                break;
             case "byte_histogram":
                 byteHistogram(responseData.value);
                 break;
@@ -108,16 +103,6 @@ const runModule = async () => {
     } catch (error) {
         // Handle the error here
         console.error(error);
-    }
-};
-
-const handleFileSelection = (file) => {
-    console.log(`Selected file: ${file}`);
-    if (selectedModule.value == "entropy_graph") {
-        entropyModule(responseData.value, file);
-    }
-    if (selectedModule.value == "call_graph") {
-        callGraphModule(responseData.value, file);
     }
 };
 
@@ -211,13 +196,6 @@ watch(viewMode, (newVal) => {
                             <canvas v-if="viewMode == 'chart' && !networkModules.includes(selectedModule)" id="chartCanvas" style="width: 100%; height: 100%;"></canvas>
                             <div id="network" v-if="networkModules.includes(selectedModule)  && viewMode === 'chart'" style="width: 100%; height: 100%;"></div>
                             <div id = "infoBox" class="info-box" v-if="selectedModule == 'binary_visualizer' && viewMode == 'chart'"></div>
-
-                            <DataTable v-if="selectedModule == 'entropy_graph' && viewMode == 'chart'" :value="tableData" tableStyle="min-width: 50rem">
-                                <Column field="block_size" header="Block Size"></Column>
-                                <Column field="overall_entropy" header="Overall entropy_graph"></Column>
-                                <Column field="max_entropy" header="Max entropy_graph"></Column>
-                                <Column field="max_entropy_address" header="Max entropy_graph Address"></Column>
-                            </DataTable>
                         </ScrollPanel>
                     </div>
                 </div>
