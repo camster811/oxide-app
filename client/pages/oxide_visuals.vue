@@ -7,6 +7,7 @@ import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 import { ngramsHeatmap, entropyModule, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule, flowGraph, plotBinary } from "./functions";
 import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state";
 import ScrollPanel from "primevue/scrollpanel";
+import Sidebar from './components/sidebar.vue';
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
 const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
@@ -170,6 +171,7 @@ watch(viewMode, (newVal) => {
 
 <template>
     <div class="flex flex-col min-h-screen h-screen bg-zinc-900">
+        <Sidebar @goToRoot="goToRoot"/>
         <div class="flex flex-row flex-grow pt-4">
             <div class="flex flex-row space-x-4" style="flex-grow: 0; flex-shrink: 0">
                 <div class="card bg-primary w-1/2 flex flex-col pb-4 pl-4">

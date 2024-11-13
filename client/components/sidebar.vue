@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar-container" @mouseover="showSidebar" @mouseleave="hideSidebar">
         <div class="sidebar-content" :class="{ 'sidebar-visible': isVisible }">
-            <button @click="openPopup">Choose New File</button>
+            <slot></slot>
             <button @click="goToRoot">Go to Root Page</button>
         </div>
     </div>
@@ -12,7 +12,7 @@ import { ref } from 'vue';
 
 export default {
     name: 'Sidebar',
-    emits: ['openPopup', 'goToRoot'],
+    emits: ['goToRoot'],
     setup(_, { emit }) {
         const isVisible = ref(false);
 
@@ -24,19 +24,14 @@ export default {
             isVisible.value = false;
         };
 
-        const openPopup = () => {
-            emit('openPopup');
-        };
-
         const goToRoot = () => {
-            emit('goToRoot');
+            window.location.href = '/';
         };
 
         return {
             isVisible,
             showSidebar,
             hideSidebar,
-            openPopup,
             goToRoot,
         };
     },

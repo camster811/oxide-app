@@ -1,6 +1,9 @@
 <template>
     <div id="container" class="flex flex-col min-h-screen h-screen bg-zinc-900">
-        <Sidebar @openPopup="togglePopup" @goToRoot="goToRootPage" />
+        <Sidebar >
+            <button @click="togglePopup">Select New Chart/File</button>
+        </Sidebar>
+        
         <ChartPopup
             :chartModules="chartModules"
             :collections="collections"
@@ -76,10 +79,6 @@ const togglePopup = () => {
     showPopup.value = !showPopup.value;
     currentChartComponent.value = null;
 };
-
-const goToRootPage = () => {
-    window.location.href = '/';
-};
 </script>
 
 <style>
@@ -94,6 +93,19 @@ const goToRootPage = () => {
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+}
+
+button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
 }
 
 </style>
