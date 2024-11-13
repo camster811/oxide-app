@@ -2,13 +2,13 @@
 import { ref, watch } from "vue";
 import { Chart, registerables } from "chart.js";
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
-import { ngramsHeatmap, byteHistogram, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule, flowGraph, plotBinary } from "./functions";
-import { selectedModule, selectedCollection, chartInstance, responseData, tableData, collectionFiles, showTable } from "./state";
+import { ngramsHeatmap, blockLenHistogram, opcodeHistogram, opcodeNgramsHeatmap, callGraphModule, flowGraph, plotBinary } from "./functions";
+import { selectedModule, selectedCollection, chartInstance, responseData, collectionFiles, showTable } from "./state";
 import ScrollPanel from "primevue/scrollpanel";
 import Sidebar from './components/sidebar.vue';
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
-const chartModules = ["byte_histogram", "byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
+const chartModules = ["byte_ngrams", "block_len_histogram", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
 const networkModules = ["call_graph", "control_flow_graph", "binary_visualizer"];
 const viewMode = ref("chart");
 
@@ -71,9 +71,6 @@ const runModule = async () => {
         let firstFile = Object.keys(collectionFiles.value)[0];
 
         switch (selectedModule.value) {
-            case "byte_histogram":
-                byteHistogram(responseData.value);
-                break;
             case "byte_ngrams":
                 ngramsHeatmap(responseData.value);
                 break;
