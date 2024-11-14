@@ -21,6 +21,7 @@ import Sidebar from './components/sidebar.vue';
 import EntropyChart from './components/EntropyChart.vue';
 import ByteHistogram from './components/byte_histogram.vue';
 import ngramsHeatmap from './components/byte_ngrams.vue';
+import OpcodeHistogram from './components/opcode_histogram.vue';
 
 
 const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
@@ -55,11 +56,8 @@ const handleSelectionConfirmed = ({ chartType, collection, file }) => {
         case "byte_ngrams":
             currentChartComponent.value = ngramsHeatmap;
             break;
-        case "block_len_histogram":
-            currentChartComponent.value = blockLenHistogram;
-            break;
         case "opcode_histogram":
-            currentChartComponent.value = opcodeHistogram;
+            currentChartComponent.value = OpcodeHistogram;
             break;
         case "opcode_ngrams":
             currentChartComponent.value = opcodeNgramsHeatmap;
