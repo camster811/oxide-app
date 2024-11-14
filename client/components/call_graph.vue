@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="network"></div>
+        <div id="network" style="width: 100%; height: 100vh;"></div>
     </div>
 </template>
 
@@ -13,6 +13,7 @@ export default {
         file: String,
         selectedModule: String,
         selectedCollection: String,
+        oid: String,
     },
     setup(props) {
         const networkInstance = ref(null);
@@ -27,10 +28,9 @@ export default {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                const data = await response.json();
-                console.log('API Response:', data);
-                console.log(props.file);
-                //console.log(data[]);
+                const normalData = await response.json();
+                console.log('API Response:', normalData);
+                const data = normalData[props.oid];
 
                 const container = document.getElementById("network");
 
