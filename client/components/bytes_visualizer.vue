@@ -1,0 +1,141 @@
+<template>
+    <div class="visualizer-container">
+        <div id="network"></div>
+        <div id="infoBox" class="info-box"></div>
+    </div>
+</template>
+
+<script>
+import { onMounted, ref, watch } from 'vue';
+import * as d3 from 'd3';
+
+export default {
+    props: {
+        file: String,
+        selectedModule: String,
+        selectedCollection: String,
+        oid: String,
+    },
+    setup(props) {
+        const plotBinary = async (chartData) => {
+            const container = document.getElementById("network");
+            const infoBox = document.getElementById("infoBox");
+
+            const gridData = JSON.parse(chartData);
+            console.log("Grid data:", gridData);
+
+            // Flatten the gridData array
+            const flattenedData = gridData.flat();
+
+            // Set up dimensions and SVG container
+            const width = 1000;
+            const rows = gridData.length;
+            const cellSize = rows > 200 ? 5 : 10;
+            const cols = gridData[0].length;
+            const totalHeight = rows * cellSize;
+
+            // Create a scrollable container
+            const svg = d3.select(container)
+                .append("svg")
+                .attr("width", width)
+                .attr("height", totalHeight + 50)
+                .style("overflow", "auto");
+
+            // Create a color scale
+            const colorScale = d3.scaleSequential(d3.interpolateViridis)
+                .domain([0, 255]);
+
+            // Create a grid of cells
+            const cells = svg.selectAll("rect")
+                .data(flattenedData)
+                .enter()
+                .append("rect")
+                .attr("x", (d, i) => (i % cols) * cellSize)
+                .attr("y", (d, i) => Math.floor(i / cols) * cellSize)
+                .attr("width", cellSize)
+                .attr("height", cellSize)
+                .attr("fill", d => colorScale(d))
+                .attr("stroke", "gray")
+                .on("mouseover", function(event, d) {
+                    d3.select(this).attr("stroke", "red");
+                })
+                .on("mouseout", function() {
+                    d3.select(this).attr("stroke", "gray");
+                })
+                .on("click", function(event, d) {
+                    const row = Math.floor(d3.select(this).attr("y") / cellSize);
+                    const col = Math.floor(d3.select(this).attr("x") / cellSize);
+                    const hexValue = d.toString(16).toUpperCase().padStart(2, '0');
+                    const binaryValue = d.toString(2).padStart(8, '0');
+
+                    if (infoBox) {
+                        infoBox.innerHTML = `
+                            <strong>Byte Information</strong><br>
+                            Value: ${d}<br>
+                            Position: (${row}, ${col})<br>
+                            Hex: 0x${hexValue}<br>
+                            Binary: ${binaryValue}
+                        `;
+                    }
+                });
+        };
+
+        const fetchDataAndPlot = async () => {
+            try {
+                const url = new URL("http://localhost:8000/api/retrieve");
+                url.searchParams.append("selected_module", props.selectedModule);
+                url.searchParams.append("selected_collection", props.selectedCollection);
+
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log('API Response:', data);
+
+                const chartData = data[props.oid];
+                if (!chartData) {
+                    console.error(`OID ${props.oid} not found in data`);
+                    return;
+                }
+
+                plotBinary(chartData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        onMounted(() => {
+            fetchDataAndPlot();
+        });
+
+        watch(() => [props.selectedModule, props.selectedCollection, props.file, props.oid], () => {
+            fetchDataAndPlot();
+        });
+
+        return {};
+    },
+};
+</script>
+
+<style scoped>
+.visualizer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-box {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 200px;
+    color: black;
+}
+</style>

@@ -24,6 +24,8 @@ import NgramsHeatmap from './components/byte_ngrams.vue';
 import OpcodeHistogram from './components/opcode_histogram.vue';
 import OpcodeNgrams from './components/opcode_ngrams.vue';
 import CallGraph from './components/call_graph.vue';
+import FlowGraph from './components/control_flow_graph.vue';
+import BytesVisualizer from './components/bytes_visualizer.vue';
 
 const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
 const collections = ref([]);
@@ -69,10 +71,10 @@ const handleSelectionConfirmed = ({ chartType, collection, file, oid }) => {
             currentChartComponent.value = CallGraph;
             break;
         case "control_flow_graph":
-            currentChartComponent.value = flowGraph;
+            currentChartComponent.value = FlowGraph;
             break;
         case "binary_visualizer":
-            currentChartComponent.value = plotBinary;
+            currentChartComponent.value = BytesVisualizer;
             break;
         default:
             currentChartComponent.value = null;
