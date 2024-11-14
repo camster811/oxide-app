@@ -1,6 +1,6 @@
 <template>
     <div id="container" class="flex flex-col min-h-screen h-screen bg-zinc-900">
-        <Sidebar >
+        <Sidebar>
             <button @click="togglePopup">Select New Chart/File</button>
         </Sidebar>
         
@@ -10,7 +10,7 @@
             @selectionConfirmed="handleSelectionConfirmed"
             v-if="showPopup"
         />
-        <component :is="currentChartComponent" :file="selectedFile" :selectedModule="selectedModule" :selectedCollection="selectedCollection" v-if="currentChartComponent" style="padding-right: 100px;"></component>
+        <component :is="currentChartComponent" :file="selectedFile" :selectedModule="selectedModule" :selectedCollection="selectedCollection" :oid="selectedOid" v-if="currentChartComponent" style="padding-right: 100px;"></component>
     </div>
 </template>
 
@@ -20,11 +20,10 @@ import ChartPopup from './components/chart_popup.vue';
 import Sidebar from './components/sidebar.vue';
 import EntropyChart from './components/EntropyChart.vue';
 import ByteHistogram from './components/byte_histogram.vue';
-import ngramsHeatmap from './components/byte_ngrams.vue';
+import NgramsHeatmap from './components/byte_ngrams.vue';
 import OpcodeHistogram from './components/opcode_histogram.vue';
-import opcodeNgramsHeatmap from './components/opcode_ngrams.vue';
-import callGraphModule from './components/call_graph.vue';
-
+import OpcodeNgrams from './components/opcode_ngrams.vue';
+import CallGraph from './components/call_graph.vue';
 
 const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
 const collections = ref([]);
@@ -58,16 +57,16 @@ const handleSelectionConfirmed = ({ chartType, collection, file, oid }) => {
             currentChartComponent.value = ByteHistogram;
             break;
         case "byte_ngrams":
-            currentChartComponent.value = ngramsHeatmap;
+            currentChartComponent.value = NgramsHeatmap;
             break;
         case "opcode_histogram":
             currentChartComponent.value = OpcodeHistogram;
             break;
         case "opcode_ngrams":
-            currentChartComponent.value = opcodeNgramsHeatmap;
+            currentChartComponent.value = OpcodeNgrams;
             break;
         case "call_graph":
-            currentChartComponent.value = callGraphModule;
+            currentChartComponent.value = CallGraph;
             break;
         case "control_flow_graph":
             currentChartComponent.value = flowGraph;
@@ -80,6 +79,7 @@ const handleSelectionConfirmed = ({ chartType, collection, file, oid }) => {
             break;
     }
 };
+
 const togglePopup = () => {
     showPopup.value = !showPopup.value;
     currentChartComponent.value = null;
@@ -112,5 +112,4 @@ button {
 button:hover {
     background-color: #555;
 }
-
 </style>

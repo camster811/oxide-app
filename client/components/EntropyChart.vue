@@ -24,6 +24,7 @@ export default {
         file: String,
         selectedModule: String,
         selectedCollection: String,
+        oid: String,
     },
     setup(props) {
         const chartInstance = ref(null);
@@ -33,10 +34,7 @@ export default {
             try {
                 const url = new URL("http://localhost:8000/api/retrieve");
                 url.searchParams.append("selected_module", props.selectedModule);
-                url.searchParams.append(
-                    "selected_collection",
-                    props.selectedCollection
-                );
+                url.searchParams.append("selected_collection", props.selectedCollection);
 
                 const response = await fetch(url);
                 if (!response.ok) {
@@ -45,24 +43,14 @@ export default {
                 const data = await response.json();
                 console.log("API Response:", data);
 
-                let firstFile = Object.keys(data)[0];
-                if (!firstFile) {
-                    console.error("No files found in the API response");
-                    return;
-                }
-
-                if (!data[firstFile].addresses || !data[firstFile].entropies) {
+                if (!data[props.oid].addresses || !data[props.oid].entropies) {
                     console.error("Missing addresses or entropies in the API response");
                     return;
                 }
 
                 const ctx = document.getElementById("chartCanvas").getContext("2d");
 
-                // Destroy existing chart instance if it exists
-                if (
-                    chartInstance.value &&
-                    typeof chartInstance.value.destroy === "function"
-                ) {
+                if (chartInstance.value && typeof chartInstance.value.destroy === "function") {
                     chartInstance.value.destroy();
                     chartInstance.value = null;
                 }
@@ -70,13 +58,13 @@ export default {
                 chartInstance.value = new Chart(ctx, {
                     type: "line",
                     data: {
-                        labels: data[firstFile].addresses.map(
+                        labels: data[props.oid].addresses.map(
                             (addr) => `0x${addr.toString(16).toUpperCase()}`
                         ),
                         datasets: [
                             {
                                 label: "Entropy",
-                                data: data[firstFile].entropies,
+                                data: data[props.oid].entropies,
                                 borderColor: "rgba(75, 192, 192, 1)",
                                 borderWidth: 1,
                                 fill: false,
@@ -151,10 +139,10 @@ export default {
                 // Update tableData
                 tableData.value = [
                     {
-                        block_size: data[firstFile].block_size,
-                        overall_entropy: data[firstFile].overall_entropy,
-                        max_entropy: data[firstFile].max_entropy,
-                        max_entropy_address: data[firstFile].max_entropy_address,
+                        block_size: data[props.oid].block_size,
+                        overall_entropy: data[props.oid].overall_entropy,
+                        max_entropy: data[props.oid].max_entropy,
+                        max_entropy_address: data[props.oid].max_entropy_address,
                     },
                 ];
             } catch (error) {
@@ -167,7 +155,7 @@ export default {
         });
 
         watch(
-            () => [props.selectedModule, props.selectedCollection, props.file],
+            () => [props.selectedModule, props.selectedCollection, props.file, props.oid],
             () => {
                 fetchDataAndPlot();
             }

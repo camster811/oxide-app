@@ -91,8 +91,9 @@ export default {
         watch(selectedFile, (newVal) => {
             if (newVal) {
                 selectedFile.value = newVal;
-                let fileName = `{'${newVal}'}`;
                 
+                let fileName = `{'${newVal}'}`;
+
                 oid.value = data.value[fileName];
                 oid.value = oid.value.substring(1, oid.value.length);
             }
@@ -115,7 +116,6 @@ export default {
         };
 
         const confirmSelection = () => {
-            console.log(oid.value)
             emit('selectionConfirmed', {
                 chartType: selectedChartType.value,
                 collection: selectedCollection.value,
