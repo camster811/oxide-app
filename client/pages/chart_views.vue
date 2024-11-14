@@ -22,6 +22,7 @@ import EntropyChart from './components/EntropyChart.vue';
 import ByteHistogram from './components/byte_histogram.vue';
 import ngramsHeatmap from './components/byte_ngrams.vue';
 import OpcodeHistogram from './components/opcode_histogram.vue';
+import opcodeNgramsHeatmap from './components/opcode_ngrams.vue';
 
 
 const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];

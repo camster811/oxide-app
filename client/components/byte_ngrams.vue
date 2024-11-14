@@ -35,11 +35,6 @@ export default {
 
                 const ctx = document.getElementById('chartCanvas').getContext('2d');
 
-                if (chartInstance.value && typeof chartInstance.value.destroy === "function") {
-                    chartInstance.value.destroy();
-                    chartInstance.value = null;
-                }
-
                 const compareNGrams = (a, b) => {
                     const aParts = a[0].split(',').map(Number);
                     const bParts = b[0].split(',').map(Number);
