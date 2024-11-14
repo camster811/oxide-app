@@ -128,14 +128,16 @@ export default {
 
 .info-box {
     position: fixed;
-    right: 10px;
-    top: 10px;
+    right: 30px;
+    top: 30px;
     background-color: white;
     border: 1px solid black;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    width: 200px;
+    width: 250px;
+    height: 200px;
+    font-size: x-large;
     color: black;
 }
 </style>
