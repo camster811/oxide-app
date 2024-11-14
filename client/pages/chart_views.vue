@@ -23,6 +23,7 @@ import ByteHistogram from './components/byte_histogram.vue';
 import ngramsHeatmap from './components/byte_ngrams.vue';
 import OpcodeHistogram from './components/opcode_histogram.vue';
 import opcodeNgramsHeatmap from './components/opcode_ngrams.vue';
+import callGraphModule from './components/call_graph.vue';
 
 
 const chartModules = ["entropy_graph", "byte_histogram", "byte_ngrams", "opcode_histogram", "opcode_ngrams", "call_graph", "control_flow_graph", "binary_visualizer"];
@@ -30,6 +31,7 @@ const collections = ref([]);
 const selectedFile = ref('');
 const selectedModule = ref('');
 const selectedCollection = ref('');
+const selectedOid = ref('');
 const currentChartComponent = ref(null);
 const showPopup = ref(true);
 
@@ -40,12 +42,13 @@ onMounted(async () => {
     collections.value = collectionsData;
 });
 
-const handleSelectionConfirmed = ({ chartType, collection, file }) => {
-    console.log(`Selected Chart Type: ${chartType}, Collection: ${collection}, File: ${file}`);
+const handleSelectionConfirmed = ({ chartType, collection, file, oid }) => {
+    console.log(`Selected Chart Type: ${chartType}, Collection: ${collection}, File: ${file}, OID: ${oid}`);
     togglePopup();
     selectedFile.value = file;
     selectedModule.value = chartType;
     selectedCollection.value = collection;
+    selectedOid.value = oid;
 
     switch (chartType) {
         case "entropy_graph":

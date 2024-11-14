@@ -50,7 +50,11 @@ export default {
         const selectedChartType = ref(props.chartModules[0]);
         const selectedCollection = ref(props.collections[0]);
         const collectionFiles = ref([]);
+        const collectionFilesOG = ref([]);
         const selectedFile = ref('');
+        const selectedFileOG = ref('');
+        const oid = ref('');
+        const data = ref({});
 
         const loadCollectionFiles = async (collection) => {
             try {
@@ -61,9 +65,17 @@ export default {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                const data = await response.json();
-                collectionFiles.value = Object.keys(data).map(key => key.replace(/[{}']/g, ''));
+                data.value = await response.json();
+
+                collectionFiles.value = Object.keys(data.value).map(key => key.replace(/[{}']/g, ''));
                 selectedFile.value = collectionFiles.value[0];
+
+                collectionFilesOG.value = Object.keys(data.value);
+                selectedFileOG.value = collectionFilesOG.value[0];
+
+                oid.value = data.value[selectedFileOG.value];
+                oid.value = oid.value.substring(1, oid.value.length);
+
             } catch (error) {
                 console.error(error);
                 collectionFiles.value = [];
@@ -73,6 +85,16 @@ export default {
         watch(selectedCollection, (newVal) => {
             if (newVal) {
                 loadCollectionFiles(newVal);
+            }
+        });
+
+        watch(selectedFile, (newVal) => {
+            if (newVal) {
+                selectedFile.value = newVal;
+                let fileName = `{'${newVal}'}`;
+                
+                oid.value = data.value[fileName];
+                oid.value = oid.value.substring(1, oid.value.length);
             }
         });
 
@@ -93,10 +115,12 @@ export default {
         };
 
         const confirmSelection = () => {
+            console.log(oid.value)
             emit('selectionConfirmed', {
                 chartType: selectedChartType.value,
                 collection: selectedCollection.value,
                 file: selectedFile.value,
+                oid: oid.value,
             });
             showPopup.value = false;
         };
@@ -108,6 +132,7 @@ export default {
             selectedCollection,
             collectionFiles,
             selectedFile,
+            oid,
             nextStep,
             previousStep,
             confirmSelection,
