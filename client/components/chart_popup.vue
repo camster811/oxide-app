@@ -3,7 +3,7 @@
         <div class="popup-content">
             <h1>Select Chart Type and File</h1>
             <div v-if="step === 1">
-                <label for="chartType" style="font-size: larger;">Chart Type:</label>
+                <label for="chartType" style="font-size: 23px; font-weight: bold;">Chart Type:</label>
                 <select v-model="selectedChartType" class="styled-select">
                     <option v-for="module in chartModules" :key="module" :value="module">{{ module }}</option>
                 </select>
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div v-if="step === 2">
-                <label for="collection">Collection:</label>
+                <label for="collection" style="font-size: 23px; font-weight: bold;">Collection:</label>
                 <select v-model="selectedCollection" class="styled-select">
                     <option v-for="collection in collections" :key="collection" :value="collection">{{ collection }}</option>
                 </select>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div v-if="step === 3">
-                <label for="file">File:</label>
+                <label for="file" style="font-size: 23px; font-weight: bold;">File:</label>
                 <select v-model="selectedFile" class="styled-select">
                     <option v-for="file in collectionFiles" :key="file" :value="file">{{ file }}</option>
                 </select>
@@ -157,8 +157,8 @@ export default {
 .popup-content {
     background: white;
     padding: 20px;
-    width: 500px;
-    height: 300px;
+    width: 600px;
+    height: 400px;
     border-radius: 8px;
     text-align: center;
     color: black; /* Ensure text color is black */
@@ -166,17 +166,21 @@ export default {
 
 .styled-select {
     width: 100%;
+    height: 50px;
+    font-size: larger;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f0f0f0; /* Background color */
     color: #333; /* Text color */
+    font-weight: bold;
 }
 
 .styled-select option {
     background-color: #f0f0f0; /* Background color for options */
     color: #333; /* Text color for options */
+    font-size: larger;
 }
 
 .buttons {
@@ -189,6 +193,10 @@ button {
     border-radius: 5px;
     border: 2px solid #272E33;;
     padding: 5px;
+    width: 100px;
+    height: 50px;
+    font-size: large;
+    font-weight: bold;
 }
 
 h1 {
