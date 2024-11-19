@@ -1,6 +1,6 @@
 <template>
     <div class="visualizer-container">
-        <div id="network"></div>
+        <canvas id="network"></canvas>
         <div id="infoBox" class="info-box"></div>
     </div>
 </template>
@@ -8,6 +8,8 @@
 <script>
 import { onMounted, ref, watch } from 'vue';
 import * as d3 from 'd3';
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
 
 export default {
     props: {
@@ -27,44 +29,43 @@ export default {
             // Flatten the gridData array
             const flattenedData = gridData.flat();
 
-            // Set up dimensions and SVG container
+            // Set up dimensions and canvas
             const width = 1000;
             const rows = gridData.length;
-            const cellSize = rows > 200 ? 5 : 10;
+            const cellSize = rows < 200 ? 10 : 5;
             const cols = gridData[0].length;
             const totalHeight = rows * cellSize;
 
-            // Create a scrollable container
-            const svg = d3.select(container)
-                .append("svg")
-                .attr("width", width)
-                .attr("height", totalHeight + 50)
-                .style("overflow", "auto");
+            container.width = width;
+            container.height = totalHeight + 50;
+            
 
             // Create a color scale
             const colorScale = d3.scaleSequential(d3.interpolateViridis)
                 .domain([0, 255]);
 
-            // Create a grid of cells
-            const cells = svg.selectAll("rect")
-                .data(flattenedData)
-                .enter()
-                .append("rect")
-                .attr("x", (d, i) => (i % cols) * cellSize)
-                .attr("y", (d, i) => Math.floor(i / cols) * cellSize)
-                .attr("width", cellSize)
-                .attr("height", cellSize)
-                .attr("fill", d => colorScale(d))
-                .attr("stroke", "gray")
-                .on("mouseover", function(event, d) {
-                    d3.select(this).attr("stroke", "red");
-                })
-                .on("mouseout", function() {
-                    d3.select(this).attr("stroke", "gray");
-                })
-                .on("click", function(event, d) {
-                    const row = Math.floor(d3.select(this).attr("y") / cellSize);
-                    const col = Math.floor(d3.select(this).attr("x") / cellSize);
+            // Draw the grid of cells
+            const ctx = container.getContext("2d");
+
+            flattenedData.forEach((d, i) => {
+                const x = (i % cols) * cellSize;
+                const y = Math.floor(i / cols) * cellSize;
+                ctx.fillStyle = colorScale(d);
+                ctx.fillRect(x, y, cellSize, cellSize);
+                ctx.strokeStyle = "gray";
+                ctx.strokeRect(x, y, cellSize, cellSize);
+            });
+
+            container.addEventListener("mousemove", (event) => {
+                const rect = container.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                const col = Math.floor(x / cellSize);
+                const row = Math.floor(y / cellSize);
+                const index = row * cols + col;
+                const d = flattenedData[index];
+
+                if (d !== undefined) {
                     const hexValue = d.toString(16).toUpperCase().padStart(2, '0');
                     const binaryValue = d.toString(2).padStart(8, '0');
 
@@ -77,7 +78,8 @@ export default {
                             Binary: ${binaryValue}
                         `;
                     }
-                });
+                }
+            });
         };
 
         const fetchDataAndPlot = async () => {
