@@ -174,15 +174,6 @@ export default {
                                     .map((instr) => {
                                         if (Array.isArray(instr)) {
                                             return `${instr[0]}: ${instr[1]}`;
-                                        } else {
-                                            return (
-                                                `Name: ${instr.name}\n` +
-                                                `Vaddr: ${instr.vaddr}\n` +
-                                                `Params: ${(instr.params || []).join(", ")}\n` +
-                                                `RetType: ${instr.retType}\n` +
-                                                `Signature: ${instr.signature}\n` +
-                                                `Returning: ${instr.returning}`
-                                            );
                                         }
                                     })
                                     .join("\n\n");
@@ -263,15 +254,6 @@ export default {
                                         .map((instr) => {
                                             if (Array.isArray(instr)) {
                                                 return `${instr[0]}: ${instr[1]}`;
-                                            } else {
-                                                return (
-                                                    `Name: ${instr.name}\n` +
-                                                    `Vaddr: ${instr.vaddr}\n` +
-                                                    `Params: ${(instr.params || []).join(", ")}\n` +
-                                                    `RetType: ${instr.retType}\n` +
-                                                    `Signature: ${instr.signature}\n` +
-                                                    `Returning: ${instr.returning}`
-                                                );
                                             }
                                         })
                                         .join("\n\n");
@@ -315,7 +297,6 @@ export default {
 
             console.log("Elements for Cytoscape:", elements);
 
-            // Initialize Cytoscape
             const cy = cytoscape({
                 container: container,
                 elements: elements,
@@ -358,11 +339,6 @@ export default {
                 maxZoom: 2, // Maximum zoom level
                 zoom: 1, // Initial zoom level
                 wheelSensitivity: 0.2,
-            });
-
-            cy.on("tap", "node", function (evt) {
-                const node = evt.target;
-                console.log("Tapped node", node.id());
             });
         };
 
