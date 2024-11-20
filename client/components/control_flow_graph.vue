@@ -300,7 +300,7 @@ export default {
                 }
 
                 // Store the list of functions and graph data
-                functions.value = Object.keys(graphDataResponse["functions"]);
+                functions.value = Object.keys(graphDataResponse["functions"]).filter(func => graphDataResponse["functions"][func].blocks.length > 0);
                 graphData.value = graphDataResponse;
 
                 // Plot the first function by default
