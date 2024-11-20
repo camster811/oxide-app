@@ -16,6 +16,7 @@ export default {
         selectedModule: String,
         selectedCollection: String,
     },
+    emits: ['update:downloadChart'],
     setup(props, {emit}) {
         const chartInstance = ref(null);
 
