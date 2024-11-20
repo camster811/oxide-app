@@ -65,16 +65,6 @@ export default {
                             if (Array.isArray(instr)) {
                                 // Handle array format instructions
                                 return `${instr[0]}: ${instr[1]}`;
-                            } else {
-                                // Handle object format instructions
-                                return (
-                                    `Name: ${instr.name}\n` +
-                                    `Vaddr: ${instr.vaddr}\n` +
-                                    `Params: ${(instr.params || []).join(", ")}\n` +
-                                    `RetType: ${instr.retType}\n` +
-                                    `Signature: ${instr.signature}\n` +
-                                    `Returning: ${instr.returning}`
-                                );
                             }
                         })
                         .join("\n\n");
@@ -110,15 +100,6 @@ export default {
                                     .map((instr) => {
                                         if (Array.isArray(instr)) {
                                             return `${instr[0]}: ${instr[1]}`;
-                                        } else {
-                                            return (
-                                                `Name: ${instr.name}\n` +
-                                                `Vaddr: ${instr.vaddr}\n` +
-                                                `Params: ${(instr.params || []).join(", ")}\n` +
-                                                `RetType: ${instr.retType}\n` +
-                                                `Signature: ${instr.signature}\n` +
-                                                `Returning: ${instr.returning}`
-                                            );
                                         }
                                     })
                                     .join("\n\n");
