@@ -77,7 +77,7 @@ export default {
                     elements.push({
                         data: {
                             id: node["block id"],
-                            label: `Block ${node["block id"]}\n${instructions}\n\nFunction: ${functionName}`,
+                            label: `Block ${node["block id"]}\n\n${instructions}\n\nFunction: ${functionName}`,
                             instructions: instructions,
                         },
                     });
@@ -89,7 +89,7 @@ export default {
             functionBlocks.forEach((blockId) => {
                 const blockCall = blockCalls[blockId];
                 if (blockCall) {
-                    console.log(`Block ${blockId} is called by:`, blockCall.called_by);
+                    // console.log(`Block ${blockId} is called by:`, blockCall.called_by);
                     blockCall.called_by.forEach((callerId) => {
                         if (!nodeIds.has(callerId)) {
                             const callerNode = data.nodes.find(
@@ -106,12 +106,12 @@ export default {
 
                                 const functionName = Object.keys(data.functions).find((fn) =>
                                     data.functions[fn].blocks.includes(callerId)
-                                );
+                                );  
 
                                 elements.push({
                                     data: {
                                         id: callerNode["block id"],
-                                        label: `Block ${callerNode["block id"]}\n${instructions}\n\nFunction: ${functionName}`,
+                                        label: `Block ${callerNode["block id"]}\n\n${instructions}\n\nFunction: ${functionName}`,
                                         instructions: instructions,
                                     },
                                 });
@@ -144,7 +144,7 @@ export default {
             functionBlocks.forEach((blockId) => {
                 const blockCall = blockCalls[blockId];
                 if (blockCall) {
-                    console.log(`Block ${blockId} calls:`, blockCall.calls);
+                    // console.log(`Block ${blockId} calls:`, blockCall.calls);
                     blockCall.calls.forEach((calleeId) => {
                         if (!nodeIds.has(calleeId)) {
                             const calleeNode = data.nodes.find(
@@ -166,7 +166,7 @@ export default {
                                 elements.push({
                                     data: {
                                         id: calleeNode["block id"],
-                                        label: `Block ${calleeNode["block id"]}\n${instructions}\n\nFunction: ${functionName}`,
+                                        label: `Block ${calleeNode["block id"]}\n\n${instructions}\n\nFunction: ${functionName}`,
                                         instructions: instructions,
                                     },
                                 });
@@ -199,10 +199,10 @@ export default {
             functionBlocks.forEach((blockId) => {
                 const functionCall = functionCalls[blockId];
                 if (functionCall) {
-                    console.log(
-                        `Block ${blockId} has function calls:`,
-                        functionCall.calls
-                    );
+                    // console.log(
+                    //     `Block ${blockId} has function calls:`,
+                    //     functionCall.calls
+                    // );
                     functionCall.calls.forEach((calleeId) => {
                         if (typeof calleeId === "string") {
                             // Create a node for the string destination if it doesn't exist
@@ -242,13 +242,14 @@ export default {
                             "background-color": "#1f77b4",
                             label: "data(label)",
                             "text-valign": "center",
+                            "text-justification": "left",
                             color: "#fff",
                             shape: "roundrectangle",
                             width: "label",
                             height: "label",
                             padding: "10px",
                             "text-wrap": "wrap",
-                            "text-max-width": "200px",
+                            "text-max-width": "300px",
                             "font-family": "monospace",
                             "font-size": "10px",
                         },
