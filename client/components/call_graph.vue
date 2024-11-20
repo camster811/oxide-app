@@ -7,6 +7,7 @@
 <script>
 import { ref, onMounted, watch } from 'vue';
 import { Network } from 'vis-network/standalone/esm/vis-network';
+import domtoimage from 'dom-to-image';
 
 export default {
     props: {
@@ -15,7 +16,8 @@ export default {
         selectedCollection: String,
         oid: String,
     },
-    setup(props) {
+    emits: ['update:downloadChart'],
+    setup(props, {emit}) {
         const networkInstance = ref(null);
 
         const fetchDataAndPlot = async () => {
@@ -115,7 +117,33 @@ export default {
 
         onMounted(() => {
             fetchDataAndPlot();
+            emit('update:downloadChart', downloadChart);
+
         });
+
+        const downloadChart = () => {
+            const container = document.getElementById("network");
+
+            // Temporarily set the background to dark
+            container.style.backgroundColor = "#333";
+
+            domtoimage.toSvg(container)
+                .then((dataUrl) => {
+                    // Reset the background color
+                    container.style.backgroundColor = "";
+
+                    const link = document.createElement("a");
+                    link.href = dataUrl;
+                    link.download = "CallGraph.svg";
+                    link.click();
+                })
+                .catch((error) => {
+                    console.error("Error generating SVG:", error);
+                    // Reset the background color in case of error
+                    container.style.backgroundColor = "";
+                });
+        };
+
 
         watch(() => [props.selectedModule, props.selectedCollection, props.file], () => {
             fetchDataAndPlot();
