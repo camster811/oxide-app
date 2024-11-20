@@ -2,7 +2,10 @@
     <div class="visualizer-container">
         <div class="function-list">
             <ul>
-                <li v-for="func in functions" :key="func" @click="plotFlowGraph(func)">
+                <li v-for="func in functions" 
+                :key="func" 
+                @click="selectFunction(func)"
+                :class="{ selected: func == selectedFunction }">
                     {{ func }}
                 </li>
             </ul>
@@ -364,6 +367,11 @@ export default {
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.function-list li.selected {
+    background: salmon;
+    
 }
 
 #network {
