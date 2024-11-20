@@ -244,52 +244,6 @@ export default {
                                 });
                                 edgeSet.add(edgeKey);
                             }
-                        } else {
-                            if (!nodeIds.has(calleeId)) {
-                                const calleeNode = data.nodes.find(
-                                    (node) => node["block id"] === calleeId
-                                );
-                                if (calleeNode) {
-                                    const instructions = calleeNode.instructions
-                                        .map((instr) => {
-                                            if (Array.isArray(instr)) {
-                                                return `${instr[0]}: ${instr[1]}`;
-                                            }
-                                        })
-                                        .join("\n\n");
-
-                                    const functionName = Object.keys(data.functions).find((fn) =>
-                                        data.functions[fn].blocks.includes(calleeId)
-                                    );
-
-                                    elements.push({
-                                        data: {
-                                            id: calleeNode["block id"],
-                                            label: `Block ${calleeNode["block id"]}\n${instructions}\n\nFunction: ${functionName}`,
-                                            instructions: instructions,
-                                        },
-                                    });
-                                    nodeIds.add(calleeNode["block id"]);
-                                }
-                            }
-                            const edgeKey = `${blockId}-${calleeId}`;
-                            if (
-                                nodeIds.has(blockId) &&
-                                nodeIds.has(calleeId) &&
-                                !edgeSet.has(edgeKey)
-                            ) {
-                                elements.push({
-                                    data: {
-                                        source: blockId,
-                                        target: calleeId,
-                                    },
-                                });
-                                edgeSet.add(edgeKey);
-                            } else {
-                                console.error(
-                                    `Ghidra error: Cannot create edge from ${blockId} to ${calleeId} because the target does not exist or edge is duplicate.`
-                                );
-                            }
                         }
                     });
                 }
