@@ -82,32 +82,6 @@ const runModule = async () => {
     }
 };
 
-const downloadChart = () => {
-    const canvas = document.getElementById("chartCanvas");
-    const scrollPanel = document.getElementById("scrollpanel");
-    if (!canvas) {
-        console.error('Canvas element not found');
-        return;
-    }
-    const ctx = canvas.getContext("2d");
-
-    // Save the current state
-    ctx.save();
-
-    // Set the background color
-    ctx.globalCompositeOperation = "destination-over";
-    ctx.fillStyle = "#091d33";
-    ctx.fillRect(0, 0, scrollPanel.clientWidth, scrollPanel.clientHeight);
-
-    // Download the image
-    const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
-    link.download = "chart.png";
-    link.click();
-
-    // Restore the state
-    ctx.restore();
-};
 
 const handleFileSelection = (file) => {
     selectedFile.value = file;

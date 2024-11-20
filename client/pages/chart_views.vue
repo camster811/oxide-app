@@ -3,15 +3,14 @@
         <Sidebar>
             <div id="currentFile">Current file: {{ selectedFile }}</div>
             <button @click="togglePopup">Select New Chart/File</button>
+            <button @click="downloadChart">Download Chart</button>
         </Sidebar>
-        
-        <ChartPopup
-            :chartModules="chartModules"
-            :collections="collections"
-            @selectionConfirmed="handleSelectionConfirmed"
-            v-if="showPopup"
-        />
-        <component :is="currentChartComponent" :file="selectedFile" :selectedModule="selectedModule" :selectedCollection="selectedCollection" :oid="selectedOid" v-if="currentChartComponent" style="padding-right: 100px;"></component>
+
+        <ChartPopup :chartModules="chartModules" :collections="collections"
+            @selectionConfirmed="handleSelectionConfirmed" v-if="showPopup" />
+        <component :is="currentChartComponent" :file="selectedFile" :selectedModule="selectedModule"
+            :selectedCollection="selectedCollection" :oid="selectedOid" v-if="currentChartComponent"
+            @update:downloadChart="setDownloadChartFunction" style="padding-right: 100px;"></component>
     </div>
 </template>
 
@@ -36,6 +35,7 @@ const selectedCollection = ref('');
 const selectedOid = ref('');
 const currentChartComponent = ref(null);
 const showPopup = ref(true);
+const downloadChartFunction = ref(null);
 
 onMounted(async () => {
     const [collectionsData] = await Promise.all([
@@ -86,6 +86,18 @@ const handleSelectionConfirmed = ({ chartType, collection, file, oid }) => {
 const togglePopup = () => {
     showPopup.value = !showPopup.value;
     currentChartComponent.value = null;
+};
+
+const setDownloadChartFunction = (downloadChart) => {
+    downloadChartFunction.value = downloadChart;
+};
+
+const downloadChart = () => {
+    if (downloadChartFunction.value) {
+        downloadChartFunction.value();
+    } else {
+        console.error("No chart download function available");
+    }
 };
 </script>
 

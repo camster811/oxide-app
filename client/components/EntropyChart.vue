@@ -17,6 +17,7 @@
 <script>
 import { onMounted, ref, watch } from "vue";
 import { Chart, registerables } from "chart.js";
+import domtoimage from 'dom-to-image';
 Chart.register(...registerables);
 
 export default {
@@ -26,7 +27,8 @@ export default {
         selectedCollection: String,
         oid: String,
     },
-    setup(props) {
+    emits: ['update:downloadChart'],
+    setup(props, { emit }) {
         const chartInstance = ref(null);
         const tableData = ref([]);
 
@@ -145,8 +147,36 @@ export default {
             }
         };
 
+        const downloadChart = () => {
+            const canvas = document.getElementById("chartCanvas");
+            const tempCanvas = document.createElement("canvas");
+            const tempCtx = tempCanvas.getContext("2d");
+
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+
+            // Draw dark background
+            tempCtx.fillStyle = "#333"; // Dark background color
+            tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+            // Draw the original canvas content on top of the dark background
+            tempCtx.drawImage(canvas, 0, 0);
+
+            domtoimage.toSvg(tempCanvas)
+                .then((dataUrl) => {
+                    const link = document.createElement("a");
+                    link.href = dataUrl;
+                    link.download = "EntropyChart.svg";
+                    link.click();
+                })
+                .catch((error) => {
+                    console.error("Error generating SVG:", error);
+                });
+        };
+
         onMounted(() => {
             fetchDataAndPlot();
+            emit('update:downloadChart', downloadChart);
         });
 
         watch(
@@ -159,6 +189,7 @@ export default {
         return {
             chartInstance,
             tableData,
+            downloadChart,
         };
     },
 };
