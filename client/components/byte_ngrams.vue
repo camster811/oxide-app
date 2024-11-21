@@ -17,6 +17,7 @@ export default {
         file: String,
         selectedModule: String,
         selectedCollection: String,
+        oid: String,
     },
     emits: ['update:downloadChart'],
     setup(props, {emit}) {
@@ -26,7 +27,7 @@ export default {
             try {
                 const url = new URL("http://localhost:8000/api/retrieve");
                 url.searchParams.append("selected_module", props.selectedModule);
-                url.searchParams.append("selected_collection", props.selectedCollection);
+                url.searchParams.append("selected_oid", props.oid);
 
                 const response = await fetch(url);
                 if (!response.ok) {
