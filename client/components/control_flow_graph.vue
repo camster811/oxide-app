@@ -222,7 +222,8 @@ export default {
                             "text-wrap": "wrap",
                             "text-max-width": "300px",
                             "font-family": "monospace",
-                            "font-size": "10px",
+                            "font-size": "12px",
+                            "min-zoomed-font-size": 12,
                         },
                     },
                     {
@@ -247,6 +248,7 @@ export default {
                 zoom: 1, // Initial zoom level
                 wheelSensitivity: 0.2,
             });
+
             loading.value = false;
         };
 
@@ -269,7 +271,7 @@ export default {
 
                 const graphDataResponse = data[props.oid];
                 if (!graphDataResponse) {
-                    console.error(`OID ${props.oid} not found in data`);
+                    console.error(response);
                     return;
                 }
 
@@ -311,11 +313,21 @@ export default {
         const downloadChart = () => {
             const container = document.getElementById("network");
 
-            // Temporarily set the background to dark
             container.style.backgroundColor = "#333";
 
+            const scale = 3;
+
             domtoimage
-                .toSvg(container)
+                .toSvg(container, {
+                    width: container.clientWidth * scale,
+                    height: container.clientHeight * scale,
+                    style: {
+                        transform: `scale(${scale})`,
+                        transformOrigin: 'top left',
+                        width: `${container.clientWidth}px`,
+                        height: `${container.clientHeight}px`,
+                    },
+                })
                 .then((dataUrl) => {
                     // Reset the background color
                     container.style.backgroundColor = "";
