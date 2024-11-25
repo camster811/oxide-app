@@ -1,6 +1,7 @@
 <template>
     <div class="loading-overlay" v-if="visible">
         <div class="loading-spinner"></div>
+        <div class="Text">Loading...</div>
     </div>
 </template>
 
@@ -23,6 +24,7 @@ export default {
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
@@ -36,6 +38,12 @@ export default {
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
+}
+
+.Text {
+    color: white;
+    font-size: 24px;
+    margin-top: 16px;
 }
 
 @keyframes spin {
