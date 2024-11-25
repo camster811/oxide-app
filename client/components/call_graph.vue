@@ -1,6 +1,7 @@
 <template>
     <div>
         <div id="network" style="width: 100%; height: 100vh;"></div>
+        <LoadingSpinner :visible="loading" />
     </div>
 </template>
 
@@ -8,8 +9,12 @@
 import { ref, onMounted, watch } from 'vue';
 import { Network } from 'vis-network/standalone/esm/vis-network';
 import domtoimage from 'dom-to-image';
+import LoadingSpinner from "./LoadingSpinner.vue";
 
 export default {
+    components: {
+        LoadingSpinner,
+    },
     props: {
         file: String,
         selectedModule: String,
@@ -19,9 +24,12 @@ export default {
     emits: ['update:downloadChart'],
     setup(props, {emit}) {
         const networkInstance = ref(null);
+        const loading = ref(true);
 
         const fetchDataAndPlot = async () => {
             try {
+                loading.value = true;
+
                 const url = new URL("http://localhost:8000/api/retrieve");
                 url.searchParams.append("selected_module", props.selectedModule);
                 url.searchParams.append("selected_collection", props.selectedCollection);
@@ -109,6 +117,7 @@ export default {
                 };
 
                 networkInstance.value = new Network(container, dataForNetwork, options);
+                loading.value = false;
 
             } catch (error) {
                 console.error('Error creating call graph:', error);
@@ -151,6 +160,7 @@ export default {
 
         return {
             networkInstance,
+            loading,
         };
     },
 };

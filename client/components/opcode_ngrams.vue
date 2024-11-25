@@ -1,6 +1,7 @@
 <template>
     <div>
         <canvas id="chartCanvas"></canvas>
+        <LoadingSpinner :visible="loading" />
     </div>
 </template>
 
@@ -9,10 +10,14 @@ import { onMounted, ref, watch } from 'vue';
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 import { Chart, registerables } from 'chart.js';
 import domtoimage from 'dom-to-image';
+import LoadingSpinner from "./LoadingSpinner.vue";
 Chart.register(MatrixController, MatrixElement);
 Chart.register(...registerables);
 
 export default {
+    components: {
+        LoadingSpinner,
+    },
     props: {
         file: String,
         selectedModule: String,
@@ -22,9 +27,12 @@ export default {
     emits: ['update:downloadChart'],
     setup(props, {emit}) {
         const chartInstance = ref(null);
+        const loading = ref(true);
 
         const fetchDataAndPlot = async () => {
             try {
+                loading.value = true;
+
                 const url = new URL("http://localhost:8000/api/retrieve");
                 url.searchParams.append("selected_module", props.selectedModule);
                 url.searchParams.append("selected_oid", props.oid);
@@ -116,6 +124,7 @@ export default {
                         }
                     }
                 });
+                loading.value = false;
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -159,6 +168,7 @@ export default {
 
         return {
             chartInstance,
+            loading,
         };
     },
 };

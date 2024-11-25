@@ -2,6 +2,7 @@
     <div class="visualizer-container">
         <canvas id="network"></canvas>
         <div id="infoBox" class="info-box"></div>
+        <LoadingSpinner :visible="loading" />
     </div>
 </template>
 
@@ -9,9 +10,13 @@
 import { onMounted, ref, watch } from 'vue';
 import * as d3 from 'd3';
 import { Chart, registerables } from "chart.js";
+import LoadingSpinner from "./LoadingSpinner.vue";
 Chart.register(...registerables);
 
 export default {
+    components: {
+        LoadingSpinner,
+    },
     props: {
         file: String,
         selectedModule: String,
@@ -19,6 +24,8 @@ export default {
         oid: String,
     },
     setup(props) {
+        const loading = ref(true);
+
         const plotBinary = async (chartData) => {
             const container = document.getElementById("network");
             const infoBox = document.getElementById("infoBox");
@@ -84,6 +91,8 @@ export default {
 
         const fetchDataAndPlot = async () => {
             try {
+                loading.value = true;
+
                 const url = new URL("http://localhost:8000/api/retrieve");
                 url.searchParams.append("selected_module", props.selectedModule);
                 url.searchParams.append("selected_collection", props.selectedCollection);
@@ -102,6 +111,8 @@ export default {
                 }
 
                 plotBinary(chartData);
+                loading.value = false;
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -115,7 +126,7 @@ export default {
             fetchDataAndPlot();
         });
 
-        return {};
+        return { loading, };
     },
 };
 </script>

@@ -10,6 +10,8 @@
                 <Column field="max_entropy_address" header="Max Entropy Address" style="border: 2px solid aqua">
                 </Column>
             </DataTable>
+
+            <LoadingSpinner :visible="loading" />
         </div>
     </div>
 </template>
@@ -18,9 +20,13 @@
 import { onMounted, ref, watch } from "vue";
 import { Chart, registerables } from "chart.js";
 import domtoimage from 'dom-to-image';
+import LoadingSpinner from "./LoadingSpinner.vue";
 Chart.register(...registerables);
 
 export default {
+    components: {
+        LoadingSpinner,
+    },
     props: {
         file: String,
         selectedModule: String,
@@ -31,9 +37,12 @@ export default {
     setup(props, { emit }) {
         const chartInstance = ref(null);
         const tableData = ref([]);
+        const loading = ref(true);
 
         const fetchDataAndPlot = async () => {
             try {
+                loading.value = true;
+
                 const url = new URL("http://localhost:8000/api/retrieve");
                 url.searchParams.append("selected_module", props.selectedModule);
                 url.searchParams.append("selected_collection", props.selectedCollection);
@@ -142,6 +151,8 @@ export default {
                         max_entropy_address: data[props.oid].max_entropy_address,
                     },
                 ];
+
+                loading.value = false;
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -190,6 +201,7 @@ export default {
             chartInstance,
             tableData,
             downloadChart,
+            loading,
         };
     },
 };
