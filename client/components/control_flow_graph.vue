@@ -2,16 +2,28 @@
     <div class="visualizer-container">
         <div class="function-list">
             <ul>
-                <li v-for="func in functions" 
-                :key="func" 
-                @click="selectFunction(func)"
-                :class="{ selected: func == selectedFunction }">
+                <li v-for="func in functions" :key="func" @click="selectFunction(func)"
+                    :class="{ selected: func == selectedFunction }">
                     {{ func }}
                 </li>
             </ul>
         </div>
         <div id="network"></div>
         <LoadingSpinner :visible="loading" />
+        <div class="settings-dropdown">
+            <button @click="toggleDropdown">Settings</button>
+            <div v-if="dropdownVisible" class="dropdown-content">
+                <label>
+                    <input type="checkbox" v-model="showControlFlowGraph" />
+                    Control Flow Graph
+                </label>
+                <label>
+                    <input type="checkbox" v-model="showCallGraph" />
+                    Call Graph
+                </label>
+                <button @click="reloadGraphs">Reload</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -35,11 +47,14 @@ export default {
         oid: String,
     },
     emits: ["update:downloadChart"],
-    setup(props, {emit}) {
+    setup(props, { emit }) {
         const functions = ref([]);
         const selectedFunction = ref(null);
         const graphData = ref({});
         const loading = ref(true);
+        const dropdownVisible = ref(false);
+        const showControlFlowGraph = ref(true);
+        const showCallGraph = ref(false);
 
         const plotFlowGraph = async (func) => {
             const container = document.getElementById("network");
@@ -57,9 +72,11 @@ export default {
             console.log(data);
 
             // Get the blocks and edges related to the selected function
-            const functionBlocks = data.functions[func].blocks;
-            const blockCalls = data.block_calls;
-            const functionCalls = data.function_calls;
+            const functionBlocks = data.functions[func].blocks; // ex. {"_start": [4800, 4846]}
+            const blockCalls = data.block_calls; // ex. {4096 : {called_by : [5040]}, {calls : [4116, 4118]}}
+            const functionCalls = data.function_calls; // ex. {4096 : {called_by : []}, {calls : ["printf"]}}}
+            const nodes = data.nodes; // ex. {"block id" : 4116, {"instructions" : [4096, "endbr64"]}}
+            const edges = data.edges; // ex. {"from" : 4096, "to" : 4118}
 
             // Create a set of node IDs
             const nodeIds = new Set();
@@ -69,14 +86,11 @@ export default {
 
             // Add nodes to elements
             functionBlocks.forEach((blockId) => {
-                const node = data.nodes.find((node) => node["block id"] === blockId);
+                const node = nodes.find((node) => node["block id"] === blockId);
                 if (node) {
                     const instructions = node.instructions
                         .map((instr) => {
-                            if (Array.isArray(instr)) {
-                                // Handle array format instructions
-                                return `${instr[0]}: ${instr[1]}`;
-                            }
+                            return `${instr[0]}: ${instr[1]}`;
                         })
                         .join("\n\n");
 
@@ -96,128 +110,32 @@ export default {
                 }
             });
 
-            // Add nodes and edges for blocks that call blocks within the function
-            functionBlocks.forEach((blockId) => {
-                const blockCall = blockCalls[blockId];
-                if (blockCall) {
-                    // console.log(`Block ${blockId} is called by:`, blockCall.called_by);
-                    blockCall.called_by.forEach((callerId) => {
-                        if (!nodeIds.has(callerId)) {
-                            const callerNode = data.nodes.find(
-                                (node) => node["block id"] === callerId
-                            );
-                            if (callerNode) {
-                                const instructions = callerNode.instructions
-                                    .map((instr) => {
-                                        if (Array.isArray(instr)) {
-                                            return `${instr[0]}: ${instr[1]}`;
-                                        }
-                                    })
-                                    .join("\n\n");
-
-                                const functionName = Object.keys(data.functions).find((fn) =>
-                                    data.functions[fn].blocks.includes(callerId)
-                                );  
-
-                                elements.push({
-                                    data: {
-                                        id: callerNode["block id"],
-                                        label: `Block ${callerNode["block id"]}\n\n${instructions}\n\nFunction: ${functionName}`,
-                                        instructions: instructions,
-                                    },
-                                });
-                                nodeIds.add(callerNode["block id"]);
-                            }
-                        }
-                        const edgeKey = `${callerId}-${blockId}`;
-                        if (
-                            nodeIds.has(callerId) &&
-                            nodeIds.has(blockId) &&
-                            !edgeSet.has(edgeKey)
-                        ) {
+            if (showControlFlowGraph.value) {
+                // Add edges for blocks within the function
+                edges.forEach((edge) => {
+                    if (nodeIds.has(edge.from) && nodeIds.has(edge.to) && Number.isInteger(edge.to)) {
+                        const edgeKey = `${edge.from}-${edge.to}`;
+                        if (!edgeSet.has(edgeKey)) {
                             elements.push({
                                 data: {
-                                    source: callerId,
-                                    target: blockId,
+                                    source: edge.from,
+                                    target: edge.to,
                                 },
                             });
                             edgeSet.add(edgeKey);
-                        } else {
-                            console.error(
-                                `Ghidra error: Cannot create edge from ${callerId} to ${blockId} because the target does not exist or edge is duplicate.`
-                            );
                         }
-                    });
-                }
-            });
+                    }
+                });
+            }
 
-            // Add nodes and edges for blocks within the function that call blocks outside of the function
-            functionBlocks.forEach((blockId) => {
-                const blockCall = blockCalls[blockId];
-                if (blockCall) {
-                    // console.log(`Block ${blockId} calls:`, blockCall.calls);
-                    blockCall.calls.forEach((calleeId) => {
-                        if (!nodeIds.has(calleeId)) {
-                            const calleeNode = data.nodes.find(
-                                (node) => node["block id"] === calleeId
-                            );
-                            if (calleeNode) {
-                                const instructions = calleeNode.instructions
-                                    .map((instr) => {
-                                        if (Array.isArray(instr)) {
-                                            return `${instr[0]}: ${instr[1]}`;
-                                        }
-                                    })
-                                    .join("\n\n");
-
-                                const functionName = Object.keys(data.functions).find((fn) =>
-                                    data.functions[fn].blocks.includes(calleeId)
-                                );
-
-                                elements.push({
-                                    data: {
-                                        id: calleeNode["block id"],
-                                        label: `Block ${calleeNode["block id"]}\n\n${instructions}\n\nFunction: ${functionName}`,
-                                        instructions: instructions,
-                                    },
-                                });
-                                nodeIds.add(calleeNode["block id"]);
-                            }
-                        }
-                        const edgeKey = `${blockId}-${calleeId}`;
-                        if (
-                            nodeIds.has(blockId) &&
-                            nodeIds.has(calleeId) &&
-                            !edgeSet.has(edgeKey)
-                        ) {
-                            elements.push({
-                                data: {
-                                    source: blockId,
-                                    target: calleeId,
-                                },
-                            });
-                            edgeSet.add(edgeKey);
-                        } else {
-                            console.error(
-                                `Ghidra error: Cannot create edge from ${blockId} to ${calleeId} because the target does not exist or edge is duplicate.`
-                            );
-                        }
-                    });
-                }
-            });
-
-            // Add nodes and edges for function calls within the function
-            functionBlocks.forEach((blockId) => {
-                const functionCall = functionCalls[blockId];
-                if (functionCall) {
-                    // console.log(
-                    //     `Block ${blockId} has function calls:`,
-                    //     functionCall.calls
-                    // );
-                    functionCall.calls.forEach((calleeId) => {
-                        if (typeof calleeId === "string") {
-                            // Create a node for the string destination if it doesn't exist
-                            if (!nodeIds.has(calleeId)) {
+            if (showCallGraph.value) {
+                // Add nodes and edges for function calls within the function
+                functionBlocks.forEach((blockId) => {
+                    const functionCall = functionCalls[blockId];
+                    if (functionCall) {
+                        functionCall.calls.forEach((calleeId) => {
+                            if (typeof calleeId === "string" && !nodeIds.has(calleeId)) {
+                                // Create a node for the string destination if it doesn't exist
                                 elements.push({
                                     data: {
                                         id: calleeId,
@@ -225,21 +143,63 @@ export default {
                                     },
                                 });
                                 nodeIds.add(calleeId);
+
+                                const edgeKey = `${blockId}-${calleeId}`;
+                                if (!edgeSet.has(edgeKey)) {
+                                    elements.push({
+                                        data: {
+                                            source: blockId,
+                                            target: calleeId,
+                                        },
+                                    });
+                                    edgeSet.add(edgeKey);
+                                }
                             }
-                            const edgeKey = `${blockId}-${calleeId}`;
-                            if (!edgeSet.has(edgeKey)) {
-                                elements.push({
-                                    data: {
-                                        source: blockId,
-                                        target: calleeId,
-                                    },
-                                });
-                                edgeSet.add(edgeKey);
+                        });
+                    }
+                });
+                functionBlocks.forEach((blockId) => {
+                    const blockCall = blockCalls[blockId];
+                    if (blockCall) {
+                        blockCall.calls.forEach((calleeId) => {
+                            if (!nodeIds.has(calleeId)) {
+                                // Create a node for the external block if it doesn't exist
+                                const externalNode = nodes.find((node) => node["block id"] === calleeId);
+                                if (externalNode) {
+                                    const functionName = Object.keys(data.functions).find((fn) =>
+                                        data.functions[fn].blocks.includes(calleeId) ? fn : undefined
+                                    );
+                                    const instructions = externalNode.instructions
+                                        .map((instr) => {
+                                            return `${instr[0]}: ${instr[1]}`;
+                                        })
+                                        .join("\n\n");
+
+                                    elements.push({
+                                        data: {
+                                            id: externalNode["block id"],
+                                            label: `Block ${externalNode["block id"]}\n\n${instructions}\n\nFunction: ${functionName}`,
+                                            instructions: instructions,
+                                        },
+                                    });
+                                    nodeIds.add(externalNode["block id"]);
+
+                                    const edgeKey = `${blockId}-${externalNode["block id"]}`;
+                                    if (!edgeSet.has(edgeKey)) {
+                                        elements.push({
+                                            data: {
+                                                source: blockId,
+                                                target: externalNode["block id"],
+                                            },
+                                        });
+                                        edgeSet.add(edgeKey);
+                                    }
+                                }
                             }
-                        }
-                    });
-                }
-            });
+                        });
+                    }
+                });
+            }
 
             console.log("Elements for Cytoscape:", elements);
 
@@ -314,7 +274,9 @@ export default {
                 }
 
                 // Store the list of functions and graph data
-                functions.value = Object.keys(graphDataResponse["functions"]).filter(func => graphDataResponse["functions"][func].blocks.length > 0);
+                functions.value = Object.keys(graphDataResponse["functions"]).filter(
+                    (func) => graphDataResponse["functions"][func].blocks.length > 0
+                );
                 graphData.value = graphDataResponse;
 
                 // Plot the first function by default
@@ -333,6 +295,14 @@ export default {
             plotFlowGraph(func);
         };
 
+        const toggleDropdown = () => {
+            dropdownVisible.value = !dropdownVisible.value;
+        };
+
+        const reloadGraphs = () => {
+            fetchDataAndPlot();
+        };
+
         onMounted(() => {
             fetchDataAndPlot();
             emit("update:downloadChart", downloadChart);
@@ -344,14 +314,15 @@ export default {
             // Temporarily set the background to dark
             container.style.backgroundColor = "#333";
 
-            domtoimage.toSvg(container)
+            domtoimage
+                .toSvg(container)
                 .then((dataUrl) => {
                     // Reset the background color
                     container.style.backgroundColor = "";
 
                     const link = document.createElement("a");
                     link.href = dataUrl;
-                    link.download = selectedFunction.value + '.svg';
+                    link.download = selectedFunction.value + ".svg";
                     link.click();
                 })
                 .catch((error) => {
@@ -378,6 +349,11 @@ export default {
             selectFunction,
             plotFlowGraph,
             loading,
+            dropdownVisible,
+            showControlFlowGraph,
+            showCallGraph,
+            toggleDropdown,
+            reloadGraphs,
         };
     },
 };
@@ -406,12 +382,50 @@ export default {
 
 .function-list li.selected {
     background: salmon;
-    
 }
 
 #network {
     flex-grow: 1;
     width: 100%;
     height: 100%;
+}
+
+.settings-dropdown {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.settings-dropdown button {
+    border: 1px solid #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.settings-dropdown .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+}
+
+.settings-dropdown .dropdown-content label {
+    margin-bottom: 10px;
+}
+
+.settings-dropdown .dropdown-content button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 </style>
