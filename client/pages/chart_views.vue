@@ -33,7 +33,7 @@ const selectedFile = ref('');
 const selectedModule = ref('');
 const selectedCollection = ref('');
 const selectedOid = ref('');
-const currentChartComponent = ref(null);
+const currentChartComponent = shallowRef(null);
 const showPopup = ref(true);
 const downloadChartFunction = ref(null);
 
