@@ -19,6 +19,30 @@ export function ControlFlowRenderer({ data }: RendererDataProps) {
     [data],
   );
 
+  const normalizeAddress = (value: string): string => {
+    const trimmed = value.trim().toLowerCase();
+    const withoutPrefix = trimmed.startsWith("0x") ? trimmed.slice(2) : trimmed;
+    const normalized = withoutPrefix.replace(/^0+/, "");
+    return normalized.length > 0 ? normalized : "0";
+  };
+
+  const functionLookup = useMemo(() => {
+    const byExact = new Map<string, string>();
+    const byAddress = new Map<string, string>();
+
+    for (const name of functionNames) {
+      const normalizedName = name.trim().toLowerCase();
+      byExact.set(normalizedName, name);
+
+      const addressMatch = normalizedName.match(/(?:0x)?([0-9a-f]{6,})$/);
+      if (addressMatch?.[1]) {
+        byAddress.set(normalizeAddress(addressMatch[1]), name);
+      }
+    }
+
+    return { byExact, byAddress };
+  }, [functionNames]);
+
   const instructionMap = useMemo(() => {
     const map = new Map<string, string[]>();
     const rawNodes = data?.nodes;
@@ -56,6 +80,78 @@ export function ControlFlowRenderer({ data }: RendererDataProps) {
     () => instructionMap.get(selectedBlockId) ?? [],
     [instructionMap, selectedBlockId],
   );
+
+  const resolveFunctionTarget = (token: string): string | null => {
+    const cleanedToken = token.trim().replace(/[\],):>]*$/, "");
+    if (!cleanedToken) return null;
+
+    const exactMatch = functionLookup.byExact.get(cleanedToken.toLowerCase());
+    if (exactMatch) return exactMatch;
+
+    const addressMatch = cleanedToken.match(/(?:0x)?([0-9a-fA-F]{6,})$/);
+    if (!addressMatch?.[1]) return null;
+
+    return functionLookup.byAddress.get(normalizeAddress(addressMatch[1])) ?? null;
+  };
+
+  const renderInstructionLine = (line: string, index: number) => {
+    const match = line.match(/^\s*([^,]+,)?\s*([a-z][a-z0-9]*)\s+(.+)$/i);
+    if (!match) {
+      return (
+        <div key={`ins-${index}`} className="leading-5">
+          {line}
+        </div>
+      );
+    }
+
+    const mnemonic = match[2].toLowerCase();
+    const canJumpToTarget = mnemonic === "call" || mnemonic === "jmp" || mnemonic.startsWith("j") || mnemonic.startsWith("loop");
+    if (!canJumpToTarget) {
+      return (
+        <div key={`ins-${index}`} className="leading-5">
+          {line}
+        </div>
+      );
+    }
+
+    const targetToken = match[3].trim().split(/\s+/)[0]?.replace(/[;].*$/, "") ?? "";
+    const targetFunction = resolveFunctionTarget(targetToken);
+
+    if (!targetFunction) {
+      return (
+        <div key={`ins-${index}`} className="leading-5">
+          {line}
+        </div>
+      );
+    }
+
+    const targetIndex = line.indexOf(targetToken);
+    if (targetIndex < 0) {
+      return (
+        <div key={`ins-${index}`} className="leading-5">
+          {line}
+        </div>
+      );
+    }
+
+    const prefix = line.slice(0, targetIndex);
+    const suffix = line.slice(targetIndex + targetToken.length);
+
+    return (
+      <div key={`ins-${index}`} className="leading-5">
+        <span>{prefix}</span>
+        <button
+          type="button"
+          className="text-cyan-400 underline underline-offset-2 hover:text-cyan-300"
+          onClick={() => setSelectedFunction(targetFunction)}
+          title={`Jump to function ${targetFunction}`}
+        >
+          {targetToken}
+        </button>
+        <span>{suffix}</span>
+      </div>
+    );
+  };
 
   const highlightSelectedBlock = (blockId: string) => {
     const cy = cyRef.current;
@@ -209,11 +305,11 @@ export function ControlFlowRenderer({ data }: RendererDataProps) {
         <h3 className="mb-2 text-sm font-medium text-zinc-200">
           {selectedBlockId ? `Instructions for Block ${selectedBlockId}` : "Instructions"}
         </h3>
-        <pre className="max-h-48 overflow-auto whitespace-pre-wrap text-xs text-zinc-300">
+        <div className="max-h-48 overflow-auto whitespace-pre-wrap font-mono text-xs text-zinc-300">
           {selectedInstructions.length > 0
-            ? selectedInstructions.join("\n")
+            ? selectedInstructions.map((line, index) => renderInstructionLine(line, index))
             : "No instructions available for selected block."}
-        </pre>
+        </div>
       </div>
     </div>
   );
