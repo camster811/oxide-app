@@ -7,8 +7,19 @@ env/
 uv.lock
 api_server/config.ini
 node_modules/
-web_app/client/.nuxt/
 .zed/
+
+# Next.js / React
+.next/
+out/
+.turbo/
+.vercel/
+coverage/
+*.tsbuildinfo
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # residual oxide directories and files
 !datastore/sample_datasets
