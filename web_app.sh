@@ -1,9 +1,15 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # Set the current directory as the working directory
-# Ensures this works regardless of where script is executed from
 cd "$(dirname "$0")"
 
-# Execute your Python script
-cd web_app/client/
-npm run dev
+node_major="$(node -p "process.versions.node.split('.')[0]")"
+
+if [ "$node_major" -lt 20 ]; then
+	echo "Detected Node $(node -v). Using Node 20 wrapper for Next 16 compatibility..."
+	npm run dev:node20
+else
+	npm run dev
+fi
